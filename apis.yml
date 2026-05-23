@@ -1,0 +1,108 @@
+aid: openspace
+name: OpenSpace
+description: >-
+  OpenSpace is a visual intelligence platform for the construction industry,
+  headquartered at 333 Kearny Street, San Francisco, California. The company
+  pairs an off-the-shelf 360-degree camera worn on a hardhat with computer-vision
+  software that automatically maps captured imagery to construction floor plans
+  and BIM models, producing a navigable, time-indexed visual record of every
+  jobsite walk. The platform is built around five products: Capture (complete
+  visual record), Field (image-based task management with AI Autolocation),
+  Track (AI-driven progress tracking against schedule), Air (drone imagery
+  management), and BIM+ (3D field tools). OpenSpace reports more than 69
+  billion square feet captured across projects in 131 countries, with regional
+  presence in Australia, Canada, EU, Japan, Saudi Arabia, Singapore, and the
+  United Kingdom. The company is led by CEO and co-founder Jeevan Kalanithi.
+  OpenSpace integrates with the major construction software stacks, including
+  Procore, Autodesk Construction Cloud / Autodesk Build, Revizto, PlanGrid, and
+  Bluebeam. A REST API exists for partner and enterprise integration but is
+  not publicly self-serve; integration access is obtained via OpenSpace's
+  support and partner channels.
+type: Index
+position: Provider
+access: 3rd-Party
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+tags:
+  - Construction Tech
+  - ConTech
+  - Visual Intelligence
+  - 360 Camera
+  - Jobsite Documentation
+  - Progress Tracking
+  - BIM
+  - Drone Imagery
+  - Computer Vision
+  - AI
+  - SaaS
+  - San Francisco
+url: https://raw.githubusercontent.com/api-evangelist/openspace/refs/heads/main/apis.yml
+created: '2026-05-23'
+modified: '2026-05-23'
+specificationVersion: '0.20'
+apis: []
+common:
+  - type: Website
+    url: https://www.openspace.ai
+  - type: Capture
+    url: https://www.openspace.ai/product/capture
+  - type: Field
+    url: https://www.openspace.ai/product/field
+  - type: Track
+    url: https://www.openspace.ai/product/track
+  - type: Air
+    url: https://www.openspace.ai/product/air
+  - type: BIMPlus
+    url: https://www.openspace.ai/product/bim-plus
+  - type: Integrations
+    url: https://www.openspace.ai/integrations
+  - type: CaseStudies
+    url: https://www.openspace.ai/case-studies
+  - type: Blog
+    url: https://www.openspace.ai/blog
+  - type: Pricing
+    url: https://www.openspace.ai/pricing
+  - type: About
+    url: https://www.openspace.ai/about
+  - type: Careers
+    url: https://www.openspace.ai/careers
+  - type: Contact
+    url: https://www.openspace.ai/contact
+  - type: Support
+    url: https://support.openspace.ai
+  - type: Academy
+    url: https://learn.openspace.ai
+  - type: Store
+    url: https://store.openspace.ai
+  - type: Application
+    url: https://app.openspace.ai
+  - type: ProcoreIntegration
+    url: https://marketplace.procore.com/apps/openspace
+  - type: AutodeskIntegration
+    url: https://construction.autodesk.com/integrations/openspace/
+  - type: RegionAU
+    url: https://www.openspace.ai/au
+  - type: RegionCA
+    url: https://www.openspace.ai/ca
+  - type: RegionEU
+    url: https://www.openspace.ai/eu
+  - type: RegionJP
+    url: https://www.openspace.ai/jp
+  - type: RegionKSA
+    url: https://www.openspace.ai/ksa
+  - type: RegionSG
+    url: https://www.openspace.ai/sg
+  - type: RegionUK
+    url: https://www.openspace.ai/uk
+  - type: LinkedIn
+    url: https://www.linkedin.com/company/openspace-ai
+  - type: Twitter
+    url: https://twitter.com/OpenSpaceAI
+  - type: YouTube
+    url: https://www.youtube.com/@OpenSpaceAI
+  - type: Facebook
+    url: https://www.facebook.com/openspaceai
+  - type: Instagram
+    url: https://www.instagram.com/openspace.ai
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
