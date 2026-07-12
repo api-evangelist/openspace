@@ -1,0 +1,16 @@
+generated: '2026-07-11'
+method: searched
+probe: true
+source: https://security.openspace.ai/
+url: https://security.openspace.ai/
+certifications:
+- SOC 2
+- GDPR
+- CSA STAR
+evidence:
+- source: https://security.openspace.ai/
+  keywords:
+  - soc 2
+  - trust center
+  - gdpr
+  - csa star
