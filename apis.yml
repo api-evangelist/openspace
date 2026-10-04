@@ -53,7 +53,7 @@ tags:
   - Progress Tracking
   - BIM
   - Drone Imagery
-  - Computer-Vision
+  - Computer Vision
   - Artificial Intelligence
   - Software-as-a-Service
   - San Francisco
@@ -70,6 +70,7 @@ tags_raw:
   - AI
   - SaaS
   - San Francisco
+  - Computer-Vision
 url: https://raw.githubusercontent.com/api-evangelist/openspace/refs/heads/main/apis.yml
 created: '2026-05-23'
 modified: '2026-05-23'
