@@ -16,3 +16,16 @@
   relationship: platform-app
   status: not-a-workflow
   arazzo: null
+- slug: openspace-autodesk-own
+  label: Autodesk (own)
+  partner: autodesk
+  partner_name: Autodesk (own)
+  category: ACCBD5K/BIM360/BM36DP
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://marketplace.autodesk.com/apps/64fb730f-60da-415e-a012-32fe869c584d
+  source: edge
+  relationship: platform-app
+  status: not-a-workflow
+  arazzo: null
