@@ -1,0 +1,88 @@
+slug: openspace
+provider: OpenSpace
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Engineering Services
+- Infrastructure
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 7
+edges:
+- tag: Progress Tracking
+  spec_file: openspace-progress-tracking-api-openapi.yml
+  capability_id: BC-1150.60
+  capability_id_l1: BC-1150
+  capability_name: Construction Progress Management
+  confidence: 0.9
+  evidence: GET .../progress-tracking/spaces/{spaceId}/progress/tasks 'List task progress for a space';
+    'List subcontractor progress for a space'; 'List construction phases for a site'
+  reason: Operations explicitly measure construction progress by phase, space, task, component and subcontractor
+    — directly Construction Progress Management.
+- tag: Progress Tracking
+  spec_file: openspace-progress-tracking-api-openapi.yml
+  capability_id: BC-5040.20
+  capability_id_l1: BC-5040
+  capability_name: Work Front & Production Management
+  confidence: 0.85
+  evidence: GET .../progress-tracking/phases  List construction phases for a site; .../progress/tasks  List
+    task progress for a space; .../progress/subcontractors  List subcontractor progress for a space; ExternalComponentProgress,
+    ExternalProgressHistoryEntry
+  reason: Operations expose construction phases, spaces, and task/component/subcontractor progress with
+    progress history — direct measurement and tracking of construction production across work fronts.
+- tag: external-executive-view-controller
+  spec_file: openspace-external-executive-view-controller-api-openapi.yml
+  capability_id: BC-1150.60
+  capability_id_l1: BC-1150
+  capability_name: Construction Progress Management
+  confidence: 0.85
+  evidence: GET /api/external/v1/sites/{siteId}/progress-tracking/executive-view/batches; searchExecutiveViewChartProgresses
+    'List actual-vs-planned chart progress'; 'List subcontractor progress for an ExecutiveView'
+  reason: Operations expose site progress-tracking data — actual-vs-planned progress, task and subcontractor
+    progress trees — which is construction progress measurement and variance analysis, not design or document
+    control.
+- tag: Webhooks
+  spec_file: openspace-webhooks-api-openapi.yml
+  capability_id: BC-4270.80
+  capability_id_l1: BC-4270
+  capability_name: Webhook & Event Subscription Management
+  confidence: 0.8
+  evidence: createWebhook  Create a new webhook; testWebhook  Test webhook; verifyWebhook  Verify a webhook
+    endpoint
+  reason: Full lifecycle of outbound webhook subscriptions (create, update secret, test, verify delivery
+    endpoint) exposed to API consumers, matching webhook & event subscription management.
+- tag: Webhook Deliveries
+  spec_file: openspace-webhook-deliveries-api-openapi.yml
+  capability_id: BC-4270.80
+  capability_id_l1: BC-4270
+  capability_name: Webhook & Event Subscription Management
+  confidence: 0.75
+  evidence: GET /organizations/{organizationId}/webhooks/{webhookId}/deliveries 'List webhook deliveries';
+    POST .../redeliver 'Redeliver webhook event'; schemas WebhookDeliveryStatus, WebhookEventType
+  reason: Operations manage outbound webhook event delivery, attempts, errors and redelivery — the delivery-reliability
+    portion of webhook and event subscription management on the vendor's public API platform.
+- tag: Progress Tracking
+  spec_file: openspace-progress-tracking-api-openapi.yml
+  capability_id: BC-900.30
+  capability_id_l1: BC-900
+  capability_name: Project Management
+  confidence: 0.7
+  evidence: GET /progress-tracking/phases 'List construction phases for a site'; 'List task progress for
+    a space'; 'List subcontractor progress for a space'
+  reason: Operations expose construction phases, task progress and subcontractor progress per space —
+    tracking execution of project work against plan, i.e. project management tracking.
+- tag: Webhook Rules
+  spec_file: openspace-webhook-rules-api-openapi.yml
+  capability_id: BC-4270.80
+  capability_id_l1: BC-4270
+  capability_name: Webhook & Event Subscription Management
+  confidence: 0.7
+  evidence: createRule  Create webhook rule; schemas WebhookEventType, WebhookRuleScope, WebhookRuleAction
+  reason: Rules define which event types and scopes trigger delivery on an outbound webhook, i.e. event
+    subscription configuration for external integrators.
