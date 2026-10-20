@@ -1,11 +1,60 @@
 generated: '2026-10-14'
 method: searched
 checked:
+- https://cloudsecurityalliance.org/star/registry
+- https://eucoc.cloud/en/public-register/list-of-adherent-services
 - https://marketplace.autodesk.com/sitemap.xml
 - procore/integrations/procore-integration-edges.yml
 source:
 - procore/integrations/procore-integration-edges.yml
 edges:
+- partner_name: Autodesk (own)
+  partner: autodesk
+  partner_match: mirror
+  mirror_match: domain+name-among-holders
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://marketplace.autodesk.com/apps/64fb730f-60da-415e-a012-32fe869c584d
+  mirror_of: autodesk/integrations/autodesk-integration-edges.yml
+  apps:
+  - OpenSpace Two-Way Sync
+  listing_count: 1
+  detected: '2026-10-19'
+  detected_by: mirror-platform-listings.py
+  category: ACCBD5K/BIM360/BM36DP
+- partner_name: Cloud Security Alliance STAR Registry
+  partner: null
+  partner_match: register
+  type: register
+  channel: standard-directory
+  relationship: standard-participant
+  direction: partner-built
+  evidence: https://cloudsecurityalliance.org/star/registry/open-space-labs-inc/services/openspace-platform
+  category: Cloud security assurance
+  contract_reference:
+    register: CSA STAR Registry (cloudsecurityalliance.org/star/registry)
+    spec_file: null
+    standard: CSA STAR
+    role: star-level-1
+    registered_name: Open Space Labs, Inc.
+    registry_id: open-space-labs-inc
+    service_url: https://us.openspace.ai
+    matched_domain: openspace.ai
+    matched_by: domain+name-among-holders
+    identity_source: the service URL the organisation filed on its STAR listing (no lookup)
+    levels:
+    - STAR Level 1
+    certified_products: []
+    signal_note: STAR Level 1 (CAIQ self-assessment) = participation; certified_products = one entry per STAR Level
+      2 / STAR for AI Level 2 assessment TYPE (third-party certification, attestation, C-STAR, ValidAIted); lapsed
+      = every instance marked (Deprecated) by the registry; service counts never recorded
+    detected_by: sweep-compliance-assurance.py
+    detected: '2026-10-20'
+  detected_by: sweep-compliance-assurance.py
+  first_seen: '2026-10-20'
 - partner_name: Procore (own)
   partner: procore
   partner_match: mirror
@@ -24,20 +73,3 @@ edges:
   detected: '2026-10-14'
   detected_by: mirror-platform-listings.py
   category: BIM; Field Productivity; Quality & Safety
-- partner_name: Autodesk (own)
-  partner: autodesk
-  partner_match: mirror
-  mirror_match: domain+name-among-holders
-  type: marketplace
-  relationship: platform-app
-  direction: third-party
-  channel: partner-built
-  marketplace: own
-  evidence: https://marketplace.autodesk.com/apps/64fb730f-60da-415e-a012-32fe869c584d
-  mirror_of: autodesk/integrations/autodesk-integration-edges.yml
-  apps:
-  - OpenSpace Two-Way Sync
-  listing_count: 1
-  detected: '2026-10-19'
-  detected_by: mirror-platform-listings.py
-  category: ACCBD5K/BIM360/BM36DP
