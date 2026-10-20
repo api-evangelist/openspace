@@ -1,0 +1,21 @@
+name: OpenSpace rate limits
+generated: '2026-10-20'
+method: searched
+source: https://api.us.openspace.ai/v3/api-docs/external-v1-api
+limit_count: 2
+limits:
+  - name: Sustained
+    scope: per-account
+    window: 1 hour
+    limit_text: a per-account quota refilled continuously over a 1-hour window
+    endpoint: /api/external/**
+  - name: Spike
+    kind: burst
+    scope: per-account
+    window: 10 seconds
+    max: 100
+    limit_text: 100 requests per 10 seconds
+    endpoint: /api/external/**
+headers: [RateLimit-Policy, RateLimit, Retry-After]
+exhaustion_status: 429
+note: Quoted from info.description of the provider-served OpenAPI. Spike exhaustion carries a 60-second cooldown; requests cost 1, 2 or 5 tokens by duration; 429 bodies are application/problem+json.

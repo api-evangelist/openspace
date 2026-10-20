@@ -1,0 +1,944 @@
+openapi: 3.2.0
+info:
+  title: Openspace Webhooks API
+  version: v3.0
+  description: 'Operations tagged Webhooks across 2 of this provider''s published API definitions: openspace-external-v1-api-original.json, openspace-openapi.yml. Each path carries the servers of the definition it was published in.'
+servers:
+- url: /
+  description: OpenSpace API root
+- url: https://api.us.openspace.ai
+  description: OpenSpace API (US region; served at /v3/api-docs/external-v1-api)
+tags:
+- description: Webhook management APIs for event notifications
+  name: Webhooks
+paths:
+  /api/external/v1/organizations/{organizationId}/webhooks:
+    get:
+      description: Get all webhooks configured for the specified organization
+      operationId: listWebhooks
+      parameters:
+      - in: path
+        name: organizationId
+        required: true
+        schema:
+          pattern: '[0-9A-Za-z_-]{22}'
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExternalWebhooksGetResponse'
+          description: Success
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '429':
+          content:
+            application/problem+json:
+              schema:
+                type: object
+                properties:
+                  detail:
+                    type: string
+                  instance:
+                    type: string
+                    format: uri
+                  status:
+                    type: integer
+                    format: int32
+                    example: 429
+                  title:
+                    type: string
+                  type:
+                    type: string
+                    format: uri
+          description: Rate limit exceeded. Honor the `Retry-After` header before retrying.
+          headers:
+            RateLimit:
+              description: 'Current status for whichever policy is closest to exhaustion. Format: `"<policy>";r=<available>;t=<window-sec>;os-cost=<tokens-consumed>`'
+              schema:
+                type: string
+            RateLimit-Policy:
+              description: 'Active rate-limit policies. Format: `"<policy>";q=<quota>;w=<window-sec>, ...`'
+              schema:
+                type: string
+            Retry-After:
+              description: Seconds to wait before retrying. Always >= 1.
+              schema:
+                type: string
+      security:
+      - api-key: []
+      summary: List webhooks for an organization
+      tags:
+      - Webhooks
+    post:
+      description: Register a new webhook endpoint for the organization. Newly created webhooks start in the notVerified state and do not receive rule-matched event deliveries until verified via POST /webhooks/{id}/verify.
+      operationId: createWebhook
+      parameters:
+      - in: path
+        name: organizationId
+        required: true
+        schema:
+          pattern: '[0-9A-Za-z_-]{22}'
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExternalWebhookCreateRequest'
+        required: true
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExternalWebhook'
+          description: Webhook created
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '429':
+          content:
+            application/problem+json:
+              schema:
+                type: object
+                properties:
+                  detail:
+                    type: string
+                  instance:
+                    type: string
+                    format: uri
+                  status:
+                    type: integer
+                    format: int32
+                    example: 429
+                  title:
+                    type: string
+                  type:
+                    type: string
+                    format: uri
+          description: Rate limit exceeded. Honor the `Retry-After` header before retrying.
+          headers:
+            RateLimit:
+              description: 'Current status for whichever policy is closest to exhaustion. Format: `"<policy>";r=<available>;t=<window-sec>;os-cost=<tokens-consumed>`'
+              schema:
+                type: string
+            RateLimit-Policy:
+              description: 'Active rate-limit policies. Format: `"<policy>";q=<quota>;w=<window-sec>, ...`'
+              schema:
+                type: string
+            Retry-After:
+              description: Seconds to wait before retrying. Always >= 1.
+              schema:
+                type: string
+      security:
+      - api-key: []
+      summary: Create a new webhook
+      tags:
+      - Webhooks
+    servers:
+    - url: /
+      description: OpenSpace API root
+  /api/external/v1/organizations/{organizationId}/webhooks/{webhookId}:
+    delete:
+      description: Delete a webhook and all associated rules and headers
+      operationId: deleteWebhook
+      parameters:
+      - in: path
+        name: organizationId
+        required: true
+        schema:
+          pattern: '[0-9A-Za-z_-]{22}'
+          type: string
+      - in: path
+        name: webhookId
+        required: true
+        schema:
+          pattern: '[0-9A-Za-z_-]{22}'
+          type: string
+      responses:
+        '204':
+          description: Webhook deleted
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Webhook not found
+        '429':
+          content:
+            application/problem+json:
+              schema:
+                type: object
+                properties:
+                  detail:
+                    type: string
+                  instance:
+                    type: string
+                    format: uri
+                  status:
+                    type: integer
+                    format: int32
+                    example: 429
+                  title:
+                    type: string
+                  type:
+                    type: string
+                    format: uri
+          description: Rate limit exceeded. Honor the `Retry-After` header before retrying.
+          headers:
+            RateLimit:
+              description: 'Current status for whichever policy is closest to exhaustion. Format: `"<policy>";r=<available>;t=<window-sec>;os-cost=<tokens-consumed>`'
+              schema:
+                type: string
+            RateLimit-Policy:
+              description: 'Active rate-limit policies. Format: `"<policy>";q=<quota>;w=<window-sec>, ...`'
+              schema:
+                type: string
+            Retry-After:
+              description: Seconds to wait before retrying. Always >= 1.
+              schema:
+                type: string
+      security:
+      - api-key: []
+      summary: Delete webhook
+      tags:
+      - Webhooks
+    get:
+      description: Retrieve details of a specific webhook
+      operationId: getWebhook
+      parameters:
+      - in: path
+        name: organizationId
+        required: true
+        schema:
+          pattern: '[0-9A-Za-z_-]{22}'
+          type: string
+      - in: path
+        name: webhookId
+        required: true
+        schema:
+          pattern: '[0-9A-Za-z_-]{22}'
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExternalWebhook'
+          description: Success
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Webhook not found
+        '429':
+          content:
+            application/problem+json:
+              schema:
+                type: object
+                properties:
+                  detail:
+                    type: string
+                  instance:
+                    type: string
+                    format: uri
+                  status:
+                    type: integer
+                    format: int32
+                    example: 429
+                  title:
+                    type: string
+                  type:
+                    type: string
+                    format: uri
+          description: Rate limit exceeded. Honor the `Retry-After` header before retrying.
+          headers:
+            RateLimit:
+              description: 'Current status for whichever policy is closest to exhaustion. Format: `"<policy>";r=<available>;t=<window-sec>;os-cost=<tokens-consumed>`'
+              schema:
+                type: string
+            RateLimit-Policy:
+              description: 'Active rate-limit policies. Format: `"<policy>";q=<quota>;w=<window-sec>, ...`'
+              schema:
+                type: string
+            Retry-After:
+              description: Seconds to wait before retrying. Always >= 1.
+              schema:
+                type: string
+      security:
+      - api-key: []
+      summary: Get webhook by ID
+      tags:
+      - Webhooks
+    patch:
+      description: Update webhook configuration. Can be used to pause/resume webhooks by changing status. When the URL is changed, the new URL is verified inline (HMAC-signed probe expecting HTTP 2xx) and the update is rejected with 422 if the probe fails. Pass ?skipVerify=true to save the new URL without probing; verification state is reset to notVerified in that case.
+      operationId: updateWebhook
+      parameters:
+      - in: path
+        name: organizationId
+        required: true
+        schema:
+          pattern: '[0-9A-Za-z_-]{22}'
+          type: string
+      - in: path
+        name: webhookId
+        required: true
+        schema:
+          pattern: '[0-9A-Za-z_-]{22}'
+          type: string
+      - in: query
+        name: skipVerify
+        required: false
+        schema:
+          type: boolean
+          default: false
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExternalWebhookUpdateRequest'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExternalWebhook'
+          description: Success
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Webhook not found
+        '422':
+          description: URL verification failed
+        '429':
+          content:
+            application/problem+json:
+              schema:
+                type: object
+                properties:
+                  detail:
+                    type: string
+                  instance:
+                    type: string
+                    format: uri
+                  status:
+                    type: integer
+                    format: int32
+                    example: 429
+                  title:
+                    type: string
+                  type:
+                    type: string
+                    format: uri
+          description: Rate limit exceeded. Honor the `Retry-After` header before retrying.
+          headers:
+            RateLimit:
+              description: 'Current status for whichever policy is closest to exhaustion. Format: `"<policy>";r=<available>;t=<window-sec>;os-cost=<tokens-consumed>`'
+              schema:
+                type: string
+            RateLimit-Policy:
+              description: 'Active rate-limit policies. Format: `"<policy>";q=<quota>;w=<window-sec>, ...`'
+              schema:
+                type: string
+            Retry-After:
+              description: Seconds to wait before retrying. Always >= 1.
+              schema:
+                type: string
+      security:
+      - api-key: []
+      summary: Update webhook
+      tags:
+      - Webhooks
+    servers:
+    - url: /
+      description: OpenSpace API root
+  /api/external/v1/organizations/{organizationId}/webhooks/{webhookId}/test:
+    post:
+      description: Send a test event to the webhook endpoint to verify configuration. Creates a field_note:created event for the specified field note. Test events bypass the verification gate — they are dispatched even when verificationState is notVerified / verificationError, as long as the webhook is ENABLED. Use /test to debug endpoint configuration before /verify succeeds.
+      operationId: testWebhook
+      parameters:
+      - in: path
+        name: organizationId
+        required: true
+        schema:
+          pattern: '[0-9A-Za-z_-]{22}'
+          type: string
+      - in: path
+        name: webhookId
+        required: true
+        schema:
+          pattern: '[0-9A-Za-z_-]{22}'
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExternalWebhookTestRequest'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExternalWebhookTestResponse'
+          description: Test event sent
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Webhook or field note not found
+        '429':
+          content:
+            application/problem+json:
+              schema:
+                type: object
+                properties:
+                  detail:
+                    type: string
+                  instance:
+                    type: string
+                    format: uri
+                  status:
+                    type: integer
+                    format: int32
+                    example: 429
+                  title:
+                    type: string
+                  type:
+                    type: string
+                    format: uri
+          description: Rate limit exceeded. Honor the `Retry-After` header before retrying.
+          headers:
+            RateLimit:
+              description: 'Current status for whichever policy is closest to exhaustion. Format: `"<policy>";r=<available>;t=<window-sec>;os-cost=<tokens-consumed>`'
+              schema:
+                type: string
+            RateLimit-Policy:
+              description: 'Active rate-limit policies. Format: `"<policy>";q=<quota>;w=<window-sec>, ...`'
+              schema:
+                type: string
+            Retry-After:
+              description: Seconds to wait before retrying. Always >= 1.
+              schema:
+                type: string
+        '503':
+          description: Test service unavailable
+      security:
+      - api-key: []
+      summary: Test webhook
+      tags:
+      - Webhooks
+    servers:
+    - url: /
+      description: OpenSpace API root
+  /api/external/v1/organizations/{organizationId}/webhooks/{webhookId}/update-secret:
+    post:
+      description: 'Rotate the secret token used for HMAC signatures. With the default skipVerify=false, the endpoint is probed with the new secret before persistence: on success the new secret is saved and verificationState is set to verified; on failure the rotation is rejected with 422 and the old secret stays in place. Pass ?skipVerify=true to save the secret without probing — state is reset to notVerified. Use the skipVerify escape hatch when the endpoint is known to be unreachable but rotation must still complete (e.g. suspected secret leak).'
+      operationId: updateWebhookSecret
+      parameters:
+      - in: path
+        name: organizationId
+        required: true
+        schema:
+          pattern: '[0-9A-Za-z_-]{22}'
+          type: string
+      - in: path
+        name: webhookId
+        required: true
+        schema:
+          pattern: '[0-9A-Za-z_-]{22}'
+          type: string
+      - in: query
+        name: skipVerify
+        required: false
+        schema:
+          type: boolean
+          default: false
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExternalWebhookUpdateSecretRequest'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExternalWebhook'
+          description: Secret updated
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Webhook not found
+        '422':
+          description: Verification probe failed
+        '429':
+          content:
+            application/problem+json:
+              schema:
+                type: object
+                properties:
+                  detail:
+                    type: string
+                  instance:
+                    type: string
+                    format: uri
+                  status:
+                    type: integer
+                    format: int32
+                    example: 429
+                  title:
+                    type: string
+                  type:
+                    type: string
+                    format: uri
+          description: Rate limit exceeded. Honor the `Retry-After` header before retrying.
+          headers:
+            RateLimit:
+              description: 'Current status for whichever policy is closest to exhaustion. Format: `"<policy>";r=<available>;t=<window-sec>;os-cost=<tokens-consumed>`'
+              schema:
+                type: string
+            RateLimit-Policy:
+              description: 'Active rate-limit policies. Format: `"<policy>";q=<quota>;w=<window-sec>, ...`'
+              schema:
+                type: string
+            Retry-After:
+              description: Seconds to wait before retrying. Always >= 1.
+              schema:
+                type: string
+      security:
+      - api-key: []
+      summary: Update webhook secret
+      tags:
+      - Webhooks
+    servers:
+    - url: /
+      description: OpenSpace API root
+  /api/external/v1/organizations/{organizationId}/webhooks/{webhookId}/verify:
+    post:
+      description: Send a signed verification probe to the webhook URL. Updates verification_state based on the response. Required before the webhook can receive event deliveries.
+      operationId: verifyWebhook
+      parameters:
+      - in: path
+        name: organizationId
+        required: true
+        schema:
+          pattern: '[0-9A-Za-z_-]{22}'
+          type: string
+      - in: path
+        name: webhookId
+        required: true
+        schema:
+          pattern: '[0-9A-Za-z_-]{22}'
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExternalWebhookVerifyResponse'
+          description: Webhook verified
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Webhook not found
+        '422':
+          description: Verification failed
+        '429':
+          content:
+            application/problem+json:
+              schema:
+                type: object
+                properties:
+                  detail:
+                    type: string
+                  instance:
+                    type: string
+                    format: uri
+                  status:
+                    type: integer
+                    format: int32
+                    example: 429
+                  title:
+                    type: string
+                  type:
+                    type: string
+                    format: uri
+          description: Rate limit exceeded. Honor the `Retry-After` header before retrying.
+          headers:
+            RateLimit:
+              description: 'Current status for whichever policy is closest to exhaustion. Format: `"<policy>";r=<available>;t=<window-sec>;os-cost=<tokens-consumed>`'
+              schema:
+                type: string
+            RateLimit-Policy:
+              description: 'Active rate-limit policies. Format: `"<policy>";q=<quota>;w=<window-sec>, ...`'
+              schema:
+                type: string
+            Retry-After:
+              description: Seconds to wait before retrying. Always >= 1.
+              schema:
+                type: string
+      security:
+      - api-key: []
+      summary: Verify a webhook endpoint
+      tags:
+      - Webhooks
+    servers:
+    - url: /
+      description: OpenSpace API root
+components:
+  schemas:
+    ExternalWebhook:
+      required:
+      - createdAt
+      - id
+      - namespace
+      - organizationId
+      - status
+      - url
+      - verificationState
+      type: object
+      properties:
+        createdAt:
+          type: string
+          description: When the webhook was created
+          format: date-time
+        createdBy:
+          pattern: '[0-9A-Za-z_-]{22}'
+          type: string
+          description: Account ID of the user who created this webhook
+        id:
+          pattern: '[0-9A-Za-z_-]{22}'
+          type: string
+          description: The unique identifier for the webhook
+        namespace:
+          type: string
+          description: A user-friendly name or description for this webhook
+        organizationId:
+          pattern: '[0-9A-Za-z_-]{22}'
+          type: string
+          description: The organization this webhook belongs to
+        rateLimit:
+          type: integer
+          description: Optional rate limit for webhook deliveries (events per hour)
+          format: int32
+        status:
+          $ref: '#/components/schemas/WebhookStatus'
+        updatedAt:
+          type: string
+          description: When the webhook was last updated
+          format: date-time
+        url:
+          type: string
+          description: The destination URL where webhook events will be sent
+        verificationState:
+          $ref: '#/components/schemas/WebhookVerificationState'
+      description: Webhook endpoint configuration
+    WebhookRuleAction:
+      type: string
+      description: Action to take when this rule matches (ALLOW or DENY)
+      enum:
+      - allow
+      - deny
+    ExternalWebhookVerifyResponse:
+      required:
+      - message
+      type: object
+      properties:
+        message:
+          type: string
+          description: Status message describing the verification result
+      description: Response from webhook verification request
+    ExternalWebhookTestRequest:
+      required:
+      - fieldNoteId
+      type: object
+      properties:
+        fieldNoteId:
+          pattern: '[0-9A-Za-z_-]{22}'
+          type: string
+          description: The field note ID to create a test event for
+      description: Request to send a test webhook event
+    ExternalWebhookUpdateSecretRequest:
+      required:
+      - secretToken
+      type: object
+      properties:
+        secretToken:
+          maxLength: 255
+          minLength: 32
+          type: string
+          description: New secret token for HMAC signature verification (min 32 characters)
+      description: Request to update webhook secret token
+    ExternalWebhookRule:
+      required:
+      - action
+      - createdAt
+      - eventType
+      - id
+      - organizationId
+      - scope
+      - webhookId
+      type: object
+      properties:
+        action:
+          $ref: '#/components/schemas/WebhookRuleAction'
+        createdAt:
+          type: string
+          description: When the rule was created
+          format: date-time
+        createdBy:
+          pattern: '[0-9A-Za-z_-]{22}'
+          type: string
+          description: Account ID of the user who created this rule
+        eventType:
+          $ref: '#/components/schemas/WebhookEventType'
+        id:
+          pattern: '[0-9A-Za-z_-]{22}'
+          type: string
+          description: The unique identifier for the rule
+        organizationId:
+          pattern: '[0-9A-Za-z_-]{22}'
+          type: string
+          description: The organization this rule applies to
+        rateLimit:
+          type: integer
+          description: Optional rate limit specific to this rule (events per hour)
+          format: int32
+        scope:
+          $ref: '#/components/schemas/WebhookRuleScope'
+        siteGroupId:
+          pattern: '[0-9A-Za-z_-]{22}'
+          type: string
+          description: Site group ID (required when scope is SITE_GROUP)
+        siteId:
+          pattern: '[0-9A-Za-z_-]{22}'
+          type: string
+          description: Site ID (required when scope is SITE)
+        updatedAt:
+          type: string
+          description: When the rule was last updated
+          format: date-time
+        webhookId:
+          pattern: '[0-9A-Za-z_-]{22}'
+          type: string
+          description: The webhook this rule belongs to
+      description: Webhook subscription rule defining which events trigger deliveries
+    WebhookStatus:
+      type: string
+      description: Initial status of the webhook (defaults to ENABLED)
+      enum:
+      - enabled
+      - disabled
+    WebhookEventType:
+      type: string
+      description: Event type to subscribe to
+      enum:
+      - field_note:created
+      - field_note:deleted
+      - field_note:updated
+      - field_note_comment:created
+      - field_note_comment:updated
+      - field_note_comment:deleted
+      - field_note_attachment:created
+      - field_note_attachment:deleted
+      - capture:published
+      - voice_capture:published
+    ExternalWebhooksGetResponse:
+      required:
+      - content
+      type: object
+      properties:
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalWebhook'
+        includes:
+          $ref: '#/components/schemas/ExternalWebhookIncludes'
+      description: Response containing a list of webhooks
+    ExternalWebhookIncludes:
+      required:
+      - headers
+      - rules
+      type: object
+      properties:
+        headers:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalWebhookHeader'
+        rules:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalWebhookRule'
+      description: Included resources for webhook responses
+    ExternalWebhookTestResponse:
+      required:
+      - eventId
+      - eventType
+      - message
+      - siteId
+      - webhookId
+      type: object
+      properties:
+        eventId:
+          pattern: '[0-9A-Za-z_-]{22}'
+          type: string
+          description: The event ID of the created test event
+        eventType:
+          type: string
+          description: The event type that was created
+        message:
+          type: string
+          description: Message describing the test event
+        siteId:
+          pattern: '[0-9A-Za-z_-]{22}'
+          type: string
+          description: The site ID the event was created for
+        webhookId:
+          pattern: '[0-9A-Za-z_-]{22}'
+          type: string
+          description: The webhook ID that the test event was created for
+      description: Response from webhook test request
+    ExternalWebhookCreateRequest:
+      required:
+      - namespace
+      - secretToken
+      - url
+      type: object
+      properties:
+        namespace:
+          maxLength: 255
+          minLength: 0
+          type: string
+          description: A user-friendly name or description for this webhook
+        rateLimit:
+          type: integer
+          description: Optional rate limit for webhook deliveries (events per hour)
+          format: int32
+        secretToken:
+          maxLength: 255
+          minLength: 32
+          type: string
+          description: Secret token for HMAC signature verification (min 32 characters). If omitted, a secure token is generated automatically.
+        status:
+          $ref: '#/components/schemas/WebhookStatus'
+        url:
+          maxLength: 2048
+          minLength: 0
+          type: string
+          description: The destination URL where webhook events will be sent
+      description: Request to create a new webhook
+    WebhookVerificationState:
+      type: string
+      description: Verification status of the webhook endpoint
+      enum:
+      - verified
+      - notVerified
+      - verificationError
+    ExternalWebhookHeader:
+      required:
+      - createdAt
+      - headerKey
+      - headerValue
+      - id
+      - isSecret
+      - webhookId
+      type: object
+      properties:
+        createdAt:
+          type: string
+          description: When the header was created
+          format: date-time
+        createdBy:
+          pattern: '[0-9A-Za-z_-]{22}'
+          type: string
+          description: Account ID of the user who created this header
+        headerKey:
+          type: string
+          description: Header name
+        headerValue:
+          type: string
+          description: Header value (masked if secret)
+        id:
+          pattern: '[0-9A-Za-z_-]{22}'
+          type: string
+          description: The unique identifier for the header
+        isSecret:
+          type: boolean
+          description: Whether the header value is encrypted/sensitive
+        updatedAt:
+          type: string
+          description: When the header was last updated
+          format: date-time
+        webhookId:
+          pattern: '[0-9A-Za-z_-]{22}'
+          type: string
+          description: The webhook this header belongs to
+      description: Custom header to include in webhook requests
+    ExternalWebhookUpdateRequest:
+      type: object
+      properties:
+        namespace:
+          maxLength: 255
+          minLength: 0
+          type: string
+          description: A user-friendly name or description for this webhook
+        rateLimit:
+          type: integer
+          description: Optional rate limit for webhook deliveries (events per hour)
+          format: int32
+        status:
+          $ref: '#/components/schemas/WebhookStatus'
+        url:
+          maxLength: 2048
+          minLength: 0
+          type: string
+          description: The destination URL where webhook events will be sent
+      description: Request to update an existing webhook
+    WebhookRuleScope:
+      type: string
+      description: Scope level at which this rule applies (ORGANIZATION, SITE_GROUP, or SITE)
+      enum:
+      - site
+      - siteGroup
+      - organization
+  securitySchemes:
+    api-key:
+      in: header
+      name: api-key
+      type: apiKey
+    jwt-auth:
+      bearerFormat: jwt
+      scheme: bearer
+      type: http
+x-refined-from:
+- openspace-external-v1-api-original.json
+- openspace-openapi.yml

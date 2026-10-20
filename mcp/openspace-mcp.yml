@@ -1,0 +1,19 @@
+name: OpenSpace MCP Server
+generated: '2026-10-20'
+method: probed
+source: https://api.us.openspace.ai/.well-known/oauth-protected-resource
+status: early-access
+deployment:
+  mode: remote
+  endpoint: https://api.us.openspace.ai/api/external/v1/mcp
+  auth: oauth
+  verified: probed
+note: >-
+  The protected-resource document served by api.us.openspace.ai (HTTP 200) names
+  resource https://api.us.openspace.ai/api/external/v1/mcp with authorization server
+  https://openspace.ai and scopes openid, profile, email, offline_access, mcp:read.
+  An anonymous tools/list POST to that URL returned 404 on 2026-10-20, and
+  openspace.ai/.well-known/oauth-authorization-server returned 404. OpenSpace's AI
+  Agents & APIs page says agents are in early access and not generally available.
+  No tool list is published; none is recorded.
+tools: []

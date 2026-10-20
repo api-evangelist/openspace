@@ -1,0 +1,2085 @@
+openapi: 3.2.0
+info:
+  title: Openspace Field notes API
+  version: v3.0
+  description: 'Operations tagged Field notes across 2 of this provider''s published API definitions: openspace-external-v1-api-original.json, openspace-openapi.yml. Each path carries the servers of the definition it was published in.'
+servers:
+- url: /
+  description: OpenSpace API root
+- url: https://api.us.openspace.ai
+  description: OpenSpace API (US region; served at /v3/api-docs/external-v1-api)
+tags:
+- description: Field notes APIs
+  name: Field notes
+paths:
+  /api/external/v1/sites/{siteId}/field-notes:
+    get:
+      operationId: fieldNotesBySite
+      parameters:
+      - in: path
+        name: siteId
+        required: true
+        schema:
+          pattern: '[0-9A-Za-z_-]{22}'
+          type: string
+      - in: query
+        name: include
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - assignees
+            - attachments
+            - comments
+            - creators
+            - sheets
+            - site
+            - statuses
+            - tags
+            - watchers
+            - zones
+      - description: Zero-based page index (0..N)
+        in: query
+        name: page
+        required: false
+        schema:
+          minimum: 0
+          type: integer
+          default: 0
+      - description: The size of the page to be returned
+        in: query
+        name: size
+        required: false
+        schema:
+          minimum: 1
+          type: integer
+          default: 100
+      - description: 'Sorting criteria in the format: property,(asc|desc). Default sort order is ascending. Multiple sort criteria are supported.'
+        in: query
+        name: sort
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - assignee
+            - assignee,ASC
+            - assignee,DESC
+            - closed
+            - closed,ASC
+            - closed,DESC
+            - createdAt
+            - createdAt,ASC
+            - createdAt,DESC
+            - createdBy
+            - createdBy,ASC
+            - createdBy,DESC
+            - description
+            - description,ASC
+            - description,DESC
+            - dueOn
+            - dueOn,ASC
+            - dueOn,DESC
+            - modifiedAt
+            - modifiedAt,ASC
+            - modifiedAt,DESC
+            - originalCreatedAt
+            - originalCreatedAt,ASC
+            - originalCreatedAt,DESC
+            - sheetName
+            - sheetName,ASC
+            - sheetName,DESC
+            - status
+            - status,ASC
+            - status,DESC
+            - tag
+            - tag,ASC
+            - tag,DESC
+            - uid
+            - uid,ASC
+            - uid,DESC
+            - watcher
+            - watcher,ASC
+            - watcher,DESC
+            - zoneName
+            - zoneName,ASC
+            - zoneName,DESC
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExternalFieldNotesGetResponse'
+          description: OK
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '403':
+          content:
+            application/json:
+              schema:
+                required:
+                - error
+                - message
+                - redemptionEndpoint
+                - status
+                type: object
+                properties:
+                  email:
+                    type:
+                    - string
+                    - 'null'
+                    description: Email of the one account the phone is bound to but its owner has not yet claimed; absent for a phone-only invitee or when several accounts hold the phone
+                    example: worker@example.com
+                  error:
+                    type: string
+                    description: Error code identifying the specific error type
+                    example: email_capture_required
+                  fullName:
+                    type:
+                    - string
+                    - 'null'
+                    description: Optional full name from invitation
+                    example: James Bond
+                  message:
+                    type: string
+                    description: Human-readable error message
+                    example: Please complete registration by providing your email address
+                  redemptionEndpoint:
+                    type: string
+                    description: Endpoint to complete email capture and finish registration
+                    example: /api/external/v1/auth/redeem-phone-invitation
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    format: int32
+                    example: 403
+          description: 'Forbidden: Partial authentication - email capture required'
+        '429':
+          content:
+            application/problem+json:
+              schema:
+                type: object
+                properties:
+                  detail:
+                    type: string
+                  instance:
+                    type: string
+                    format: uri
+                  status:
+                    type: integer
+                    format: int32
+                    example: 429
+                  title:
+                    type: string
+                  type:
+                    type: string
+                    format: uri
+          description: Rate limit exceeded. Honor the `Retry-After` header before retrying.
+          headers:
+            RateLimit:
+              description: 'Current status for whichever policy is closest to exhaustion. Format: `"<policy>";r=<available>;t=<window-sec>;os-cost=<tokens-consumed>`'
+              schema:
+                type: string
+            RateLimit-Policy:
+              description: 'Active rate-limit policies. Format: `"<policy>";q=<quota>;w=<window-sec>, ...`'
+              schema:
+                type: string
+            Retry-After:
+              description: Seconds to wait before retrying. Always >= 1.
+              schema:
+                type: string
+      security:
+      - api-key: []
+      summary: Get all field notes by site
+      tags:
+      - Field notes
+    servers:
+    - url: /
+      description: OpenSpace API root
+  /api/external/v1/sites/{siteId}/field-notes/search:
+    post:
+      operationId: searchFieldNotes
+      parameters:
+      - in: path
+        name: siteId
+        required: true
+        schema:
+          pattern: '[0-9A-Za-z_-]{22}'
+          type: string
+      - in: query
+        name: include
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - assignees
+            - attachments
+            - comments
+            - creators
+            - sheets
+            - site
+            - statuses
+            - tags
+            - watchers
+            - zones
+      - description: Zero-based page index (0..N)
+        in: query
+        name: page
+        required: false
+        schema:
+          minimum: 0
+          type: integer
+          default: 0
+      - description: The size of the page to be returned
+        in: query
+        name: size
+        required: false
+        schema:
+          minimum: 1
+          type: integer
+          default: 100
+      - description: 'Sorting criteria in the format: property,(asc|desc). Default sort order is ascending. Multiple sort criteria are supported.'
+        in: query
+        name: sort
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - assignee
+            - assignee,ASC
+            - assignee,DESC
+            - closed
+            - closed,ASC
+            - closed,DESC
+            - createdAt
+            - createdAt,ASC
+            - createdAt,DESC
+            - createdBy
+            - createdBy,ASC
+            - createdBy,DESC
+            - description
+            - description,ASC
+            - description,DESC
+            - dueOn
+            - dueOn,ASC
+            - dueOn,DESC
+            - modifiedAt
+            - modifiedAt,ASC
+            - modifiedAt,DESC
+            - originalCreatedAt
+            - originalCreatedAt,ASC
+            - originalCreatedAt,DESC
+            - sheetName
+            - sheetName,ASC
+            - sheetName,DESC
+            - status
+            - status,ASC
+            - status,DESC
+            - tag
+            - tag,ASC
+            - tag,DESC
+            - uid
+            - uid,ASC
+            - uid,DESC
+            - watcher
+            - watcher,ASC
+            - watcher,DESC
+            - zoneName
+            - zoneName,ASC
+            - zoneName,DESC
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExternalFieldNoteSearch'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExternalFieldNotesGetResponse'
+          description: OK
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '403':
+          content:
+            application/json:
+              schema:
+                required:
+                - error
+                - message
+                - redemptionEndpoint
+                - status
+                type: object
+                properties:
+                  email:
+                    type:
+                    - string
+                    - 'null'
+                    description: Email of the one account the phone is bound to but its owner has not yet claimed; absent for a phone-only invitee or when several accounts hold the phone
+                    example: worker@example.com
+                  error:
+                    type: string
+                    description: Error code identifying the specific error type
+                    example: email_capture_required
+                  fullName:
+                    type:
+                    - string
+                    - 'null'
+                    description: Optional full name from invitation
+                    example: James Bond
+                  message:
+                    type: string
+                    description: Human-readable error message
+                    example: Please complete registration by providing your email address
+                  redemptionEndpoint:
+                    type: string
+                    description: Endpoint to complete email capture and finish registration
+                    example: /api/external/v1/auth/redeem-phone-invitation
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    format: int32
+                    example: 403
+          description: 'Forbidden: Partial authentication - email capture required'
+        '429':
+          content:
+            application/problem+json:
+              schema:
+                type: object
+                properties:
+                  detail:
+                    type: string
+                  instance:
+                    type: string
+                    format: uri
+                  status:
+                    type: integer
+                    format: int32
+                    example: 429
+                  title:
+                    type: string
+                  type:
+                    type: string
+                    format: uri
+          description: Rate limit exceeded. Honor the `Retry-After` header before retrying.
+          headers:
+            RateLimit:
+              description: 'Current status for whichever policy is closest to exhaustion. Format: `"<policy>";r=<available>;t=<window-sec>;os-cost=<tokens-consumed>`'
+              schema:
+                type: string
+            RateLimit-Policy:
+              description: 'Active rate-limit policies. Format: `"<policy>";q=<quota>;w=<window-sec>, ...`'
+              schema:
+                type: string
+            Retry-After:
+              description: Seconds to wait before retrying. Always >= 1.
+              schema:
+                type: string
+      security:
+      - api-key: []
+      summary: Search field notes for a site
+      tags:
+      - Field notes
+    servers:
+    - url: /
+      description: OpenSpace API root
+  /api/external/v1/sites/{siteId}/field-notes/{fieldNoteId}:
+    get:
+      operationId: fieldNoteById
+      parameters:
+      - in: path
+        name: siteId
+        required: true
+        schema:
+          pattern: '[0-9A-Za-z_-]{22}'
+          type: string
+      - in: path
+        name: fieldNoteId
+        required: true
+        schema:
+          pattern: '[0-9A-Za-z_-]{22}'
+          type: string
+      - in: query
+        name: include
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - assignees
+            - attachments
+            - comments
+            - creators
+            - sheets
+            - site
+            - statuses
+            - tags
+            - watchers
+            - zones
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExternalFieldNoteGetResponse'
+          description: OK
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '403':
+          content:
+            application/json:
+              schema:
+                required:
+                - error
+                - message
+                - redemptionEndpoint
+                - status
+                type: object
+                properties:
+                  email:
+                    type:
+                    - string
+                    - 'null'
+                    description: Email of the one account the phone is bound to but its owner has not yet claimed; absent for a phone-only invitee or when several accounts hold the phone
+                    example: worker@example.com
+                  error:
+                    type: string
+                    description: Error code identifying the specific error type
+                    example: email_capture_required
+                  fullName:
+                    type:
+                    - string
+                    - 'null'
+                    description: Optional full name from invitation
+                    example: James Bond
+                  message:
+                    type: string
+                    description: Human-readable error message
+                    example: Please complete registration by providing your email address
+                  redemptionEndpoint:
+                    type: string
+                    description: Endpoint to complete email capture and finish registration
+                    example: /api/external/v1/auth/redeem-phone-invitation
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    format: int32
+                    example: 403
+          description: 'Forbidden: Partial authentication - email capture required'
+        '429':
+          content:
+            application/problem+json:
+              schema:
+                type: object
+                properties:
+                  detail:
+                    type: string
+                  instance:
+                    type: string
+                    format: uri
+                  status:
+                    type: integer
+                    format: int32
+                    example: 429
+                  title:
+                    type: string
+                  type:
+                    type: string
+                    format: uri
+          description: Rate limit exceeded. Honor the `Retry-After` header before retrying.
+          headers:
+            RateLimit:
+              description: 'Current status for whichever policy is closest to exhaustion. Format: `"<policy>";r=<available>;t=<window-sec>;os-cost=<tokens-consumed>`'
+              schema:
+                type: string
+            RateLimit-Policy:
+              description: 'Active rate-limit policies. Format: `"<policy>";q=<quota>;w=<window-sec>, ...`'
+              schema:
+                type: string
+            Retry-After:
+              description: Seconds to wait before retrying. Always >= 1.
+              schema:
+                type: string
+      security:
+      - api-key: []
+      summary: Get a field note by id
+      tags:
+      - Field notes
+    servers:
+    - url: /
+      description: OpenSpace API root
+  /api/external/v1/sites/{siteId}/field-notes/{fieldNoteId}/activity-log:
+    get:
+      operationId: activityLogByFieldNoteId
+      parameters:
+      - in: path
+        name: siteId
+        required: true
+        schema:
+          pattern: '[0-9A-Za-z_-]{22}'
+          type: string
+      - in: path
+        name: fieldNoteId
+        required: true
+        schema:
+          pattern: '[0-9A-Za-z_-]{22}'
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ExternalActivityLog'
+          description: OK
+        '401':
+          description: Unauthorized
+        '403':
+          content:
+            application/json:
+              schema:
+                required:
+                - error
+                - message
+                - redemptionEndpoint
+                - status
+                type: object
+                properties:
+                  email:
+                    type:
+                    - string
+                    - 'null'
+                    description: Email of the one account the phone is bound to but its owner has not yet claimed; absent for a phone-only invitee or when several accounts hold the phone
+                    example: worker@example.com
+                  error:
+                    type: string
+                    description: Error code identifying the specific error type
+                    example: email_capture_required
+                  fullName:
+                    type:
+                    - string
+                    - 'null'
+                    description: Optional full name from invitation
+                    example: James Bond
+                  message:
+                    type: string
+                    description: Human-readable error message
+                    example: Please complete registration by providing your email address
+                  redemptionEndpoint:
+                    type: string
+                    description: Endpoint to complete email capture and finish registration
+                    example: /api/external/v1/auth/redeem-phone-invitation
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    format: int32
+                    example: 403
+          description: 'Forbidden: Partial authentication - email capture required'
+        '404':
+          description: Not found
+        '429':
+          content:
+            application/problem+json:
+              schema:
+                type: object
+                properties:
+                  detail:
+                    type: string
+                  instance:
+                    type: string
+                    format: uri
+                  status:
+                    type: integer
+                    format: int32
+                    example: 429
+                  title:
+                    type: string
+                  type:
+                    type: string
+                    format: uri
+          description: Rate limit exceeded. Honor the `Retry-After` header before retrying.
+          headers:
+            RateLimit:
+              description: 'Current status for whichever policy is closest to exhaustion. Format: `"<policy>";r=<available>;t=<window-sec>;os-cost=<tokens-consumed>`'
+              schema:
+                type: string
+            RateLimit-Policy:
+              description: 'Active rate-limit policies. Format: `"<policy>";q=<quota>;w=<window-sec>, ...`'
+              schema:
+                type: string
+            Retry-After:
+              description: Seconds to wait before retrying. Always >= 1.
+              schema:
+                type: string
+      security:
+      - api-key: []
+      summary: Get all activity log related to a field note
+      tags:
+      - Field notes
+    servers:
+    - url: /
+      description: OpenSpace API root
+  /api/external/v1/sites/{siteId}/field-notes/{fieldNoteId}/attachment/{attachmentId}/download:
+    get:
+      operationId: downloadFieldNoteAttachment
+      parameters:
+      - in: path
+        name: siteId
+        required: true
+        schema:
+          pattern: '[0-9A-Za-z_-]{22}'
+          type: string
+      - in: path
+        name: fieldNoteId
+        required: true
+        schema:
+          pattern: '[0-9A-Za-z_-]{22}'
+          type: string
+      - in: path
+        name: attachmentId
+        required: true
+        schema:
+          pattern: '[0-9A-Za-z_-]{22}'
+          type: string
+      - description: (Optional) The desired image size. small=360px, medium=720px, large=1440px bounding box
+        in: query
+        name: size
+        required: false
+        schema:
+          $ref: '#/components/schemas/ExternalImageSize'
+      - in: header
+        name: Range
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/pdf: {}
+            application/vnd.openspace.signed-url+json: {}
+            image/heic: {}
+            image/heif: {}
+            image/jfif: {}
+            image/jpeg: {}
+            image/png: {}
+            image/webp: {}
+            text/plain; charset=utf-8: {}
+            video/mp4: {}
+            video/quicktime: {}
+          description: OK
+        '302':
+          description: Redirect to a location for downloading
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '403':
+          content:
+            application/json:
+              schema:
+                required:
+                - error
+                - message
+                - redemptionEndpoint
+                - status
+                type: object
+                properties:
+                  email:
+                    type:
+                    - string
+                    - 'null'
+                    description: Email of the one account the phone is bound to but its owner has not yet claimed; absent for a phone-only invitee or when several accounts hold the phone
+                    example: worker@example.com
+                  error:
+                    type: string
+                    description: Error code identifying the specific error type
+                    example: email_capture_required
+                  fullName:
+                    type:
+                    - string
+                    - 'null'
+                    description: Optional full name from invitation
+                    example: James Bond
+                  message:
+                    type: string
+                    description: Human-readable error message
+                    example: Please complete registration by providing your email address
+                  redemptionEndpoint:
+                    type: string
+                    description: Endpoint to complete email capture and finish registration
+                    example: /api/external/v1/auth/redeem-phone-invitation
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    format: int32
+                    example: 403
+          description: 'Forbidden: Partial authentication - email capture required'
+        '404':
+          description: Not found
+        '429':
+          content:
+            application/problem+json:
+              schema:
+                type: object
+                properties:
+                  detail:
+                    type: string
+                  instance:
+                    type: string
+                    format: uri
+                  status:
+                    type: integer
+                    format: int32
+                    example: 429
+                  title:
+                    type: string
+                  type:
+                    type: string
+                    format: uri
+          description: Rate limit exceeded. Honor the `Retry-After` header before retrying.
+          headers:
+            RateLimit:
+              description: 'Current status for whichever policy is closest to exhaustion. Format: `"<policy>";r=<available>;t=<window-sec>;os-cost=<tokens-consumed>`'
+              schema:
+                type: string
+            RateLimit-Policy:
+              description: 'Active rate-limit policies. Format: `"<policy>";q=<quota>;w=<window-sec>, ...`'
+              schema:
+                type: string
+            Retry-After:
+              description: Seconds to wait before retrying. Always >= 1.
+              schema:
+                type: string
+      security:
+      - api-key: []
+      summary: Get Field Note Attachment
+      tags:
+      - Field notes
+    servers:
+    - url: /
+      description: OpenSpace API root
+  /api/external/v1/sites/{siteId}/field-notes/{fieldNoteId}/comments:
+    get:
+      operationId: commentsByFieldNoteId
+      parameters:
+      - in: path
+        name: siteId
+        required: true
+        schema:
+          pattern: '[0-9A-Za-z_-]{22}'
+          type: string
+      - in: path
+        name: fieldNoteId
+        required: true
+        schema:
+          pattern: '[0-9A-Za-z_-]{22}'
+          type: string
+      - in: query
+        name: withAuthor
+        required: false
+        schema:
+          type: boolean
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ExternalFieldNoteComment'
+          description: OK
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '403':
+          content:
+            application/json:
+              schema:
+                required:
+                - error
+                - message
+                - redemptionEndpoint
+                - status
+                type: object
+                properties:
+                  email:
+                    type:
+                    - string
+                    - 'null'
+                    description: Email of the one account the phone is bound to but its owner has not yet claimed; absent for a phone-only invitee or when several accounts hold the phone
+                    example: worker@example.com
+                  error:
+                    type: string
+                    description: Error code identifying the specific error type
+                    example: email_capture_required
+                  fullName:
+                    type:
+                    - string
+                    - 'null'
+                    description: Optional full name from invitation
+                    example: James Bond
+                  message:
+                    type: string
+                    description: Human-readable error message
+                    example: Please complete registration by providing your email address
+                  redemptionEndpoint:
+                    type: string
+                    description: Endpoint to complete email capture and finish registration
+                    example: /api/external/v1/auth/redeem-phone-invitation
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    format: int32
+                    example: 403
+          description: 'Forbidden: Partial authentication - email capture required'
+        '404':
+          description: Not found
+        '429':
+          content:
+            application/problem+json:
+              schema:
+                type: object
+                properties:
+                  detail:
+                    type: string
+                  instance:
+                    type: string
+                    format: uri
+                  status:
+                    type: integer
+                    format: int32
+                    example: 429
+                  title:
+                    type: string
+                  type:
+                    type: string
+                    format: uri
+          description: Rate limit exceeded. Honor the `Retry-After` header before retrying.
+          headers:
+            RateLimit:
+              description: 'Current status for whichever policy is closest to exhaustion. Format: `"<policy>";r=<available>;t=<window-sec>;os-cost=<tokens-consumed>`'
+              schema:
+                type: string
+            RateLimit-Policy:
+              description: 'Active rate-limit policies. Format: `"<policy>";q=<quota>;w=<window-sec>, ...`'
+              schema:
+                type: string
+            Retry-After:
+              description: Seconds to wait before retrying. Always >= 1.
+              schema:
+                type: string
+      security:
+      - api-key: []
+      summary: Get all comments related to a field note
+      tags:
+      - Field notes
+    post:
+      operationId: addComment
+      parameters:
+      - in: path
+        name: siteId
+        required: true
+        schema:
+          pattern: '[0-9A-Za-z_-]{22}'
+          type: string
+      - in: path
+        name: fieldNoteId
+        required: true
+        schema:
+          pattern: '[0-9A-Za-z_-]{22}'
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExternalFieldNoteCommentRequest'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExternalFieldNoteComment'
+          description: OK
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExternalFieldNoteComment'
+          description: Created
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '403':
+          content:
+            application/json:
+              schema:
+                required:
+                - error
+                - message
+                - redemptionEndpoint
+                - status
+                type: object
+                properties:
+                  email:
+                    type:
+                    - string
+                    - 'null'
+                    description: Email of the one account the phone is bound to but its owner has not yet claimed; absent for a phone-only invitee or when several accounts hold the phone
+                    example: worker@example.com
+                  error:
+                    type: string
+                    description: Error code identifying the specific error type
+                    example: email_capture_required
+                  fullName:
+                    type:
+                    - string
+                    - 'null'
+                    description: Optional full name from invitation
+                    example: James Bond
+                  message:
+                    type: string
+                    description: Human-readable error message
+                    example: Please complete registration by providing your email address
+                  redemptionEndpoint:
+                    type: string
+                    description: Endpoint to complete email capture and finish registration
+                    example: /api/external/v1/auth/redeem-phone-invitation
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    format: int32
+                    example: 403
+          description: 'Forbidden: Partial authentication - email capture required'
+        '404':
+          description: Not found
+        '429':
+          content:
+            application/problem+json:
+              schema:
+                type: object
+                properties:
+                  detail:
+                    type: string
+                  instance:
+                    type: string
+                    format: uri
+                  status:
+                    type: integer
+                    format: int32
+                    example: 429
+                  title:
+                    type: string
+                  type:
+                    type: string
+                    format: uri
+          description: Rate limit exceeded. Honor the `Retry-After` header before retrying.
+          headers:
+            RateLimit:
+              description: 'Current status for whichever policy is closest to exhaustion. Format: `"<policy>";r=<available>;t=<window-sec>;os-cost=<tokens-consumed>`'
+              schema:
+                type: string
+            RateLimit-Policy:
+              description: 'Active rate-limit policies. Format: `"<policy>";q=<quota>;w=<window-sec>, ...`'
+              schema:
+                type: string
+            Retry-After:
+              description: Seconds to wait before retrying. Always >= 1.
+              schema:
+                type: string
+      security:
+      - api-key: []
+      summary: Add a comment to a field note
+      tags:
+      - Field notes
+    servers:
+    - url: /
+      description: OpenSpace API root
+  /api/external/v1/sites/{siteId}/field-notes/{fieldNoteId}/image:
+    get:
+      operationId: downloadFieldNoteImage
+      parameters:
+      - in: path
+        name: siteId
+        required: true
+        schema:
+          pattern: '[0-9A-Za-z_-]{22}'
+          type: string
+      - in: path
+        name: fieldNoteId
+        required: true
+        schema:
+          pattern: '[0-9A-Za-z_-]{22}'
+          type: string
+      - description: (Optional) The desired image size. small=360px, medium=720px, large=1440px bounding box
+        in: query
+        name: size
+        required: false
+        schema:
+          $ref: '#/components/schemas/ExternalImageSize'
+      responses:
+        '200':
+          content:
+            application/vnd.openspace.signed-url+json: {}
+            image/jpeg: {}
+          description: OK
+        '302':
+          description: Redirect to a location for downloading
+        '401':
+          description: Unauthorized
+        '403':
+          content:
+            application/json:
+              schema:
+                required:
+                - error
+                - message
+                - redemptionEndpoint
+                - status
+                type: object
+                properties:
+                  email:
+                    type:
+                    - string
+                    - 'null'
+                    description: Email of the one account the phone is bound to but its owner has not yet claimed; absent for a phone-only invitee or when several accounts hold the phone
+                    example: worker@example.com
+                  error:
+                    type: string
+                    description: Error code identifying the specific error type
+                    example: email_capture_required
+                  fullName:
+                    type:
+                    - string
+                    - 'null'
+                    description: Optional full name from invitation
+                    example: James Bond
+                  message:
+                    type: string
+                    description: Human-readable error message
+                    example: Please complete registration by providing your email address
+                  redemptionEndpoint:
+                    type: string
+                    description: Endpoint to complete email capture and finish registration
+                    example: /api/external/v1/auth/redeem-phone-invitation
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    format: int32
+                    example: 403
+          description: 'Forbidden: Partial authentication - email capture required'
+        '404':
+          description: Not found
+        '429':
+          content:
+            application/problem+json:
+              schema:
+                type: object
+                properties:
+                  detail:
+                    type: string
+                  instance:
+                    type: string
+                    format: uri
+                  status:
+                    type: integer
+                    format: int32
+                    example: 429
+                  title:
+                    type: string
+                  type:
+                    type: string
+                    format: uri
+          description: Rate limit exceeded. Honor the `Retry-After` header before retrying.
+          headers:
+            RateLimit:
+              description: 'Current status for whichever policy is closest to exhaustion. Format: `"<policy>";r=<available>;t=<window-sec>;os-cost=<tokens-consumed>`'
+              schema:
+                type: string
+            RateLimit-Policy:
+              description: 'Active rate-limit policies. Format: `"<policy>";q=<quota>;w=<window-sec>, ...`'
+              schema:
+                type: string
+            Retry-After:
+              description: Seconds to wait before retrying. Always >= 1.
+              schema:
+                type: string
+      security:
+      - api-key: []
+      summary: Get Field Note Image
+      tags:
+      - Field notes
+    servers:
+    - url: /
+      description: OpenSpace API root
+components:
+  schemas:
+    ExternalActivityLog:
+      required:
+      - action
+      - entity
+      - entityId
+      - id
+      - updatedAt
+      type: object
+      properties:
+        action:
+          $ref: '#/components/schemas/ActivityAction'
+        entity:
+          $ref: '#/components/schemas/ExternalActivityEntity'
+        entityId:
+          type: string
+          description: The entity ID
+        field:
+          type: string
+          description: The field
+        id:
+          pattern: '[0-9A-Za-z_-]{22}'
+          type: string
+          description: The log ID
+        newValue:
+          type: string
+          description: The new value
+        oldValue:
+          type: string
+          description: The old vlaue
+        updatedAt:
+          type: string
+          description: When the the log was updated
+          format: date-time
+        updatedBy:
+          pattern: '[0-9A-Za-z_-]{22}'
+          type: string
+          description: The updated user who updated it
+      description: Activity log
+    ExternalFieldNotesGetResponse:
+      required:
+      - content
+      - page
+      type: object
+      properties:
+        associations:
+          $ref: '#/components/schemas/FieldNoteAssociations'
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalFieldNote'
+        includes:
+          $ref: '#/components/schemas/ExternalFieldNoteIncludes'
+        page:
+          $ref: '#/components/schemas/PageData'
+    Polygon:
+      required:
+      - coordinates
+      - type
+      type: object
+      description: "\n    A polygon geometry, which is defined by a list of rings.\n    The first ring is the outer ring, and any subsequent rings are holes in the polygon.\n    A ring must be closed, meaning the first and last points must be the same.\n    Additionally, all coordinates must be either 2d or 3d, not both.\n  "
+      example:
+        type: Polygon
+        coordinates:
+        - - - 0.0
+            - 0.0
+          - - 0.1
+            - 0.0
+          - - 0.1
+            - 0.1
+          - - 0.0
+            - 0.1
+          - - 0.0
+            - 0.0
+      allOf:
+      - $ref: '#/components/schemas/GeoJsonObject'
+      - type: object
+        properties:
+          coordinates:
+            type: array
+            items:
+              type: array
+              items:
+                $ref: '#/components/schemas/Point'
+          type:
+            type: string
+            enum:
+            - Polygon
+    GeoPoint:
+      maxItems: 3
+      minItems: 3
+      type: array
+      description: 3-element geo point as [long, lat, alt] array
+      example:
+      - 0.0
+      - 0.0
+      - 0.0
+      items:
+        type: number
+    ExternalFieldNoteComment:
+      required:
+      - comment
+      - createdAt
+      - fieldNoteId
+      - id
+      type: object
+      properties:
+        author:
+          $ref: '#/components/schemas/Account'
+        authorId:
+          pattern: '[0-9A-Za-z_-]{22}'
+          type: string
+          description: The author ID
+        comment:
+          type: string
+          description: The comment
+        createdAt:
+          type: string
+          description: When the field note comment was created
+          format: date-time
+        editedAt:
+          type: string
+          description: When the field note comment was edited
+          format: date-time
+        fieldNoteId:
+          pattern: '[0-9A-Za-z_-]{22}'
+          type: string
+          description: The field note ID
+        id:
+          pattern: '[0-9A-Za-z_-]{22}'
+          type: string
+          description: The comment ID
+      description: Field note comment
+    Vec3:
+      maxItems: 3
+      minItems: 3
+      type: array
+      description: 3-element vector as [x, y, z] array
+      example:
+      - 0.0
+      - 0.0
+      - 0.0
+      items:
+        type: number
+    ExternalFieldNoteCommentRequest:
+      required:
+      - comment
+      type: object
+      properties:
+        comment:
+          maxLength: 8192
+          minLength: 0
+          type: string
+    ExternalFieldNoteAttachment:
+      required:
+      - createdAt
+      - fieldNoteId
+      - filename
+      - id
+      - mime
+      - size
+      type: object
+      properties:
+        createdAt:
+          type: string
+          description: When the field note attachment was created
+          format: date-time
+        creatorId:
+          pattern: '[0-9A-Za-z_-]{22}'
+          type: string
+          description: The creator ID
+        fieldNoteId:
+          pattern: '[0-9A-Za-z_-]{22}'
+          type: string
+          description: The field note ID
+        filename:
+          type: string
+          description: The attachment filename
+        id:
+          pattern: '[0-9A-Za-z_-]{22}'
+          type: string
+          description: The unique ID for the note attachment
+        mime:
+          type: string
+          description: The attachment mime
+        size:
+          type: integer
+          description: The attachment size
+          format: int64
+        url:
+          type: string
+          description: The attachment url
+    SheetEstimate:
+      required:
+      - id
+      - sizeEstimate
+      type: object
+      properties:
+        id:
+          type: string
+        sizeEstimate:
+          $ref: '#/components/schemas/Vec3'
+        sizeEstimateMethod:
+          type: string
+      description: The sheet estimate information
+    Language:
+      type: string
+      description: The language preference of the account holder
+      example: en
+      enum:
+      - de
+      - en
+      - es
+      - ja
+      - zh
+      - zh-TW
+    FieldNoteAssociations:
+      type: object
+      properties:
+        fieldNotesToTags:
+          type: array
+          items:
+            $ref: '#/components/schemas/FieldNoteToTag'
+        fieldNotesToWatchers:
+          type: array
+          items:
+            $ref: '#/components/schemas/FieldNoteToWatcher'
+        fieldNotesToZones:
+          type: array
+          items:
+            $ref: '#/components/schemas/FieldNoteToZone'
+    ExternalImageSize:
+      type: string
+      enum:
+      - small
+      - medium
+      - large
+    ExternalFieldNoteGetResponse:
+      required:
+      - content
+      type: object
+      properties:
+        associations:
+          $ref: '#/components/schemas/FieldNoteAssociations'
+        content:
+          $ref: '#/components/schemas/ExternalFieldNote'
+        includes:
+          $ref: '#/components/schemas/ExternalFieldNoteIncludes'
+    FieldNoteToZone:
+      required:
+      - fieldNoteId
+      - zoneId
+      type: object
+      properties:
+        fieldNoteId:
+          pattern: '[0-9A-Za-z_-]{22}'
+          type: string
+        zoneId:
+          pattern: '[0-9A-Za-z_-]{22}'
+          type: string
+    ExternalFieldNoteTag:
+      required:
+      - id
+      - label
+      type: object
+      properties:
+        id:
+          pattern: '[0-9A-Za-z_-]{22}'
+          type: string
+          description: The unique ID for the field note tag
+        label:
+          type: string
+          description: The label
+    ExternalAccount:
+      required:
+      - email
+      - id
+      - language
+      type: object
+      properties:
+        email:
+          type: string
+          description: The email
+        id:
+          pattern: '[0-9A-Za-z_-]{22}'
+          type: string
+          description: The unique ID for the account
+        language:
+          $ref: '#/components/schemas/Language'
+        name:
+          type: string
+          description: The full name of the account holder
+      description: Account information
+    GeoJsonObject:
+      required:
+      - type
+      type: object
+      properties:
+        type:
+          type: string
+      description: A base GeoJSON schema
+      discriminator:
+        propertyName: type
+    AccountType:
+      type: string
+      enum:
+      - user
+      - admin
+      - public
+      - bot
+    FieldNoteToWatcher:
+      required:
+      - fieldNoteId
+      - watcherId
+      type: object
+      properties:
+        fieldNoteId:
+          pattern: '[0-9A-Za-z_-]{22}'
+          type: string
+        watcherId:
+          pattern: '[0-9A-Za-z_-]{22}'
+          type: string
+    ExternalFieldNoteIncludes:
+      required:
+      - assignees
+      - attachments
+      - comments
+      - creators
+      - sheets
+      - sites
+      - statuses
+      - tags
+      - watchers
+      - zones
+      type: object
+      properties:
+        assignees:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalAccount'
+        attachments:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalFieldNoteAttachment'
+        comments:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalFieldNoteComment'
+        creators:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalAccount'
+        sheets:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalSheet'
+        sites:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalSite'
+        statuses:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalFieldNoteStatus'
+        tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalFieldNoteTag'
+        watchers:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalAccount'
+        zones:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalFieldNoteZone'
+    Type:
+      type: string
+      description: The sheet type
+      enum:
+      - plan
+      - elevation
+    ExternalSheetStatsModel:
+      required:
+      - fieldNotes
+      - lidarCaptures
+      - photoCaptures
+      - videoCaptures
+      type: object
+      properties:
+        fieldNotes:
+          $ref: '#/components/schemas/ExternalActivityStatModel'
+        lastCaptureDate:
+          type: string
+          format: date-time
+        lidarCaptures:
+          $ref: '#/components/schemas/ExternalActivityStatModel'
+        photoCaptures:
+          $ref: '#/components/schemas/ExternalActivityStatModel'
+        videoCaptures:
+          $ref: '#/components/schemas/ExternalActivityStatModel'
+      description: If the sheet has any capture
+    Account:
+      required:
+      - editorOnboarded
+      - email
+      - hasPhoto
+      - id
+      - siteAdminOnboarded
+      type: object
+      properties:
+        agreedToTerms:
+          type: boolean
+        companyName:
+          type: string
+        companyType:
+          type: string
+        country:
+          type: string
+        editorOnboarded:
+          type: boolean
+        email:
+          type: string
+        fullName:
+          type: string
+        hasPhoto:
+          type: boolean
+        id:
+          pattern: '[0-9A-Za-z_-]{22}'
+          type: string
+        jobTitle:
+          type: string
+        language:
+          $ref: '#/components/schemas/Language'
+        lastLoginAt:
+          type: string
+          format: date-time
+        photoVersion:
+          pattern: '[0-9A-Za-z_-]{22}'
+          type: string
+        siteAdminOnboarded:
+          type: boolean
+        type:
+          $ref: '#/components/schemas/AccountType'
+      description: The author information
+    LineString:
+      required:
+      - coordinates
+      - type
+      type: object
+      description: "\n    A line string geometry is defined by a list of 2 or more points.\n  "
+      example:
+        type: LineString
+        coordinates:
+        - - 0.0
+          - 0.0
+        - - 1.0
+          - 1.0
+        - - 2.0
+          - 0.0
+      allOf:
+      - $ref: '#/components/schemas/GeoJsonObject'
+      - type: object
+        properties:
+          coordinates:
+            type: array
+            items:
+              $ref: '#/components/schemas/Point'
+          type:
+            type: string
+            enum:
+            - LineString
+    ExternalSheet:
+      required:
+      - id
+      - name
+      - siteId
+      - size
+      - type
+      type: object
+      properties:
+        createdAt:
+          type: string
+          description: When the sheet was created
+          format: date-time
+        displayOrder:
+          type: integer
+          description: The sheet display order
+          format: int32
+        estimate:
+          $ref: '#/components/schemas/SheetEstimate'
+        id:
+          pattern: '[0-9A-Za-z_-]{22}'
+          type: string
+          description: 'The unique ID for the sheet '
+        imageId:
+          type: string
+          description: The sheet image ID
+        name:
+          type: string
+          description: The sheet name
+        registration:
+          $ref: '#/components/schemas/RegistrationType'
+        sheetStats:
+          $ref: '#/components/schemas/ExternalSheetStatsModel'
+        siteId:
+          pattern: '[0-9A-Za-z_-]{22}'
+          type: string
+          description: 'The unique ID for the site '
+        size:
+          $ref: '#/components/schemas/Vec3'
+        sizeRegistration:
+          $ref: '#/components/schemas/RegistrationType'
+        type:
+          $ref: '#/components/schemas/Type'
+        updatedAt:
+          type: string
+          description: Last time when the sheet was updated
+          format: date-time
+      description: Sheet information
+    PageData:
+      required:
+      - itemCount
+      - page
+      - pageCount
+      - size
+      type: object
+      properties:
+        itemCount:
+          type: integer
+          format: int32
+        page:
+          type: integer
+          format: int32
+        pageCount:
+          type: integer
+          format: int32
+        size:
+          type: integer
+          format: int32
+    FieldNoteToTag:
+      required:
+      - fieldNoteId
+      - tagId
+      type: object
+      properties:
+        fieldNoteId:
+          pattern: '[0-9A-Za-z_-]{22}'
+          type: string
+        tagId:
+          pattern: '[0-9A-Za-z_-]{22}'
+          type: string
+    CollectionSearchType:
+      type: string
+      enum:
+      - and
+      - or
+      - only
+    ExternalFieldNoteSearch:
+      type: object
+      properties:
+        accountIds:
+          uniqueItems: true
+          type: array
+          items:
+            pattern: '[0-9A-Za-z_-]{22}'
+            type: string
+        assigneeIds:
+          uniqueItems: true
+          type: array
+          items:
+            pattern: '[0-9A-Za-z_-]{22}'
+            type: string
+        collabGroupAssignedAfter:
+          type: string
+          format: date
+        collabGroupAssignedBefore:
+          type: string
+          format: date
+        collabGroupIds:
+          uniqueItems: true
+          type: array
+          items:
+            pattern: '[0-9A-Za-z_-]{22}'
+            type: string
+        createdAfter:
+          type: string
+          format: date-time
+        createdBefore:
+          type: string
+          format: date-time
+        dueAfter:
+          type: string
+          format: date
+        dueBefore:
+          type: string
+          format: date
+        excludeIds:
+          uniqueItems: true
+          type: array
+          items:
+            pattern: '[0-9A-Za-z_-]{22}'
+            type: string
+        includeIds:
+          uniqueItems: true
+          type: array
+          items:
+            pattern: '[0-9A-Za-z_-]{22}'
+            type: string
+        query:
+          type: string
+        sheetIds:
+          uniqueItems: true
+          type: array
+          items:
+            pattern: '[0-9A-Za-z_-]{22}'
+            type: string
+        showClosed:
+          type: boolean
+        showNoStatus:
+          type: boolean
+        showOnlyClosed:
+          type: boolean
+        showUnassigned:
+          type: boolean
+        statusIds:
+          uniqueItems: true
+          type: array
+          items:
+            pattern: '[0-9A-Za-z_-]{22}'
+            type: string
+        watcherIds:
+          uniqueItems: true
+          type: array
+          items:
+            pattern: '[0-9A-Za-z_-]{22}'
+            type: string
+        watchersFilter:
+          $ref: '#/components/schemas/CollectionSearchType'
+        zoneIds:
+          uniqueItems: true
+          type: array
+          items:
+            pattern: '[0-9A-Za-z_-]{22}'
+            type: string
+    ExternalFieldNoteStatus:
+      required:
+      - color
+      - id
+      - localizedTitle
+      - readOnly
+      - title
+      type: object
+      properties:
+        color:
+          type: string
+          description: The color
+        id:
+          pattern: '[0-9A-Za-z_-]{22}'
+          type: string
+          description: The unique ID for the field note status
+        localizedTitle:
+          type: string
+          description: Human-readable status title, localized to the caller account's preferred language for system-default statuses. Customer-defined titles are returned verbatim. Intended for display only — do not match against this field, as wording may change with translation updates. Not affected by the Accept-Language request header.
+        readOnly:
+          type: boolean
+          description: True if this is a global status that cannot be modified or deleted
+        title:
+          type: string
+          description: The status title. For system-default statuses this is a stable English literal (e.g. "Open", "Contested"); customer-defined titles are returned verbatim. Use this field as the stable identifier when driving business logic.
+    ExternalActivityEntity:
+      type: string
+      description: The entity
+      enum:
+      - fieldNote
+      - fieldNoteAttachment
+      - fieldNoteComment
+      - fieldNoteMarkup
+      - fieldNoteTag
+      - fieldNoteWatch
+      - fieldNoteCustomFieldValue
+    ExternalFieldNoteCustomField:
+      required:
+      - fieldType
+      - id
+      - name
+      - required
+      type: object
+      properties:
+        createdAt:
+          type: string
+          description: When the field note custom field was created
+          format: date-time
+        fieldType:
+          type: string
+          description: The custom field type
+        id:
+          pattern: '[0-9A-Za-z_-]{22}'
+          type: string
+          description: The unique ID for the custom field
+        name:
+          type: string
+          description: The custom field name
+        required:
+          type: boolean
+          description: If the custom field is required
+        updatedAt:
+          type: string
+          description: When the field note custom field was updated
+          format: date-time
+        value:
+          type: string
+          description: The custom field value
+      description: The custom fields applied to this field note
+    ExternalFieldNote:
+      required:
+      - closed
+      - createdAt
+      - id
+      - siteId
+      - uniqueKey
+      - updatedAt
+      type: object
+      properties:
+        assigneeId:
+          pattern: '[0-9A-Za-z_-]{22}'
+          type: string
+          description: The assignee ID
+        captureId:
+          pattern: '[0-9A-Za-z_-]{22}'
+          type: string
+          description: The capture ID
+        closed:
+          type: boolean
+          description: Whether the field note is closed
+        collabGroupId:
+          pattern: '[0-9A-Za-z_-]{22}'
+          type: string
+          description: The collab group ID
+        collabGroupName:
+          type: string
+          description: The name of the collab group (crew) this field note is assigned to, if any
+        createdAt:
+          type: string
+          description: When the field note was created
+          format: date-time
+        creatorId:
+          pattern: '[0-9A-Za-z_-]{22}'
+          type: string
+          description: The account ID of the user that created this field note
+        customFields:
+          type: array
+          description: The custom fields applied to this field note
+          items:
+            $ref: '#/components/schemas/ExternalFieldNoteCustomField'
+        description:
+          type: string
+          description: Description
+        dueOn:
+          type: string
+          description: The due date
+          format: date
+        geoPosition:
+          $ref: '#/components/schemas/GeoPoint'
+        id:
+          pattern: '[0-9A-Za-z_-]{22}'
+          type: string
+          description: The unique ID for the note
+        markerOffset:
+          $ref: '#/components/schemas/Vec3'
+        masterPosition:
+          $ref: '#/components/schemas/Vec3'
+        panoId:
+          pattern: '[0-9A-Za-z_-]{22}'
+          type: string
+          description: The pano ID
+        positionType:
+          $ref: '#/components/schemas/PositionType'
+        sheetId:
+          pattern: '[0-9A-Za-z_-]{22}'
+          type: string
+          description: The sheet ID
+        sheetPosition:
+          $ref: '#/components/schemas/Vec3'
+        siteId:
+          pattern: '[0-9A-Za-z_-]{22}'
+          type: string
+          description: The site ID
+        status:
+          type: string
+          description: Human-readable status title, localized to the caller account's preferred language for system-default statuses (e.g. "Open", "Contested"); customer-defined titles are returned verbatim. Intended for display only — use `statusKey` to drive business logic. Not affected by the Accept-Language request header.
+        statusId:
+          pattern: '[0-9A-Za-z_-]{22}'
+          type: string
+          description: The status ID
+        statusKey:
+          type: string
+          description: Stable status key. For system-default statuses this is the English literal ("Open", "Contested", "Closed", ...); for customer-defined statuses it is the customer's title verbatim. Use this field as the stable identifier when driving business logic — `status` may vary by caller locale.
+        uniqueKey:
+          type: string
+          description: The unique key
+        updatedAt:
+          type: string
+          description: When the field note was updated
+          format: date-time
+      description: Field note information
+    ExternalActivityStatModel:
+      required:
+      - count
+      type: object
+      properties:
+        count:
+          type: integer
+          format: int32
+        last:
+          type: string
+          format: date-time
+    Point:
+      maxItems: 3
+      minItems: 2
+      type: array
+      description: 2D or 3D point as [x, y] or [x, y, z] array
+      example:
+      - 0.0
+      - 0.0
+      - 0.0
+      items:
+        type: number
+    ExternalSite:
+      required:
+      - active
+      - name
+      type: object
+      properties:
+        active:
+          type: boolean
+          description: The site status
+        address:
+          type: string
+          description: The site street address
+        area:
+          type: number
+          description: Square value of the unit of measure
+          format: float
+        areaUnitOfMeasure:
+          type: string
+          description: Square feet or meters unit
+          enum:
+          - feet
+          - meters
+        country:
+          type: string
+          description: The site country
+        createdAt:
+          type: string
+          description: When the site was created
+          format: date-time
+        id:
+          pattern: '[0-9A-Za-z_-]{22}'
+          type: string
+          description: The unique ID for the site
+        name:
+          type: string
+          description: The site name.
+        organizationId:
+          pattern: '[0-9A-Za-z_-]{22}'
+          type: string
+          description: The organization id.
+        projectKey:
+          type: string
+          description: The site project key
+        registrationType:
+          $ref: '#/components/schemas/RegistrationType'
+        timeZone:
+          type: string
+          description: The site time zone
+      description: Site information
+    PositionType:
+      type: string
+      description: The position type; specifies how the markerOffset was defined
+      enum:
+      - pano
+      - forward
+      - constant
+      - photo
+    ExternalFieldNoteZone:
+      required:
+      - createdAt
+      - geometry
+      - id
+      - name
+      - siteId
+      type: object
+      properties:
+        createdAt:
+          type: string
+          description: When the zone was created
+          format: date-time
+        description:
+          type: string
+          description: A description for the zone.
+        geometry:
+          oneOf:
+          - $ref: '#/components/schemas/LineString'
+          - $ref: '#/components/schemas/Polygon'
+        id:
+          pattern: '[0-9A-Za-z_-]{22}'
+          type: string
+          description: The unique ID for the zone
+        name:
+          type: string
+          description: A name for the zone. Must be unique within the sheet.
+        sheetId:
+          pattern: '[0-9A-Za-z_-]{22}'
+          type: string
+          description: The sheet ID related
+        siteId:
+          pattern: '[0-9A-Za-z_-]{22}'
+          type: string
+          description: The site ID to which the zone belongs.
+        updatedAt:
+          type: string
+          description: When the zone was updated
+          format: date-time
+    ActivityAction:
+      type: string
+      description: The action
+      enum:
+      - create
+      - update
+      - delete
+    RegistrationType:
+      type: string
+      description: The sheet size registration
+      enum:
+      - none
+      - autoFit
+      - autoGps
+      - full
+  securitySchemes:
+    api-key:
+      in: header
+      name: api-key
+      type: apiKey
+    jwt-auth:
+      bearerFormat: jwt
+      scheme: bearer
+      type: http
+x-refined-from:
+- openspace-external-v1-api-original.json
+- openspace-openapi.yml

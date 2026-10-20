@@ -1,0 +1,449 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/openspace/main/json-schema/openspace-external-webhook-delivery-schema.json",
+  "title": "ExternalWebhookDelivery",
+  "description": "Webhook delivery record tracking the delivery of an event to a webhook",
+  "x-generated": "2026-10-20",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/openspace-openapi.yml#/components/schemas/ExternalWebhookDelivery",
+  "required": [
+    "attemptCount",
+    "createdAt",
+    "deliveryId",
+    "eventId",
+    "status",
+    "webhookId"
+  ],
+  "type": "object",
+  "properties": {
+    "attemptCount": {
+      "type": "integer",
+      "description": "Number of delivery attempts made",
+      "format": "int32"
+    },
+    "createdAt": {
+      "type": "string",
+      "description": "When the delivery was created",
+      "format": "date-time"
+    },
+    "deliveryId": {
+      "pattern": "[0-9A-Za-z_-]{22}",
+      "type": "string",
+      "description": "The unique identifier for the delivery"
+    },
+    "eventId": {
+      "pattern": "[0-9A-Za-z_-]{22}",
+      "type": "string",
+      "description": "The event that was delivered"
+    },
+    "lastErrorCode": {
+      "type": "string",
+      "description": "Last error code if delivery failed"
+    },
+    "lastErrorMessage": {
+      "type": "string",
+      "description": "Last error message if delivery failed"
+    },
+    "payload": {
+      "$ref": "#/$defs/WebhookEventPayload"
+    },
+    "status": {
+      "$ref": "#/$defs/WebhookDeliveryStatus"
+    },
+    "updatedAt": {
+      "type": "string",
+      "description": "When the delivery was last updated",
+      "format": "date-time"
+    },
+    "webhookId": {
+      "pattern": "[0-9A-Za-z_-]{22}",
+      "type": "string",
+      "description": "The webhook that received the delivery"
+    }
+  },
+  "$defs": {
+    "CapturePublishedPayload": {
+      "required": [
+        "captureId",
+        "captureType",
+        "eventType",
+        "siteId"
+      ],
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/$defs/WebhookEventPayload"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "captureId": {
+              "pattern": "[0-9A-Za-z_-]{22}",
+              "type": "string"
+            },
+            "captureType": {
+              "$ref": "#/$defs/CaptureType"
+            },
+            "siteId": {
+              "pattern": "[0-9A-Za-z_-]{22}",
+              "type": "string"
+            }
+          }
+        }
+      ]
+    },
+    "CaptureType": {
+      "type": "string",
+      "enum": [
+        "manual",
+        "passive",
+        "lidar",
+        "voice",
+        "drone"
+      ]
+    },
+    "FieldNoteAttachmentCreatedPayload": {
+      "required": [
+        "attachmentId",
+        "eventType",
+        "fieldNoteId",
+        "siteId"
+      ],
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/$defs/WebhookEventPayload"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "attachmentId": {
+              "pattern": "[0-9A-Za-z_-]{22}",
+              "type": "string"
+            },
+            "fieldNoteId": {
+              "pattern": "[0-9A-Za-z_-]{22}",
+              "type": "string"
+            },
+            "siteId": {
+              "pattern": "[0-9A-Za-z_-]{22}",
+              "type": "string"
+            }
+          }
+        }
+      ]
+    },
+    "FieldNoteAttachmentDeletedPayload": {
+      "required": [
+        "attachmentId",
+        "eventType",
+        "fieldNoteId",
+        "siteId"
+      ],
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/$defs/WebhookEventPayload"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "attachmentId": {
+              "pattern": "[0-9A-Za-z_-]{22}",
+              "type": "string"
+            },
+            "fieldNoteId": {
+              "pattern": "[0-9A-Za-z_-]{22}",
+              "type": "string"
+            },
+            "siteId": {
+              "pattern": "[0-9A-Za-z_-]{22}",
+              "type": "string"
+            }
+          }
+        }
+      ]
+    },
+    "FieldNoteCommentCreatedPayload": {
+      "required": [
+        "commentId",
+        "eventType",
+        "fieldNoteId",
+        "siteId"
+      ],
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/$defs/WebhookEventPayload"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "commentId": {
+              "pattern": "[0-9A-Za-z_-]{22}",
+              "type": "string"
+            },
+            "fieldNoteId": {
+              "pattern": "[0-9A-Za-z_-]{22}",
+              "type": "string"
+            },
+            "siteId": {
+              "pattern": "[0-9A-Za-z_-]{22}",
+              "type": "string"
+            }
+          }
+        }
+      ]
+    },
+    "FieldNoteCommentDeletedPayload": {
+      "required": [
+        "commentId",
+        "eventType",
+        "fieldNoteId",
+        "siteId"
+      ],
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/$defs/WebhookEventPayload"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "commentId": {
+              "pattern": "[0-9A-Za-z_-]{22}",
+              "type": "string"
+            },
+            "fieldNoteId": {
+              "pattern": "[0-9A-Za-z_-]{22}",
+              "type": "string"
+            },
+            "siteId": {
+              "pattern": "[0-9A-Za-z_-]{22}",
+              "type": "string"
+            }
+          }
+        }
+      ]
+    },
+    "FieldNoteCommentUpdatedPayload": {
+      "required": [
+        "commentId",
+        "eventType",
+        "fieldNoteId",
+        "siteId"
+      ],
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/$defs/WebhookEventPayload"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "commentId": {
+              "pattern": "[0-9A-Za-z_-]{22}",
+              "type": "string"
+            },
+            "fieldNoteId": {
+              "pattern": "[0-9A-Za-z_-]{22}",
+              "type": "string"
+            },
+            "siteId": {
+              "pattern": "[0-9A-Za-z_-]{22}",
+              "type": "string"
+            }
+          }
+        }
+      ]
+    },
+    "FieldNoteCreatedPayload": {
+      "required": [
+        "eventType",
+        "fieldNoteId",
+        "siteId"
+      ],
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/$defs/WebhookEventPayload"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "fieldNoteId": {
+              "pattern": "[0-9A-Za-z_-]{22}",
+              "type": "string"
+            },
+            "siteId": {
+              "pattern": "[0-9A-Za-z_-]{22}",
+              "type": "string"
+            }
+          }
+        }
+      ]
+    },
+    "FieldNoteDeletedPayload": {
+      "required": [
+        "eventType",
+        "fieldNoteId",
+        "siteId"
+      ],
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/$defs/WebhookEventPayload"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "fieldNoteId": {
+              "pattern": "[0-9A-Za-z_-]{22}",
+              "type": "string"
+            },
+            "siteId": {
+              "pattern": "[0-9A-Za-z_-]{22}",
+              "type": "string"
+            }
+          }
+        }
+      ]
+    },
+    "FieldNoteUpdatedPayload": {
+      "required": [
+        "changedFields",
+        "eventType",
+        "fieldNoteId",
+        "siteId"
+      ],
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/$defs/WebhookEventPayload"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "changedFields": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "fieldNoteId": {
+              "pattern": "[0-9A-Za-z_-]{22}",
+              "type": "string"
+            },
+            "siteId": {
+              "pattern": "[0-9A-Za-z_-]{22}",
+              "type": "string"
+            }
+          }
+        }
+      ]
+    },
+    "VoiceCapturePublishedPayload": {
+      "required": [
+        "captureSessionId",
+        "eventType",
+        "siteId",
+        "voiceCaptureId"
+      ],
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/$defs/WebhookEventPayload"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "captureSessionId": {
+              "pattern": "[0-9A-Za-z_-]{22}",
+              "type": "string"
+            },
+            "siteId": {
+              "pattern": "[0-9A-Za-z_-]{22}",
+              "type": "string"
+            },
+            "voiceCaptureId": {
+              "pattern": "[0-9A-Za-z_-]{22}",
+              "type": "string"
+            }
+          }
+        }
+      ]
+    },
+    "WebhookDeliveryStatus": {
+      "type": "string",
+      "description": "Current status of the delivery",
+      "enum": [
+        "pending",
+        "delivering",
+        "delivered",
+        "failed",
+        "circuitBreakerOpen"
+      ]
+    },
+    "WebhookEventPayload": {
+      "required": [
+        "eventType"
+      ],
+      "type": "object",
+      "properties": {
+        "eventType": {
+          "$ref": "#/$defs/WebhookEventType"
+        }
+      },
+      "description": "The event payload that was delivered",
+      "oneOf": [
+        {
+          "$ref": "#/$defs/FieldNoteCreatedPayload"
+        },
+        {
+          "$ref": "#/$defs/FieldNoteDeletedPayload"
+        },
+        {
+          "$ref": "#/$defs/FieldNoteUpdatedPayload"
+        },
+        {
+          "$ref": "#/$defs/FieldNoteCommentCreatedPayload"
+        },
+        {
+          "$ref": "#/$defs/FieldNoteCommentUpdatedPayload"
+        },
+        {
+          "$ref": "#/$defs/FieldNoteCommentDeletedPayload"
+        },
+        {
+          "$ref": "#/$defs/FieldNoteAttachmentCreatedPayload"
+        },
+        {
+          "$ref": "#/$defs/FieldNoteAttachmentDeletedPayload"
+        },
+        {
+          "$ref": "#/$defs/CapturePublishedPayload"
+        },
+        {
+          "$ref": "#/$defs/VoiceCapturePublishedPayload"
+        }
+      ]
+    },
+    "WebhookEventType": {
+      "type": "string",
+      "description": "Event type to subscribe to",
+      "enum": [
+        "field_note:created",
+        "field_note:deleted",
+        "field_note:updated",
+        "field_note_comment:created",
+        "field_note_comment:updated",
+        "field_note_comment:deleted",
+        "field_note_attachment:created",
+        "field_note_attachment:deleted",
+        "capture:published",
+        "voice_capture:published"
+      ]
+    }
+  }
+}

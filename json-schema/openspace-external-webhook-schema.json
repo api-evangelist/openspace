@@ -1,0 +1,85 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/openspace/main/json-schema/openspace-external-webhook-schema.json",
+  "title": "ExternalWebhook",
+  "description": "Webhook endpoint configuration",
+  "x-generated": "2026-10-20",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/openspace-openapi.yml#/components/schemas/ExternalWebhook",
+  "required": [
+    "createdAt",
+    "id",
+    "namespace",
+    "organizationId",
+    "status",
+    "url",
+    "verificationState"
+  ],
+  "type": "object",
+  "properties": {
+    "createdAt": {
+      "type": "string",
+      "description": "When the webhook was created",
+      "format": "date-time"
+    },
+    "createdBy": {
+      "pattern": "[0-9A-Za-z_-]{22}",
+      "type": "string",
+      "description": "Account ID of the user who created this webhook"
+    },
+    "id": {
+      "pattern": "[0-9A-Za-z_-]{22}",
+      "type": "string",
+      "description": "The unique identifier for the webhook"
+    },
+    "namespace": {
+      "type": "string",
+      "description": "A user-friendly name or description for this webhook"
+    },
+    "organizationId": {
+      "pattern": "[0-9A-Za-z_-]{22}",
+      "type": "string",
+      "description": "The organization this webhook belongs to"
+    },
+    "rateLimit": {
+      "type": "integer",
+      "description": "Optional rate limit for webhook deliveries (events per hour)",
+      "format": "int32"
+    },
+    "status": {
+      "$ref": "#/$defs/WebhookStatus"
+    },
+    "updatedAt": {
+      "type": "string",
+      "description": "When the webhook was last updated",
+      "format": "date-time"
+    },
+    "url": {
+      "type": "string",
+      "description": "The destination URL where webhook events will be sent"
+    },
+    "verificationState": {
+      "$ref": "#/$defs/WebhookVerificationState"
+    }
+  },
+  "$defs": {
+    "WebhookStatus": {
+      "type": "string",
+      "description": "Initial status of the webhook (defaults to ENABLED)",
+      "enum": [
+        "enabled",
+        "disabled"
+      ]
+    },
+    "WebhookVerificationState": {
+      "type": "string",
+      "description": "Verification status of the webhook endpoint",
+      "enum": [
+        "verified",
+        "notVerified",
+        "verificationError"
+      ]
+    }
+  }
+}

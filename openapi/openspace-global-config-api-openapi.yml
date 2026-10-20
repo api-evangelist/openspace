@@ -1,0 +1,89 @@
+openapi: 3.2.0
+info:
+  title: Openspace Global config API
+  version: v3.0
+  description: 'Operations tagged Global config across 2 of this provider''s published API definitions: openspace-external-v1-api-original.json, openspace-openapi.yml. Each path carries the servers of the definition it was published in.'
+servers:
+- url: /
+  description: OpenSpace API root
+- url: https://api.us.openspace.ai
+  description: OpenSpace API (US region; served at /v3/api-docs/external-v1-api)
+tags:
+- description: Public configuration values needed before authentication
+  name: Global config
+paths:
+  /api/external/v1/global-config:
+    get:
+      description: Anonymous endpoint returning configuration values needed before authentication.
+      operationId: getGlobalConfig
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExternalGlobalConfigResponse'
+          description: OK
+      summary: Get public configuration
+      tags:
+      - Global config
+    servers:
+    - url: /
+      description: OpenSpace API root
+components:
+  schemas:
+    CollabAppPhoneCountry:
+      type: string
+      enum:
+      - AS
+      - BE
+      - CA
+      - CH
+      - CL
+      - DE
+      - ES
+      - FR
+      - GB
+      - GH
+      - GU
+      - HU
+      - IE
+      - JP
+      - LU
+      - MP
+      - MX
+      - NL
+      - NZ
+      - PL
+      - PR
+      - PT
+      - US
+      - VI
+    ExternalGlobalConfigResponse:
+      required:
+      - content
+      type: object
+      properties:
+        content:
+          $ref: '#/components/schemas/ExternalGlobalConfig'
+    ExternalGlobalConfig:
+      required:
+      - allowedCollabAppPhoneNumberCountries
+      type: object
+      properties:
+        allowedCollabAppPhoneNumberCountries:
+          type: array
+          description: ISO 3166-1 alpha-2 country codes whose phone numbers are accepted in CollabApp flows (SMS OTP login, crew invites). The frontend uses this to filter the country dropdown in the phone-input component. Mirrors Twilio Geo Permissions registrations on the backend.
+          items:
+            $ref: '#/components/schemas/CollabAppPhoneCountry'
+  securitySchemes:
+    api-key:
+      in: header
+      name: api-key
+      type: apiKey
+    jwt-auth:
+      bearerFormat: jwt
+      scheme: bearer
+      type: http
+x-refined-from:
+- openspace-external-v1-api-original.json
+- openspace-openapi.yml

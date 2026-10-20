@@ -1,0 +1,419 @@
+generated: '2026-10-20'
+method: derived
+generator: derive-vocabulary.py
+source: openapi/openspace-openapi.yml
+vocabulary:
+  name: OpenSpace Domain Vocabulary
+  description: 'Terms declared by OpenSpace''s own API contract: its resource groups, objects and enumerations, with the contract''s definitions.
+    Derived, not authored.'
+  version: '2026-10-20'
+  terms:
+  - term: Webhook Rules
+    definition: Webhook subscription rule management APIs
+    tags:
+    - Resource Group
+    source: openapi/openspace-openapi.yml
+  - term: Field notes
+    definition: Field notes APIs
+    tags:
+    - Resource Group
+    source: openapi/openspace-openapi.yml
+  - term: external-executive-view-controller
+    definition: ExecutiveView progress data (OS Track) proxied from progress-tracking-api
+    tags:
+    - Resource Group
+    source: openapi/openspace-openapi.yml
+  - term: Sites
+    definition: Sites APIs
+    tags:
+    - Resource Group
+    source: openapi/openspace-openapi.yml
+  - term: Images
+    definition: Images APIs
+    tags:
+    - Resource Group
+    source: openapi/openspace-openapi.yml
+  - term: Reports
+    definition: Reporting APIs
+    tags:
+    - Resource Group
+    source: openapi/openspace-openapi.yml
+  - term: Webhook Deliveries
+    definition: Webhook delivery history and redelivery APIs
+    tags:
+    - Resource Group
+    source: openapi/openspace-openapi.yml
+  - term: Global config
+    definition: Public configuration values needed before authentication
+    tags:
+    - Resource Group
+    source: openapi/openspace-openapi.yml
+  - term: Organizations
+    definition: Organizations APIs
+    tags:
+    - Resource Group
+    source: openapi/openspace-openapi.yml
+  - term: Progress Tracking
+    definition: Construction phases proxied from the Progress Tracking API
+    tags:
+    - Resource Group
+    source: openapi/openspace-openapi.yml
+  - term: Custom Field Notes
+    definition: Custom field notes APIs. Beta — subject to change without notification.
+    tags:
+    - Resource Group
+    source: openapi/openspace-openapi.yml
+  - term: Webhooks
+    definition: Webhook management APIs for event notifications
+    tags:
+    - Resource Group
+    source: openapi/openspace-openapi.yml
+  - term: Webhook Headers
+    definition: Webhook custom header management APIs
+    tags:
+    - Resource Group
+    source: openapi/openspace-openapi.yml
+  - term: Account
+    definition: The author information
+    tags:
+    - Object
+    source: openapi/openspace-openapi.yml#/components/schemas/Account
+  - term: AccountType
+    definition: 'Enumeration declared by the contract with values: user, admin, public, bot.'
+    tags:
+    - Enumeration
+    source: openapi/openspace-openapi.yml#/components/schemas/AccountType
+  - term: ActivityAction
+    definition: The action
+    tags:
+    - Enumeration
+    source: openapi/openspace-openapi.yml#/components/schemas/ActivityAction
+  - term: CaptureType
+    definition: 'Enumeration declared by the contract with values: manual, passive, lidar, voice, drone.'
+    tags:
+    - Enumeration
+    source: openapi/openspace-openapi.yml#/components/schemas/CaptureType
+  - term: CollabAppPhoneCountry
+    definition: 'Enumeration declared by the contract with values: AS, BE, CA, CH, CL, DE, ES, FR, GB, GH, GU, HU. (12 more)'
+    tags:
+    - Enumeration
+    source: openapi/openspace-openapi.yml#/components/schemas/CollabAppPhoneCountry
+  - term: CollectionSearchType
+    definition: 'Enumeration declared by the contract with values: and, or, only.'
+    tags:
+    - Enumeration
+    source: openapi/openspace-openapi.yml#/components/schemas/CollectionSearchType
+  - term: CustomFieldNoteValueFilter
+    definition: 'Filters on template properties marked x-filterable; requires templateIds or integrationType. A filter is {propertyKey, operator,
+      value} or {propertyKey, or|and: [{operator, value}]}. Operators by property type: strings eq, neq, in, notIn, contains, notContains; enums
+      eq, neq, in, notIn; numbers and dates eq, neq, gte, lte, between (two inclusive bounds); booleans eq, neq; arrays eq, neq, contains,'
+    tags:
+    - Object
+    source: openapi/openspace-openapi.yml#/components/schemas/CustomFieldNoteValueFilter
+  - term: CustomFieldNoteValueFilterCombinator
+    definition: 'How valueFilters combine: and (default) or or'
+    tags:
+    - Enumeration
+    source: openapi/openspace-openapi.yml#/components/schemas/CustomFieldNoteValueFilterCombinator
+  - term: CustomFieldNoteValueFilterCondition
+    definition: 'Object declared by the contract with fields: operator, value.'
+    tags:
+    - Object
+    source: openapi/openspace-openapi.yml#/components/schemas/CustomFieldNoteValueFilterCondition
+  - term: CustomFieldNoteValueFilterOperator
+    definition: 'Enumeration declared by the contract with values: eq, neq, in, notIn, contains, notContains, containsAny, notContainsAny, containsAll,
+      notContainsAll, refContains, refNotContains. (5 more)'
+    tags:
+    - Enumeration
+    source: openapi/openspace-openapi.yml#/components/schemas/CustomFieldNoteValueFilterOperator
+  - term: DroneCaptureStatus
+    definition: The status of the Drone Capture.
+    tags:
+    - Enumeration
+    source: openapi/openspace-openapi.yml#/components/schemas/DroneCaptureStatus
+  - term: DroneImageType
+    definition: The type of the drone image.
+    tags:
+    - Enumeration
+    source: openapi/openspace-openapi.yml#/components/schemas/DroneImageType
+  - term: ExternalAccount
+    definition: Account information
+    tags:
+    - Object
+    source: openapi/openspace-openapi.yml#/components/schemas/ExternalAccount
+  - term: ExternalActivityEntity
+    definition: The entity
+    tags:
+    - Enumeration
+    source: openapi/openspace-openapi.yml#/components/schemas/ExternalActivityEntity
+  - term: ExternalActivityLog
+    definition: Activity log
+    tags:
+    - Object
+    source: openapi/openspace-openapi.yml#/components/schemas/ExternalActivityLog
+  - term: ExternalActivityStatModel
+    definition: 'Object declared by the contract with fields: count, last.'
+    tags:
+    - Object
+    source: openapi/openspace-openapi.yml#/components/schemas/ExternalActivityStatModel
+  - term: ExternalCapture
+    definition: 'Object declared by the contract with fields: id, name, publishedAt, sheetId, siteId, startedAt, stoppedAt, type.'
+    tags:
+    - Object
+    source: openapi/openspace-openapi.yml#/components/schemas/ExternalCapture
+  - term: ExternalCaptureBatch
+    definition: A capture batch
+    tags:
+    - Object
+    source: openapi/openspace-openapi.yml#/components/schemas/ExternalCaptureBatch
+  - term: ExternalCaptureGetIncludes
+    definition: 'Object declared by the contract with fields: sheet, site.'
+    tags:
+    - Object
+    source: openapi/openspace-openapi.yml#/components/schemas/ExternalCaptureGetIncludes
+  - term: ExternalCaptureGetResponse
+    definition: 'Object declared by the contract with fields: content, includes.'
+    tags:
+    - Object
+    source: openapi/openspace-openapi.yml#/components/schemas/ExternalCaptureGetResponse
+  - term: ExternalCaptureIncludes
+    definition: 'Object declared by the contract with fields: sheets, site.'
+    tags:
+    - Object
+    source: openapi/openspace-openapi.yml#/components/schemas/ExternalCaptureIncludes
+  - term: ExternalCaptureType
+    definition: The capture type
+    tags:
+    - Enumeration
+    source: openapi/openspace-openapi.yml#/components/schemas/ExternalCaptureType
+  - term: ExternalCapturesGetResponse
+    definition: 'Object declared by the contract with fields: content, includes, page.'
+    tags:
+    - Object
+    source: openapi/openspace-openapi.yml#/components/schemas/ExternalCapturesGetResponse
+  - term: ExternalCommentOrigin
+    definition: 'Where the comment was written: in OpenSpace, or in the integration the note is linked to'
+    tags:
+    - Enumeration
+    source: openapi/openspace-openapi.yml#/components/schemas/ExternalCommentOrigin
+  - term: ExternalComponentProgress
+    definition: Progress history for a single component within a space
+    tags:
+    - Object
+    source: openapi/openspace-openapi.yml#/components/schemas/ExternalComponentProgress
+  - term: ExternalComponentProgressGetResponse
+    definition: Paginated list of component progress for a space. The returned `page` metadata reflects what the downstream actually served; `page.size`
+      may be smaller than requested if the downstream clamps the page size.
+    tags:
+    - Object
+    source: openapi/openspace-openapi.yml#/components/schemas/ExternalComponentProgressGetResponse
+  - term: ExternalCustomFieldNote
+    definition: A custom field note. Only real note columns are top-level; every template field lives in `fields`.
+    tags:
+    - Object
+    source: openapi/openspace-openapi.yml#/components/schemas/ExternalCustomFieldNote
+  - term: ExternalCustomFieldNoteAttachment
+    definition: 'Object declared by the contract with fields: contentType, createdAt, customFieldNoteId, fileName, id, kind.'
+    tags:
+    - Object
+    source: openapi/openspace-openapi.yml#/components/schemas/ExternalCustomFieldNoteAttachment
+  - term: ExternalCustomFieldNoteAttachmentKind
+    definition: 'Enumeration declared by the contract with values: photo, file.'
+    tags:
+    - Enumeration
+    source: openapi/openspace-openapi.yml#/components/schemas/ExternalCustomFieldNoteAttachmentKind
+  - term: ExternalCustomFieldNoteComment
+    definition: A comment on a custom field note
+    tags:
+    - Object
+    source: openapi/openspace-openapi.yml#/components/schemas/ExternalCustomFieldNoteComment
+  - term: ExternalCustomFieldNoteCommentAuthor
+    definition: 'Who wrote the comment: an OpenSpace account, or a user of the integration the note is linked to'
+    tags:
+    - Object
+    source: openapi/openspace-openapi.yml#/components/schemas/ExternalCustomFieldNoteCommentAuthor
+  - term: ExternalCustomFieldNoteCommentCount
+    definition: 'Object declared by the contract with fields: count, customFieldNoteId.'
+    tags:
+    - Object
+    source: openapi/openspace-openapi.yml#/components/schemas/ExternalCustomFieldNoteCommentCount
+  - term: ExternalCustomFieldNoteCommentsResponse
+    definition: The comments of a custom field note, newest first
+    tags:
+    - Object
+    source: openapi/openspace-openapi.yml#/components/schemas/ExternalCustomFieldNoteCommentsResponse
+  - term: ExternalCustomFieldNoteFieldValue
+    definition: One stored field of a note
+    tags:
+    - Object
+    source: openapi/openspace-openapi.yml#/components/schemas/ExternalCustomFieldNoteFieldValue
+  - term: ExternalCustomFieldNoteIncludes
+    definition: 'Object declared by the contract with fields: attachments, commentCounts, creators, customFieldNoteTemplateVersions, customFieldNoteTemplates,
+      photos, sheets, zones.'
+    tags:
+    - Object
+    source: openapi/openspace-openapi.yml#/components/schemas/ExternalCustomFieldNoteIncludes
+  - term: ExternalCustomFieldNoteIntegrationType
+    definition: The vendor record type a custom field note mirrors. Null for a site's own templates.
+    tags:
+    - Enumeration
+    source: openapi/openspace-openapi.yml#/components/schemas/ExternalCustomFieldNoteIntegrationType
+  - term: ExternalCustomFieldNotePhoto
+    definition: 'Object declared by the contract with fields: customFieldNoteId, id, primary.'
+    tags:
+    - Object
+    source: openapi/openspace-openapi.yml#/components/schemas/ExternalCustomFieldNotePhoto
+  - term: ExternalCustomFieldNoteSearch
+    definition: Search criteria. Every field is optional; an empty body returns every note the caller may see.
+    tags:
+    - Object
+    source: openapi/openspace-openapi.yml#/components/schemas/ExternalCustomFieldNoteSearch
+  - term: ExternalCustomFieldNoteTemplate
+    definition: 'Object declared by the contract with fields: archived, id, integrationType, name, uniqueKeyPrefix.'
+    tags:
+    - Object
+    source: openapi/openspace-openapi.yml#/components/schemas/ExternalCustomFieldNoteTemplate
+  - term: ExternalCustomFieldNoteTemplateVersion
+    definition: 'Object declared by the contract with fields: id, schema, templateId.'
+    tags:
+    - Object
+    source: openapi/openspace-openapi.yml#/components/schemas/ExternalCustomFieldNoteTemplateVersion
+  - term: ExternalCustomFieldNoteZone
+    definition: A zone whose area contains the note's position; one row per note and zone
+    tags:
+    - Object
+    source: openapi/openspace-openapi.yml#/components/schemas/ExternalCustomFieldNoteZone
+  - term: ExternalCustomFieldNotesSearchResponse
+    definition: 'Object declared by the contract with fields: content, includes, page.'
+    tags:
+    - Object
+    source: openapi/openspace-openapi.yml#/components/schemas/ExternalCustomFieldNotesSearchResponse
+  - term: ExternalExecutiveViewBatch
+    definition: An ExecutiveView capture batch for a site
+    tags:
+    - Object
+    source: openapi/openspace-openapi.yml#/components/schemas/ExternalExecutiveViewBatch
+  - term: ExternalExecutiveViewBatchesGetResponse
+    definition: Paginated list of ExecutiveView capture batches for a site, newest first. Unlike `/progress-tracking/progress-dates`, which lists
+      only realized capture batches, this merges actual and planned batches (see `kind`). The downstream serves the full timeline; `page` describes
+      the requested slice over that result set. Only the requested slice is validated, so a malformed record fails just the pages cont
+    tags:
+    - Object
+    source: openapi/openspace-openapi.yml#/components/schemas/ExternalExecutiveViewBatchesGetResponse
+  - term: ExternalExecutiveViewChartProgressesSearchRequest
+    definition: Request body for ExecutiveView chart progress
+    tags:
+    - Object
+    source: openapi/openspace-openapi.yml#/components/schemas/ExternalExecutiveViewChartProgressesSearchRequest
+  - term: ExternalExecutiveViewChartProgressesSearchResponse
+    definition: ExecutiveView chart progress time series for a site, oldest first
+    tags:
+    - Object
+    source: openapi/openspace-openapi.yml#/components/schemas/ExternalExecutiveViewChartProgressesSearchResponse
+  - term: ExternalExecutiveViewNodeProgress
+    definition: Actual vs planned progress for an ExecutiveView node
+    tags:
+    - Object
+    source: openapi/openspace-openapi.yml#/components/schemas/ExternalExecutiveViewNodeProgress
+  - term: ExternalExecutiveViewProgressPoint
+    definition: Actual vs planned progress recorded for a single capture batch
+    tags:
+    - Object
+    source: openapi/openspace-openapi.yml#/components/schemas/ExternalExecutiveViewProgressPoint
+  - term: ExternalExecutiveViewSubcontractor
+    definition: Subcontractor progress for an ExecutiveView
+    tags:
+    - Object
+    source: openapi/openspace-openapi.yml#/components/schemas/ExternalExecutiveViewSubcontractor
+  - term: ExternalExecutiveViewSubcontractorSchedules
+    definition: Planned schedule for a subcontractor
+    tags:
+    - Object
+    source: openapi/openspace-openapi.yml#/components/schemas/ExternalExecutiveViewSubcontractorSchedules
+  - term: ExternalExecutiveViewSubcontractorsSearchRequest
+    definition: Request body for ExecutiveView subcontractor progress
+    tags:
+    - Object
+    source: openapi/openspace-openapi.yml#/components/schemas/ExternalExecutiveViewSubcontractorsSearchRequest
+  - term: ExternalExecutiveViewSubcontractorsSearchResponse
+    definition: ExecutiveView subcontractor progress for a site
+    tags:
+    - Object
+    source: openapi/openspace-openapi.yml#/components/schemas/ExternalExecutiveViewSubcontractorsSearchResponse
+  - term: ExternalExecutiveViewTask
+    definition: Task progress for an ExecutiveView
+    tags:
+    - Object
+    source: openapi/openspace-openapi.yml#/components/schemas/ExternalExecutiveViewTask
+  - term: ExternalExecutiveViewTaskInfo
+    definition: A task
+    tags:
+    - Object
+    source: openapi/openspace-openapi.yml#/components/schemas/ExternalExecutiveViewTaskInfo
+  - term: ExternalExecutiveViewTaskSchedules
+    definition: Planned schedule for a task
+    tags:
+    - Object
+    source: openapi/openspace-openapi.yml#/components/schemas/ExternalExecutiveViewTaskSchedules
+  - term: ExternalExecutiveViewTasksSearchRequest
+    definition: Request body for ExecutiveView task progress
+    tags:
+    - Object
+    source: openapi/openspace-openapi.yml#/components/schemas/ExternalExecutiveViewTasksSearchRequest
+  - term: ExternalExecutiveViewTasksSearchResponse
+    definition: ExecutiveView task progress for a site
+    tags:
+    - Object
+    source: openapi/openspace-openapi.yml#/components/schemas/ExternalExecutiveViewTasksSearchResponse
+  - term: ExternalExecutiveViewTreeGetResponse
+    definition: ExecutiveView progress tree for a site at a capture batch
+    tags:
+    - Object
+    source: openapi/openspace-openapi.yml#/components/schemas/ExternalExecutiveViewTreeGetResponse
+  - term: ExternalExecutiveViewTreeNode
+    definition: A node in the ExecutiveView progress hierarchy; nests to arbitrary depth via `children`
+    tags:
+    - Object
+    source: openapi/openspace-openapi.yml#/components/schemas/ExternalExecutiveViewTreeNode
+  - term: ExternalFieldNote
+    definition: Field note information
+    tags:
+    - Object
+    source: openapi/openspace-openapi.yml#/components/schemas/ExternalFieldNote
+  - term: ExternalFieldNoteAttachment
+    definition: 'Object declared by the contract with fields: createdAt, creatorId, fieldNoteId, filename, id, mime, size, url.'
+    tags:
+    - Object
+    source: openapi/openspace-openapi.yml#/components/schemas/ExternalFieldNoteAttachment
+  - term: ExternalFieldNoteComment
+    definition: Field note comment
+    tags:
+    - Object
+    source: openapi/openspace-openapi.yml#/components/schemas/ExternalFieldNoteComment
+  - term: ExternalFieldNoteCommentRequest
+    definition: 'Object declared by the contract with fields: comment.'
+    tags:
+    - Object
+    source: openapi/openspace-openapi.yml#/components/schemas/ExternalFieldNoteCommentRequest
+  - term: ExternalFieldNoteCustomField
+    definition: The custom fields applied to this field note
+    tags:
+    - Object
+    source: openapi/openspace-openapi.yml#/components/schemas/ExternalFieldNoteCustomField
+  - term: ExternalFieldNoteGetResponse
+    definition: 'Object declared by the contract with fields: associations, content, includes.'
+    tags:
+    - Object
+    source: openapi/openspace-openapi.yml#/components/schemas/ExternalFieldNoteGetResponse
+  - term: ExternalFieldNoteIncludes
+    definition: 'Object declared by the contract with fields: assignees, attachments, comments, creators, sheets, sites, statuses, tags, watchers,
+      zones.'
+    tags:
+    - Object
+    source: openapi/openspace-openapi.yml#/components/schemas/ExternalFieldNoteIncludes
+  - term: ExternalFieldNoteSearch
+    definition: 'Object declared by the contract with fields: accountIds, assigneeIds, collabGroupAssignedAfter, collabGroupAssignedBefore, collabGroupIds,
+      createdAfter, createdBefore, dueAfter, dueBefore, excludeIds, includeIds, query. (9 more)'
+    tags:
+    - Object
+    source: openapi/openspace-openapi.yml#/components/schemas/ExternalFieldNoteSearch

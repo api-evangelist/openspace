@@ -1,0 +1,47 @@
+{
+  "provider": "openspace",
+  "sources": [
+    "_original/openspace-external-v1-api-original.json",
+    "openspace-openapi.yml"
+  ],
+  "outputs": [
+    "openspace-custom-field-notes-api-openapi.yml",
+    "openspace-field-notes-api-openapi.yml",
+    "openspace-global-config-api-openapi.yml",
+    "openspace-images-api-openapi.yml",
+    "openspace-organizations-api-openapi.yml",
+    "openspace-progress-tracking-api-openapi.yml",
+    "openspace-reports-api-openapi.yml",
+    "openspace-sites-api-openapi.yml",
+    "openspace-webhook-deliveries-api-openapi.yml",
+    "openspace-webhook-headers-api-openapi.yml",
+    "openspace-webhook-rules-api-openapi.yml",
+    "openspace-webhooks-api-openapi.yml",
+    "openspace-external-executive-view-controller-api-openapi.yml"
+  ],
+  "archived": [
+    "archived openapi/openspace-openapi.yml"
+  ],
+  "errors": [],
+  "warnings": [],
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "openspace-external-v1-api-original.json: upgraded openapi 3.0.1 -> OpenAPI 3.2.0",
+    "openspace-openapi.yml: upgraded openapi 3.0.1 -> OpenAPI 3.2.0",
+    "tag 'Custom Field Notes' spans 2 source specs (openspace-external-v1-api-original.json, openspace-openapi.yml): per-path servers applied",
+    "tag 'Field notes' spans 2 source specs (openspace-external-v1-api-original.json, openspace-openapi.yml): per-path servers applied",
+    "tag 'Global config' spans 2 source specs (openspace-external-v1-api-original.json, openspace-openapi.yml): per-path servers applied",
+    "tag 'Images' spans 2 source specs (openspace-external-v1-api-original.json, openspace-openapi.yml): per-path servers applied",
+    "tag 'Organizations' spans 2 source specs (openspace-external-v1-api-original.json, openspace-openapi.yml): per-path servers applied",
+    "tag 'Progress Tracking' spans 2 source specs (openspace-external-v1-api-original.json, openspace-openapi.yml): per-path servers applied",
+    "tag 'Reports' spans 2 source specs (openspace-external-v1-api-original.json, openspace-openapi.yml): per-path servers applied",
+    "tag 'Sites' spans 2 source specs (openspace-external-v1-api-original.json, openspace-openapi.yml): per-path servers applied",
+    "tag 'Webhook Deliveries' spans 2 source specs (openspace-external-v1-api-original.json, openspace-openapi.yml): per-path servers applied",
+    "tag 'Webhook Headers' spans 2 source specs (openspace-external-v1-api-original.json, openspace-openapi.yml): per-path servers applied",
+    "tag 'Webhook Rules' spans 2 source specs (openspace-external-v1-api-original.json, openspace-openapi.yml): per-path servers applied",
+    "tag 'Webhooks' spans 2 source specs (openspace-external-v1-api-original.json, openspace-openapi.yml): per-path servers applied",
+    "tag 'external-executive-view-controller' spans 2 source specs (openspace-external-v1-api-original.json, openspace-openapi.yml): per-path servers applied",
+    "apis.yml register: written (+13 apis, 14 total)"
+  ],
+  "skipped": []
+}

@@ -1,0 +1,298 @@
+generated: '2026-10-20'
+method: derived
+source: the pre-flight dossier, apis.yml pointers, spec servers, well-known, vendors -- nothing fetched here
+generator: derive-hosts.py
+summary:
+  hosts: 26
+  own: 17
+  other_domain: 6
+  platform: 3
+  roles:
+  - api
+  - docs
+  - other
+  - partner
+  - website
+hosts:
+- host: api.autodesk.com
+  found_by:
+  - contract-discovery
+  types: []
+  serves: []
+  registrable_domain: autodesk.com
+  role: api
+  relation: other-domain
+- host: api.instagram.com
+  found_by:
+  - contract-discovery
+  types: []
+  serves: []
+  registrable_domain: instagram.com
+  role: api
+  relation: other-domain
+- host: api.openspace.ai
+  found_by:
+  - contract-discovery
+  types: []
+  serves: []
+  registrable_domain: openspace.ai
+  role: api
+  relation: own
+- host: api.procore.com
+  found_by:
+  - contract-discovery
+  types: []
+  serves: []
+  registrable_domain: procore.com
+  role: api
+  relation: other-domain
+- host: api.us.openspace.ai
+  found_by:
+  - apis[]
+  types: []
+  serves:
+  - api
+  registrable_domain: openspace.ai
+  role: api
+  relation: own
+- host: app.openspace.ai
+  found_by:
+  - pointer
+  - probed
+  - well-known
+  types:
+  - Application
+  serves: []
+  registrable_domain: openspace.ai
+  role: other
+  relation: own
+- host: aus.openspace.ai
+  found_by:
+  - probed
+  - site-links
+  types: []
+  serves: []
+  registrable_domain: openspace.ai
+  role: other
+  relation: own
+- host: can.openspace.ai
+  found_by:
+  - probed
+  - site-links
+  types: []
+  serves: []
+  registrable_domain: openspace.ai
+  role: other
+  relation: own
+- host: construction.autodesk.com
+  found_by:
+  - pointer
+  - probed
+  - well-known
+  types:
+  - AutodeskIntegration
+  serves: []
+  registrable_domain: autodesk.com
+  role: other
+  relation: other-domain
+- host: eu.openspace.ai
+  found_by:
+  - probed
+  - site-links
+  types: []
+  serves: []
+  registrable_domain: openspace.ai
+  role: other
+  relation: own
+- host: jpn.openspace.ai
+  found_by:
+  - probed
+  - site-links
+  types: []
+  serves: []
+  registrable_domain: openspace.ai
+  role: other
+  relation: own
+- host: ksa.openspace.ai
+  found_by:
+  - probed
+  - site-links
+  types: []
+  serves: []
+  registrable_domain: openspace.ai
+  role: other
+  relation: own
+- host: learn.openspace.ai
+  found_by:
+  - pointer
+  - probed
+  - site-links
+  - well-known
+  types:
+  - Academy
+  serves: []
+  registrable_domain: openspace.ai
+  role: other
+  relation: own
+- host: marketplace.procore.com
+  found_by:
+  - pointer
+  - probed
+  - well-known
+  types:
+  - ProcoreIntegration
+  serves: []
+  registrable_domain: procore.com
+  role: other
+  relation: other-domain
+- host: openspace.ai
+  found_by:
+  - probed
+  - site-links
+  types: []
+  serves: []
+  registrable_domain: openspace.ai
+  role: other
+  relation: own
+- host: partners.openspace.ai
+  found_by:
+  - pointer
+  - probed
+  - site-links
+  - namespace-probe
+  types:
+  - Partners
+  serves: []
+  status: 200
+  registrable_domain: openspace.ai
+  role: partner
+  relation: own
+- host: security.openspace.ai
+  found_by:
+  - pointer
+  - probed
+  - site-links
+  - docs-index
+  types:
+  - Compliance
+  serves:
+  - docs
+  registrable_domain: openspace.ai
+  role: other
+  relation: own
+- host: sgp.openspace.ai
+  found_by:
+  - probed
+  - site-links
+  types: []
+  serves: []
+  registrable_domain: openspace.ai
+  role: other
+  relation: own
+- host: store.openspace.ai
+  found_by:
+  - pointer
+  - probed
+  - site-links
+  - well-known
+  types:
+  - Store
+  serves: []
+  platform: shopify.com
+  registrable_domain: openspace.ai
+  role: other
+  relation: own
+- host: support.openspace.ai
+  found_by:
+  - pointer
+  - probed
+  - site-links
+  - docs-index
+  - well-known
+  - vendor-detect
+  types:
+  - GettingStarted
+  - Support
+  - ChangeLog
+  serves:
+  - docs
+  - support
+  vendor: zendesk
+  registrable_domain: openspace.ai
+  role: docs
+  relation: own
+- host: twitter.com
+  found_by:
+  - pointer
+  types:
+  - Twitter
+  serves: []
+  registrable_domain: twitter.com
+  role: other
+  relation: platform
+- host: uk.openspace.ai
+  found_by:
+  - probed
+  - site-links
+  types: []
+  serves: []
+  registrable_domain: openspace.ai
+  role: other
+  relation: own
+- host: www.facebook.com
+  found_by:
+  - pointer
+  types:
+  - Facebook
+  serves: []
+  registrable_domain: facebook.com
+  role: other
+  relation: platform
+- host: www.instagram.com
+  found_by:
+  - pointer
+  - probed
+  - well-known
+  types:
+  - Instagram
+  serves: []
+  registrable_domain: instagram.com
+  role: other
+  relation: other-domain
+- host: www.openspace.ai
+  found_by:
+  - pointer
+  - apis[]
+  - probed
+  - docs-index
+  - contract-discovery
+  - well-known
+  - vendor-detect
+  types:
+  - SignUp
+  - Newsroom
+  - Documentation
+  - Website
+  - Integrations
+  - Blog
+  - Pricing
+  - About
+  - Careers
+  - Contact
+  - PrivacyPolicy
+  serves:
+  - docs
+  - cdn
+  vendor: fastly
+  registrable_domain: openspace.ai
+  role: website
+  relation: own
+- host: www.youtube.com
+  found_by:
+  - pointer
+  types:
+  - YouTube
+  serves: []
+  registrable_domain: youtube.com
+  role: other
+  relation: platform

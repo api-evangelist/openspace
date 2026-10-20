@@ -1,0 +1,275 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/openspace/main/json-schema/openspace-external-spotlight-schema.json",
+  "title": "ExternalSpotlight",
+  "description": "A spotlight: an observation pinned inside a scene",
+  "x-generated": "2026-10-20",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/openspace-openapi.yml#/components/schemas/ExternalSpotlight",
+  "required": [
+    "history",
+    "id",
+    "type"
+  ],
+  "type": "object",
+  "properties": {
+    "comment": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Latest comment text, if set"
+    },
+    "commentAuthor": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Author of the latest comment, if set"
+    },
+    "createdInBatch": {
+      "nullable": true,
+      "allOf": [
+        {
+          "$ref": "#/$defs/ExternalCaptureBatch"
+        }
+      ]
+    },
+    "defaultPriority": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Default priority for the spotlight type, if set"
+    },
+    "deleted": {
+      "type": [
+        "boolean",
+        "null"
+      ],
+      "description": "Whether the spotlight is deleted, if known"
+    },
+    "description": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Free-text description, if set"
+    },
+    "history": {
+      "type": "array",
+      "description": "Comment/update history for the spotlight, oldest first",
+      "items": {
+        "$ref": "#/$defs/ExternalSpotlightHistoryEntry"
+      }
+    },
+    "id": {
+      "type": "string",
+      "description": "The spotlight id"
+    },
+    "mapping": {
+      "nullable": true,
+      "allOf": [
+        {
+          "$ref": "#/$defs/ExternalSpotlightMapping"
+        }
+      ]
+    },
+    "p2Type": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Secondary type classification, if set"
+    },
+    "position": {
+      "nullable": true,
+      "allOf": [
+        {
+          "$ref": "#/$defs/ExternalSpotlightPosition"
+        }
+      ]
+    },
+    "priority": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Priority, as provided by the downstream, if set"
+    },
+    "published": {
+      "type": [
+        "boolean",
+        "null"
+      ],
+      "description": "Whether the spotlight is published, if known"
+    },
+    "resolvedInBatch": {
+      "nullable": true,
+      "allOf": [
+        {
+          "$ref": "#/$defs/ExternalCaptureBatch"
+        }
+      ]
+    },
+    "sequenceNumber": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "description": "Ordering sequence number, if set",
+      "format": "int32"
+    },
+    "status": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Status, as provided by the downstream, if set"
+    },
+    "subcontractor": {
+      "nullable": true,
+      "allOf": [
+        {
+          "$ref": "#/$defs/ExternalSpotlightSubcontractor"
+        }
+      ]
+    },
+    "type": {
+      "type": "string",
+      "description": "The spotlight type, as provided by the downstream"
+    },
+    "userCreated": {
+      "type": [
+        "boolean",
+        "null"
+      ],
+      "description": "Whether the spotlight was created by a user (rather than detected), if known"
+    }
+  },
+  "$defs": {
+    "ExternalCaptureBatch": {
+      "required": [
+        "capturedAt",
+        "id",
+        "weekNumber"
+      ],
+      "type": "object",
+      "properties": {
+        "capturedAt": {
+          "type": "string",
+          "description": "When the batch was captured; an ISO-8601 UTC timestamp",
+          "format": "date-time"
+        },
+        "id": {
+          "type": "string",
+          "description": "The batch id"
+        },
+        "weekNumber": {
+          "type": "integer",
+          "description": "The 1-based week number of the batch, counted from the project start date",
+          "format": "int32"
+        }
+      },
+      "description": "A capture batch"
+    },
+    "ExternalSpotlightHistoryEntry": {
+      "required": [
+        "author",
+        "capturedAt",
+        "id"
+      ],
+      "type": "object",
+      "properties": {
+        "author": {
+          "type": "string",
+          "description": "The entry author"
+        },
+        "body": {
+          "nullable": true,
+          "allOf": [
+            {
+              "$ref": "#/$defs/JsonNode"
+            }
+          ]
+        },
+        "capturedAt": {
+          "type": "string",
+          "description": "When the entry was made; an ISO-8601 UTC timestamp",
+          "format": "date-time"
+        },
+        "id": {
+          "type": "string",
+          "description": "The history entry id"
+        }
+      },
+      "description": "A comment/update in a spotlight's history"
+    },
+    "ExternalSpotlightMapping": {
+      "required": [
+        "componentId",
+        "id",
+        "spaceId"
+      ],
+      "type": "object",
+      "properties": {
+        "componentId": {
+          "type": "string",
+          "description": "The component id"
+        },
+        "id": {
+          "type": "string",
+          "description": "The mapping id"
+        },
+        "spaceId": {
+          "type": "string",
+          "description": "The space id"
+        }
+      },
+      "description": "The space/component mapping a spotlight is attached to"
+    },
+    "ExternalSpotlightPosition": {
+      "required": [
+        "pitch",
+        "yaw"
+      ],
+      "type": "object",
+      "properties": {
+        "pitch": {
+          "type": "number",
+          "description": "Pitch in degrees",
+          "format": "double"
+        },
+        "yaw": {
+          "type": "number",
+          "description": "Yaw (heading) in degrees",
+          "format": "double"
+        }
+      },
+      "description": "A spotlight's position within its scene"
+    },
+    "ExternalSpotlightSubcontractor": {
+      "required": [
+        "id",
+        "name"
+      ],
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "The subcontractor id"
+        },
+        "name": {
+          "type": "string",
+          "description": "The subcontractor name"
+        }
+      },
+      "description": "The subcontractor associated with a spotlight"
+    },
+    "JsonNode": {
+      "type": "object",
+      "description": "JSON Schema (draft 2020-12) with the x-ui-schema, x-external-one-of, x-ui-treatment and x-field-roles extensions. Immutable per version."
+    }
+  }
+}

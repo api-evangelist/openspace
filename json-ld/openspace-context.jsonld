@@ -1,0 +1,1048 @@
+{
+  "@context": {
+    "@vocab": "https://openspace.ai/schema#",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "dcterms": "http://purl.org/dc/terms/",
+    "openspace": "https://openspace.ai/schema#",
+    "Account": "openspace:Account",
+    "agreedToTerms": {
+      "@id": "openspace:agreedToTerms",
+      "@type": "xsd:boolean"
+    },
+    "companyName": {
+      "@id": "openspace:companyName",
+      "@type": "xsd:string"
+    },
+    "companyType": {
+      "@id": "openspace:companyType",
+      "@type": "xsd:string"
+    },
+    "country": {
+      "@id": "openspace:country",
+      "@type": "xsd:string"
+    },
+    "editorOnboarded": {
+      "@id": "openspace:editorOnboarded",
+      "@type": "xsd:boolean"
+    },
+    "email": {
+      "@id": "openspace:email",
+      "@type": "xsd:string"
+    },
+    "fullName": {
+      "@id": "openspace:fullName",
+      "@type": "xsd:string"
+    },
+    "hasPhoto": {
+      "@id": "openspace:hasPhoto",
+      "@type": "xsd:boolean"
+    },
+    "id": {
+      "@id": "openspace:id",
+      "@type": "xsd:string"
+    },
+    "jobTitle": {
+      "@id": "openspace:jobTitle",
+      "@type": "xsd:string"
+    },
+    "language": {
+      "@id": "openspace:language",
+      "@type": "@id"
+    },
+    "lastLoginAt": {
+      "@id": "openspace:lastLoginAt",
+      "@type": "xsd:dateTime"
+    },
+    "photoVersion": {
+      "@id": "openspace:photoVersion",
+      "@type": "xsd:string"
+    },
+    "siteAdminOnboarded": {
+      "@id": "openspace:siteAdminOnboarded",
+      "@type": "xsd:boolean"
+    },
+    "type": {
+      "@id": "openspace:type",
+      "@type": "@id"
+    },
+    "AccountType": "openspace:AccountType",
+    "ActivityAction": "openspace:ActivityAction",
+    "CaptureType": "openspace:CaptureType",
+    "CollabAppPhoneCountry": "openspace:CollabAppPhoneCountry",
+    "CollectionSearchType": "openspace:CollectionSearchType",
+    "CustomFieldNoteValueFilter": "openspace:CustomFieldNoteValueFilter",
+    "and": {
+      "@id": "openspace:and",
+      "@container": "@list"
+    },
+    "operator": {
+      "@id": "openspace:operator",
+      "@type": "@id"
+    },
+    "or": {
+      "@id": "openspace:or",
+      "@container": "@list"
+    },
+    "propertyKey": {
+      "@id": "openspace:propertyKey",
+      "@type": "xsd:string"
+    },
+    "value": {
+      "@id": "openspace:value",
+      "@type": "@id"
+    },
+    "CustomFieldNoteValueFilterCombinator": "openspace:CustomFieldNoteValueFilterCombinator",
+    "CustomFieldNoteValueFilterCondition": "openspace:CustomFieldNoteValueFilterCondition",
+    "CustomFieldNoteValueFilterOperator": "openspace:CustomFieldNoteValueFilterOperator",
+    "DroneCaptureStatus": "openspace:DroneCaptureStatus",
+    "DroneImageType": "openspace:DroneImageType",
+    "ExternalAccount": "openspace:ExternalAccount",
+    "name": {
+      "@id": "openspace:name",
+      "@type": "xsd:string"
+    },
+    "ExternalActivityEntity": "openspace:ExternalActivityEntity",
+    "ExternalActivityLog": "openspace:ExternalActivityLog",
+    "action": {
+      "@id": "openspace:action",
+      "@type": "@id"
+    },
+    "entity": {
+      "@id": "openspace:entity",
+      "@type": "@id"
+    },
+    "entityId": {
+      "@id": "openspace:entityId",
+      "@type": "xsd:string"
+    },
+    "field": {
+      "@id": "openspace:field",
+      "@type": "xsd:string"
+    },
+    "newValue": {
+      "@id": "openspace:newValue",
+      "@type": "xsd:string"
+    },
+    "oldValue": {
+      "@id": "openspace:oldValue",
+      "@type": "xsd:string"
+    },
+    "updatedAt": {
+      "@id": "openspace:updatedAt",
+      "@type": "xsd:dateTime"
+    },
+    "updatedBy": {
+      "@id": "openspace:updatedBy",
+      "@type": "xsd:string"
+    },
+    "ExternalActivityStatModel": "openspace:ExternalActivityStatModel",
+    "count": {
+      "@id": "openspace:count",
+      "@type": "xsd:integer"
+    },
+    "last": {
+      "@id": "openspace:last",
+      "@type": "xsd:dateTime"
+    },
+    "ExternalCapture": "openspace:ExternalCapture",
+    "publishedAt": {
+      "@id": "openspace:publishedAt",
+      "@type": "xsd:dateTime"
+    },
+    "sheetId": {
+      "@id": "openspace:sheetId",
+      "@type": "xsd:string"
+    },
+    "siteId": {
+      "@id": "openspace:siteId",
+      "@type": "xsd:string"
+    },
+    "startedAt": {
+      "@id": "openspace:startedAt",
+      "@type": "xsd:dateTime"
+    },
+    "stoppedAt": {
+      "@id": "openspace:stoppedAt",
+      "@type": "xsd:dateTime"
+    },
+    "ExternalCaptureBatch": "openspace:ExternalCaptureBatch",
+    "capturedAt": {
+      "@id": "openspace:capturedAt",
+      "@type": "xsd:dateTime"
+    },
+    "weekNumber": {
+      "@id": "openspace:weekNumber",
+      "@type": "xsd:integer"
+    },
+    "ExternalCaptureGetIncludes": "openspace:ExternalCaptureGetIncludes",
+    "sheet": {
+      "@id": "openspace:sheet",
+      "@type": "@id"
+    },
+    "site": {
+      "@id": "openspace:site",
+      "@type": "@id"
+    },
+    "ExternalCaptureGetResponse": "openspace:ExternalCaptureGetResponse",
+    "content": {
+      "@id": "openspace:content",
+      "@type": "@id"
+    },
+    "includes": {
+      "@id": "openspace:includes",
+      "@type": "@id"
+    },
+    "ExternalCaptureIncludes": "openspace:ExternalCaptureIncludes",
+    "sheets": {
+      "@id": "openspace:sheets",
+      "@container": "@list"
+    },
+    "ExternalCaptureType": "openspace:ExternalCaptureType",
+    "ExternalCapturesGetResponse": "openspace:ExternalCapturesGetResponse",
+    "page": {
+      "@id": "openspace:page",
+      "@type": "@id"
+    },
+    "ExternalCommentOrigin": "openspace:ExternalCommentOrigin",
+    "ExternalComponentProgress": "openspace:ExternalComponentProgress",
+    "component": {
+      "@id": "openspace:component",
+      "@type": "@id"
+    },
+    "history": {
+      "@id": "openspace:history",
+      "@container": "@list"
+    },
+    "ExternalComponentProgressGetResponse": "openspace:ExternalComponentProgressGetResponse",
+    "ExternalCustomFieldNote": "openspace:ExternalCustomFieldNote",
+    "closed": {
+      "@id": "openspace:closed",
+      "@type": "xsd:boolean"
+    },
+    "createdAt": {
+      "@id": "openspace:createdAt",
+      "@type": "xsd:dateTime"
+    },
+    "creatorId": {
+      "@id": "openspace:creatorId",
+      "@type": "xsd:string"
+    },
+    "fields": {
+      "@id": "openspace:fields"
+    },
+    "integrationType": {
+      "@id": "openspace:integrationType",
+      "@type": "@id"
+    },
+    "labelsResolved": {
+      "@id": "openspace:labelsResolved",
+      "@type": "xsd:boolean"
+    },
+    "sheetPosition": {
+      "@id": "openspace:sheetPosition",
+      "@type": "@id"
+    },
+    "templateId": {
+      "@id": "openspace:templateId",
+      "@type": "xsd:string"
+    },
+    "templateVersionId": {
+      "@id": "openspace:templateVersionId",
+      "@type": "xsd:string"
+    },
+    "title": {
+      "@id": "openspace:title",
+      "@type": "xsd:string"
+    },
+    "uniqueKey": {
+      "@id": "openspace:uniqueKey",
+      "@type": "xsd:string"
+    },
+    "ExternalCustomFieldNoteAttachment": "openspace:ExternalCustomFieldNoteAttachment",
+    "contentType": {
+      "@id": "openspace:contentType",
+      "@type": "xsd:string"
+    },
+    "customFieldNoteId": {
+      "@id": "openspace:customFieldNoteId",
+      "@type": "xsd:string"
+    },
+    "fileName": {
+      "@id": "openspace:fileName",
+      "@type": "xsd:string"
+    },
+    "kind": {
+      "@id": "openspace:kind",
+      "@type": "@id"
+    },
+    "ExternalCustomFieldNoteAttachmentKind": "openspace:ExternalCustomFieldNoteAttachmentKind",
+    "ExternalCustomFieldNoteComment": "openspace:ExternalCustomFieldNoteComment",
+    "author": {
+      "@id": "openspace:author",
+      "@type": "@id"
+    },
+    "comment": {
+      "@id": "openspace:comment",
+      "@type": "xsd:string"
+    },
+    "editedAt": {
+      "@id": "openspace:editedAt",
+      "@type": "xsd:dateTime"
+    },
+    "ExternalCustomFieldNoteCommentAuthor": "openspace:ExternalCustomFieldNoteCommentAuthor",
+    "origin": {
+      "@id": "openspace:origin",
+      "@type": "@id"
+    },
+    "ExternalCustomFieldNoteCommentCount": "openspace:ExternalCustomFieldNoteCommentCount",
+    "ExternalCustomFieldNoteCommentsResponse": "openspace:ExternalCustomFieldNoteCommentsResponse",
+    "lastSynced": {
+      "@id": "openspace:lastSynced",
+      "@type": "xsd:dateTime"
+    },
+    "ExternalCustomFieldNoteFieldValue": "openspace:ExternalCustomFieldNoteFieldValue",
+    "labels": {
+      "@id": "openspace:labels"
+    },
+    "ExternalCustomFieldNoteIncludes": "openspace:ExternalCustomFieldNoteIncludes",
+    "attachments": {
+      "@id": "openspace:attachments",
+      "@container": "@list"
+    },
+    "commentCounts": {
+      "@id": "openspace:commentCounts",
+      "@container": "@list"
+    },
+    "creators": {
+      "@id": "openspace:creators",
+      "@container": "@list"
+    },
+    "customFieldNoteTemplateVersions": {
+      "@id": "openspace:customFieldNoteTemplateVersions",
+      "@container": "@list"
+    },
+    "customFieldNoteTemplates": {
+      "@id": "openspace:customFieldNoteTemplates",
+      "@container": "@list"
+    },
+    "photos": {
+      "@id": "openspace:photos",
+      "@container": "@list"
+    },
+    "zones": {
+      "@id": "openspace:zones",
+      "@container": "@list"
+    },
+    "ExternalCustomFieldNoteIntegrationType": "openspace:ExternalCustomFieldNoteIntegrationType",
+    "ExternalCustomFieldNotePhoto": "openspace:ExternalCustomFieldNotePhoto",
+    "primary": {
+      "@id": "openspace:primary",
+      "@type": "xsd:boolean"
+    },
+    "ExternalCustomFieldNoteSearch": "openspace:ExternalCustomFieldNoteSearch",
+    "collabGroupIds": {
+      "@id": "openspace:collabGroupIds",
+      "@container": "@list"
+    },
+    "createdAfter": {
+      "@id": "openspace:createdAfter",
+      "@type": "xsd:dateTime"
+    },
+    "createdBefore": {
+      "@id": "openspace:createdBefore",
+      "@type": "xsd:dateTime"
+    },
+    "creatorIds": {
+      "@id": "openspace:creatorIds",
+      "@container": "@list"
+    },
+    "includeIds": {
+      "@id": "openspace:includeIds",
+      "@container": "@list"
+    },
+    "query": {
+      "@id": "openspace:query",
+      "@type": "xsd:string"
+    },
+    "sheetIds": {
+      "@id": "openspace:sheetIds",
+      "@container": "@list"
+    },
+    "templateIds": {
+      "@id": "openspace:templateIds",
+      "@container": "@list"
+    },
+    "valueFilterCombinator": {
+      "@id": "openspace:valueFilterCombinator",
+      "@type": "@id"
+    },
+    "valueFilters": {
+      "@id": "openspace:valueFilters",
+      "@container": "@list"
+    },
+    "zoneIds": {
+      "@id": "openspace:zoneIds",
+      "@container": "@list"
+    },
+    "ExternalCustomFieldNoteTemplate": "openspace:ExternalCustomFieldNoteTemplate",
+    "archived": {
+      "@id": "openspace:archived",
+      "@type": "xsd:dateTime"
+    },
+    "uniqueKeyPrefix": {
+      "@id": "openspace:uniqueKeyPrefix",
+      "@type": "xsd:string"
+    },
+    "ExternalCustomFieldNoteTemplateVersion": "openspace:ExternalCustomFieldNoteTemplateVersion",
+    "ExternalCustomFieldNoteZone": "openspace:ExternalCustomFieldNoteZone",
+    "ExternalCustomFieldNotesSearchResponse": "openspace:ExternalCustomFieldNotesSearchResponse",
+    "ExternalExecutiveViewBatch": "openspace:ExternalExecutiveViewBatch",
+    "ExternalExecutiveViewBatchesGetResponse": "openspace:ExternalExecutiveViewBatchesGetResponse",
+    "ExternalExecutiveViewChartProgressesSearchRequest": "openspace:ExternalExecutiveViewChartProgressesSearchRequest",
+    "spaceIds": {
+      "@id": "openspace:spaceIds",
+      "@container": "@list"
+    },
+    "ExternalExecutiveViewChartProgressesSearchResponse": "openspace:ExternalExecutiveViewChartProgressesSearchResponse",
+    "ExternalExecutiveViewNodeProgress": "openspace:ExternalExecutiveViewNodeProgress",
+    "actual": {
+      "@id": "openspace:actual",
+      "@type": "xsd:decimal"
+    },
+    "planned": {
+      "@id": "openspace:planned",
+      "@type": "xsd:decimal"
+    },
+    "status": {
+      "@id": "openspace:status",
+      "@type": "xsd:string"
+    },
+    "ExternalExecutiveViewProgressPoint": "openspace:ExternalExecutiveViewProgressPoint",
+    "batchId": {
+      "@id": "openspace:batchId",
+      "@type": "xsd:string"
+    },
+    "ExternalExecutiveViewSubcontractor": "openspace:ExternalExecutiveViewSubcontractor",
+    "schedules": {
+      "@id": "openspace:schedules",
+      "@type": "@id"
+    },
+    "subcontractor": {
+      "@id": "openspace:subcontractor",
+      "@type": "@id"
+    },
+    "ExternalExecutiveViewSubcontractorSchedules": "openspace:ExternalExecutiveViewSubcontractorSchedules",
+    "endOn": {
+      "@id": "openspace:endOn",
+      "@type": "xsd:string"
+    },
+    "startOn": {
+      "@id": "openspace:startOn",
+      "@type": "xsd:string"
+    },
+    "ExternalExecutiveViewSubcontractorsSearchRequest": "openspace:ExternalExecutiveViewSubcontractorsSearchRequest",
+    "ExternalExecutiveViewSubcontractorsSearchResponse": "openspace:ExternalExecutiveViewSubcontractorsSearchResponse",
+    "ExternalExecutiveViewTask": "openspace:ExternalExecutiveViewTask",
+    "task": {
+      "@id": "openspace:task",
+      "@type": "@id"
+    },
+    "ExternalExecutiveViewTaskInfo": "openspace:ExternalExecutiveViewTaskInfo",
+    "displayIndex": {
+      "@id": "openspace:displayIndex",
+      "@type": "xsd:integer"
+    },
+    "ExternalExecutiveViewTaskSchedules": "openspace:ExternalExecutiveViewTaskSchedules",
+    "ExternalExecutiveViewTasksSearchRequest": "openspace:ExternalExecutiveViewTasksSearchRequest",
+    "subcontractorId": {
+      "@id": "openspace:subcontractorId",
+      "@type": "xsd:string"
+    },
+    "ExternalExecutiveViewTasksSearchResponse": "openspace:ExternalExecutiveViewTasksSearchResponse",
+    "ExternalExecutiveViewTreeGetResponse": "openspace:ExternalExecutiveViewTreeGetResponse",
+    "ExternalExecutiveViewTreeNode": "openspace:ExternalExecutiveViewTreeNode",
+    "children": {
+      "@id": "openspace:children",
+      "@container": "@list"
+    },
+    "leafSpaces": {
+      "@id": "openspace:leafSpaces",
+      "@container": "@list"
+    },
+    "level": {
+      "@id": "openspace:level",
+      "@type": "xsd:string"
+    },
+    "progress": {
+      "@id": "openspace:progress",
+      "@type": "@id"
+    },
+    "spaces": {
+      "@id": "openspace:spaces",
+      "@container": "@list"
+    },
+    "tags": {
+      "@id": "openspace:tags",
+      "@container": "@list"
+    },
+    "ExternalFieldNote": "openspace:ExternalFieldNote",
+    "assigneeId": {
+      "@id": "openspace:assigneeId",
+      "@type": "xsd:string"
+    },
+    "captureId": {
+      "@id": "openspace:captureId",
+      "@type": "xsd:string"
+    },
+    "collabGroupId": {
+      "@id": "openspace:collabGroupId",
+      "@type": "xsd:string"
+    },
+    "collabGroupName": {
+      "@id": "openspace:collabGroupName",
+      "@type": "xsd:string"
+    },
+    "customFields": {
+      "@id": "openspace:customFields",
+      "@container": "@list"
+    },
+    "description": {
+      "@id": "openspace:description",
+      "@type": "xsd:string"
+    },
+    "dueOn": {
+      "@id": "openspace:dueOn",
+      "@type": "xsd:date"
+    },
+    "geoPosition": {
+      "@id": "openspace:geoPosition",
+      "@type": "@id"
+    },
+    "markerOffset": {
+      "@id": "openspace:markerOffset",
+      "@type": "@id"
+    },
+    "masterPosition": {
+      "@id": "openspace:masterPosition",
+      "@type": "@id"
+    },
+    "panoId": {
+      "@id": "openspace:panoId",
+      "@type": "xsd:string"
+    },
+    "positionType": {
+      "@id": "openspace:positionType",
+      "@type": "@id"
+    },
+    "statusId": {
+      "@id": "openspace:statusId",
+      "@type": "xsd:string"
+    },
+    "statusKey": {
+      "@id": "openspace:statusKey",
+      "@type": "xsd:string"
+    },
+    "ExternalFieldNoteAttachment": "openspace:ExternalFieldNoteAttachment",
+    "fieldNoteId": {
+      "@id": "openspace:fieldNoteId",
+      "@type": "xsd:string"
+    },
+    "filename": {
+      "@id": "openspace:filename",
+      "@type": "xsd:string"
+    },
+    "mime": {
+      "@id": "openspace:mime",
+      "@type": "xsd:string"
+    },
+    "size": {
+      "@id": "openspace:size",
+      "@type": "xsd:integer"
+    },
+    "url": {
+      "@id": "openspace:url",
+      "@type": "xsd:string"
+    },
+    "ExternalFieldNoteComment": "openspace:ExternalFieldNoteComment",
+    "authorId": {
+      "@id": "openspace:authorId",
+      "@type": "xsd:string"
+    },
+    "ExternalFieldNoteCommentRequest": "openspace:ExternalFieldNoteCommentRequest",
+    "ExternalFieldNoteCustomField": "openspace:ExternalFieldNoteCustomField",
+    "fieldType": {
+      "@id": "openspace:fieldType",
+      "@type": "xsd:string"
+    },
+    "required": {
+      "@id": "openspace:required",
+      "@type": "xsd:boolean"
+    },
+    "ExternalFieldNoteGetResponse": "openspace:ExternalFieldNoteGetResponse",
+    "associations": {
+      "@id": "openspace:associations",
+      "@type": "@id"
+    },
+    "ExternalFieldNoteIncludes": "openspace:ExternalFieldNoteIncludes",
+    "assignees": {
+      "@id": "openspace:assignees",
+      "@container": "@list"
+    },
+    "comments": {
+      "@id": "openspace:comments",
+      "@container": "@list"
+    },
+    "sites": {
+      "@id": "openspace:sites",
+      "@container": "@list"
+    },
+    "statuses": {
+      "@id": "openspace:statuses",
+      "@container": "@list"
+    },
+    "watchers": {
+      "@id": "openspace:watchers",
+      "@container": "@list"
+    },
+    "ExternalFieldNoteSearch": "openspace:ExternalFieldNoteSearch",
+    "accountIds": {
+      "@id": "openspace:accountIds",
+      "@container": "@list"
+    },
+    "assigneeIds": {
+      "@id": "openspace:assigneeIds",
+      "@container": "@list"
+    },
+    "collabGroupAssignedAfter": {
+      "@id": "openspace:collabGroupAssignedAfter",
+      "@type": "xsd:date"
+    },
+    "collabGroupAssignedBefore": {
+      "@id": "openspace:collabGroupAssignedBefore",
+      "@type": "xsd:date"
+    },
+    "dueAfter": {
+      "@id": "openspace:dueAfter",
+      "@type": "xsd:date"
+    },
+    "dueBefore": {
+      "@id": "openspace:dueBefore",
+      "@type": "xsd:date"
+    },
+    "excludeIds": {
+      "@id": "openspace:excludeIds",
+      "@container": "@list"
+    },
+    "showClosed": {
+      "@id": "openspace:showClosed",
+      "@type": "xsd:boolean"
+    },
+    "showNoStatus": {
+      "@id": "openspace:showNoStatus",
+      "@type": "xsd:boolean"
+    },
+    "showOnlyClosed": {
+      "@id": "openspace:showOnlyClosed",
+      "@type": "xsd:boolean"
+    },
+    "showUnassigned": {
+      "@id": "openspace:showUnassigned",
+      "@type": "xsd:boolean"
+    },
+    "statusIds": {
+      "@id": "openspace:statusIds",
+      "@container": "@list"
+    },
+    "watcherIds": {
+      "@id": "openspace:watcherIds",
+      "@container": "@list"
+    },
+    "watchersFilter": {
+      "@id": "openspace:watchersFilter",
+      "@type": "@id"
+    },
+    "ExternalFieldNoteStatus": "openspace:ExternalFieldNoteStatus",
+    "color": {
+      "@id": "openspace:color",
+      "@type": "xsd:string"
+    },
+    "localizedTitle": {
+      "@id": "openspace:localizedTitle",
+      "@type": "xsd:string"
+    },
+    "readOnly": {
+      "@id": "openspace:readOnly",
+      "@type": "xsd:boolean"
+    },
+    "ExternalFieldNoteStatusesGetResponse": "openspace:ExternalFieldNoteStatusesGetResponse",
+    "ExternalFieldNoteTag": "openspace:ExternalFieldNoteTag",
+    "label": {
+      "@id": "openspace:label",
+      "@type": "xsd:string"
+    },
+    "ExternalFieldNoteZone": "openspace:ExternalFieldNoteZone",
+    "geometry": {
+      "@id": "openspace:geometry"
+    },
+    "ExternalFieldNotesGetResponse": "openspace:ExternalFieldNotesGetResponse",
+    "ExternalFloorplan": "openspace:ExternalFloorplan",
+    "floorHeightMm": {
+      "@id": "openspace:floorHeightMm",
+      "@type": "xsd:decimal"
+    },
+    "height": {
+      "@id": "openspace:height",
+      "@type": "xsd:decimal"
+    },
+    "originX": {
+      "@id": "openspace:originX",
+      "@type": "xsd:decimal"
+    },
+    "originY": {
+      "@id": "openspace:originY",
+      "@type": "xsd:decimal"
+    },
+    "scaleFactorMm": {
+      "@id": "openspace:scaleFactorMm",
+      "@type": "xsd:decimal"
+    },
+    "sequences": {
+      "@id": "openspace:sequences",
+      "@container": "@list"
+    },
+    "space": {
+      "@id": "openspace:space",
+      "@type": "@id"
+    },
+    "trueNorthAngleDeg": {
+      "@id": "openspace:trueNorthAngleDeg",
+      "@type": "xsd:decimal"
+    },
+    "width": {
+      "@id": "openspace:width",
+      "@type": "xsd:decimal"
+    },
+    "ExternalFloorplanSequence": "openspace:ExternalFloorplanSequence",
+    "scanLevel": {
+      "@id": "openspace:scanLevel",
+      "@type": "xsd:string"
+    },
+    "sequencePrefix": {
+      "@id": "openspace:sequencePrefix",
+      "@type": "xsd:string"
+    },
+    "ExternalFloorplanSpace": "openspace:ExternalFloorplanSpace",
+    "ExternalFloorplansGetResponse": "openspace:ExternalFloorplansGetResponse",
+    "ExternalGlobalConfig": "openspace:ExternalGlobalConfig",
+    "allowedCollabAppPhoneNumberCountries": {
+      "@id": "openspace:allowedCollabAppPhoneNumberCountries",
+      "@container": "@list"
+    },
+    "ExternalGlobalConfigResponse": "openspace:ExternalGlobalConfigResponse",
+    "ExternalImageSize": "openspace:ExternalImageSize",
+    "ExternalOrganization": "openspace:ExternalOrganization",
+    "ExternalOrganizationsGetResponse": "openspace:ExternalOrganizationsGetResponse",
+    "ExternalPano": "openspace:ExternalPano",
+    "frameNumber": {
+      "@id": "openspace:frameNumber",
+      "@type": "xsd:integer"
+    },
+    "projectPose": {
+      "@id": "openspace:projectPose",
+      "@type": "@id"
+    },
+    "sharpnessScore": {
+      "@id": "openspace:sharpnessScore",
+      "@type": "xsd:decimal"
+    },
+    "sheetPose": {
+      "@id": "openspace:sheetPose",
+      "@type": "@id"
+    },
+    "ExternalPanoIncludes": "openspace:ExternalPanoIncludes",
+    "capture": {
+      "@id": "openspace:capture",
+      "@type": "@id"
+    },
+    "organization": {
+      "@id": "openspace:organization",
+      "@type": "@id"
+    },
+    "ExternalPanosGetResponse": "openspace:ExternalPanosGetResponse",
+    "ExternalPhase": "openspace:ExternalPhase",
+    "ExternalPhasesGetResponse": "openspace:ExternalPhasesGetResponse",
+    "ExternalProgressComponent": "openspace:ExternalProgressComponent",
+    "ExternalProgressDate": "openspace:ExternalProgressDate",
+    "ExternalProgressDatesGetResponse": "openspace:ExternalProgressDatesGetResponse",
+    "ExternalProgressHistoryEntry": "openspace:ExternalProgressHistoryEntry",
+    "batchWeek": {
+      "@id": "openspace:batchWeek",
+      "@type": "xsd:integer"
+    },
+    "ExternalProgressSubcontractor": "openspace:ExternalProgressSubcontractor",
+    "ExternalProgressTask": "openspace:ExternalProgressTask",
+    "ExternalProjectPose": "openspace:ExternalProjectPose",
+    "orientation": {
+      "@id": "openspace:orientation",
+      "@type": "@id"
+    },
+    "position": {
+      "@id": "openspace:position",
+      "@type": "@id"
+    },
+    "ExternalScene": "openspace:ExternalScene",
+    "aliasIds": {
+      "@id": "openspace:aliasIds",
+      "@container": "@list"
+    },
+    "xMm": {
+      "@id": "openspace:xMm",
+      "@type": "xsd:decimal"
+    },
+    "yMm": {
+      "@id": "openspace:yMm",
+      "@type": "xsd:decimal"
+    },
+    "zOffsetMm": {
+      "@id": "openspace:zOffsetMm",
+      "@type": "xsd:decimal"
+    },
+    "ExternalScenesGetResponse": "openspace:ExternalScenesGetResponse",
+    "ExternalSheet": "openspace:ExternalSheet",
+    "displayOrder": {
+      "@id": "openspace:displayOrder",
+      "@type": "xsd:integer"
+    },
+    "estimate": {
+      "@id": "openspace:estimate",
+      "@type": "@id"
+    },
+    "imageId": {
+      "@id": "openspace:imageId",
+      "@type": "xsd:string"
+    },
+    "registration": {
+      "@id": "openspace:registration",
+      "@type": "@id"
+    },
+    "sheetStats": {
+      "@id": "openspace:sheetStats",
+      "@type": "@id"
+    },
+    "sizeRegistration": {
+      "@id": "openspace:sizeRegistration",
+      "@type": "@id"
+    },
+    "ExternalSheetIncludes": "openspace:ExternalSheetIncludes",
+    "ExternalSheetPose": "openspace:ExternalSheetPose",
+    "ExternalSheetStatsModel": "openspace:ExternalSheetStatsModel",
+    "fieldNotes": {
+      "@id": "openspace:fieldNotes",
+      "@type": "@id"
+    },
+    "lastCaptureDate": {
+      "@id": "openspace:lastCaptureDate",
+      "@type": "xsd:dateTime"
+    },
+    "lidarCaptures": {
+      "@id": "openspace:lidarCaptures",
+      "@type": "@id"
+    },
+    "photoCaptures": {
+      "@id": "openspace:photoCaptures",
+      "@type": "@id"
+    },
+    "videoCaptures": {
+      "@id": "openspace:videoCaptures",
+      "@type": "@id"
+    },
+    "ExternalSheetsGetResponse": "openspace:ExternalSheetsGetResponse",
+    "ExternalShot": "openspace:ExternalShot",
+    "batch": {
+      "@id": "openspace:batch",
+      "@type": "@id"
+    },
+    "yaw": {
+      "@id": "openspace:yaw",
+      "@type": "xsd:decimal"
+    },
+    "ExternalShotsGetResponse": "openspace:ExternalShotsGetResponse",
+    "ExternalSignedUrl": "openspace:ExternalSignedUrl",
+    "ExternalSite": "openspace:ExternalSite",
+    "active": {
+      "@id": "openspace:active",
+      "@type": "xsd:boolean"
+    },
+    "address": {
+      "@id": "openspace:address",
+      "@type": "xsd:string"
+    },
+    "area": {
+      "@id": "openspace:area",
+      "@type": "xsd:decimal"
+    },
+    "areaUnitOfMeasure": {
+      "@id": "openspace:areaUnitOfMeasure",
+      "@type": "xsd:string"
+    },
+    "organizationId": {
+      "@id": "openspace:organizationId",
+      "@type": "xsd:string"
+    },
+    "projectKey": {
+      "@id": "openspace:projectKey",
+      "@type": "xsd:string"
+    },
+    "registrationType": {
+      "@id": "openspace:registrationType",
+      "@type": "@id"
+    },
+    "timeZone": {
+      "@id": "openspace:timeZone",
+      "@type": "xsd:string"
+    },
+    "ExternalSiteGetResponse": "openspace:ExternalSiteGetResponse",
+    "ExternalSiteIncludes": "openspace:ExternalSiteIncludes",
+    "accounts": {
+      "@id": "openspace:accounts",
+      "@container": "@list"
+    },
+    "eligibleFieldNoteWatcherIds": {
+      "@id": "openspace:eligibleFieldNoteWatcherIds",
+      "@container": "@list"
+    },
+    "ExternalSitesGetResponse": "openspace:ExternalSitesGetResponse",
+    "ExternalSpace": "openspace:ExternalSpace",
+    "bim": {
+      "@id": "openspace:bim"
+    },
+    "bimModels": {
+      "@id": "openspace:bimModels",
+      "@container": "@list"
+    },
+    "category": {
+      "@id": "openspace:category",
+      "@type": "xsd:string"
+    },
+    "parentId": {
+      "@id": "openspace:parentId",
+      "@type": "xsd:string"
+    },
+    "parentName": {
+      "@id": "openspace:parentName",
+      "@type": "xsd:string"
+    },
+    "ExternalSpaceBim": "openspace:ExternalSpaceBim",
+    "floorIds": {
+      "@id": "openspace:floorIds",
+      "@container": "@list"
+    },
+    "floorModels": {
+      "@id": "openspace:floorModels",
+      "@container": "@list"
+    },
+    "originXMm": {
+      "@id": "openspace:originXMm",
+      "@type": "xsd:decimal"
+    },
+    "originYMm": {
+      "@id": "openspace:originYMm",
+      "@type": "xsd:decimal"
+    },
+    "originZMm": {
+      "@id": "openspace:originZMm",
+      "@type": "xsd:decimal"
+    },
+    "projectId": {
+      "@id": "openspace:projectId",
+      "@type": "xsd:string"
+    },
+    "ExternalSpaceBimModel": "openspace:ExternalSpaceBimModel",
+    "bimModelId": {
+      "@id": "openspace:bimModelId",
+      "@type": "xsd:string"
+    },
+    "isCommon": {
+      "@id": "openspace:isCommon",
+      "@type": "xsd:boolean"
+    },
+    "ExternalSpaceFloorModel": "openspace:ExternalSpaceFloorModel",
+    "bimFloorId": {
+      "@id": "openspace:bimFloorId",
+      "@type": "xsd:string"
+    },
+    "ExternalSpacesGetResponse": "openspace:ExternalSpacesGetResponse",
+    "ExternalSpotlight": "openspace:ExternalSpotlight",
+    "commentAuthor": {
+      "@id": "openspace:commentAuthor",
+      "@type": "xsd:string"
+    },
+    "createdInBatch": {
+      "@id": "openspace:createdInBatch"
+    },
+    "defaultPriority": {
+      "@id": "openspace:defaultPriority",
+      "@type": "xsd:string"
+    },
+    "deleted": {
+      "@id": "openspace:deleted",
+      "@type": "xsd:boolean"
+    },
+    "mapping": {
+      "@id": "openspace:mapping"
+    },
+    "p2Type": {
+      "@id": "openspace:p2Type",
+      "@type": "xsd:string"
+    },
+    "priority": {
+      "@id": "openspace:priority",
+      "@type": "xsd:string"
+    },
+    "published": {
+      "@id": "openspace:published",
+      "@type": "xsd:boolean"
+    },
+    "resolvedInBatch": {
+      "@id": "openspace:resolvedInBatch"
+    },
+    "sequenceNumber": {
+      "@id": "openspace:sequenceNumber",
+      "@type": "xsd:integer"
+    },
+    "userCreated": {
+      "@id": "openspace:userCreated",
+      "@type": "xsd:boolean"
+    },
+    "ExternalSpotlightHistoryEntry": "openspace:ExternalSpotlightHistoryEntry",
+    "body": {
+      "@id": "openspace:body"
+    },
+    "ExternalSpotlightMapping": "openspace:ExternalSpotlightMapping",
+    "componentId": {
+      "@id": "openspace:componentId",
+      "@type": "xsd:string"
+    },
+    "spaceId": {
+      "@id": "openspace:spaceId",
+      "@type": "xsd:string"
+    },
+    "ExternalSpotlightPosition": "openspace:ExternalSpotlightPosition",
+    "pitch": {
+      "@id": "openspace:pitch",
+      "@type": "xsd:decimal"
+    },
+    "ExternalSpotlightSubcontractor": "openspace:ExternalSpotlightSubcontractor",
+    "ExternalSpotlightsGetResponse": "openspace:ExternalSpotlightsGetResponse",
+    "ExternalSubcontractorProgress": "openspace:ExternalSubcontractorProgress",
+    "ExternalSubcontractorProgressGetResponse": "openspace:ExternalSubcontractorProgressGetResponse"
+  },
+  "@type": "schema:Dataset",
+  "schema:name": "OpenSpace API JSON-LD context",
+  "schema:description": "A JSON-LD @context for the objects OpenSpace's own API contract declares: one class per component schema, one property per declared field, typed from the contract. Derived by script (derive-json-ld.py, 2026-10-20) from openapi/openspace-openapi.yml.",
+  "dcterms:created": "2026-10-20",
+  "dcterms:source": [
+    "openapi/openspace-openapi.yml"
+  ]
+}

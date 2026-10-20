@@ -1,0 +1,185 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/openspace/main/json-schema/openspace-external-custom-field-note-search-schema.json",
+  "title": "ExternalCustomFieldNoteSearch",
+  "description": "Search criteria. Every field is optional; an empty body returns every note the caller may see.",
+  "x-generated": "2026-10-20",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/openspace-openapi.yml#/components/schemas/ExternalCustomFieldNoteSearch",
+  "type": "object",
+  "properties": {
+    "closed": {
+      "type": "boolean",
+      "description": "Omitted: open and closed notes. true: closed only. false: open only."
+    },
+    "collabGroupIds": {
+      "uniqueItems": true,
+      "type": "array",
+      "description": "Filter by crew. Worklist callers: intersected with the caller's own crews, empty means all of them. API keys: a plain filter, and an empty list matches nothing.",
+      "items": {
+        "pattern": "[0-9A-Za-z_-]{22}",
+        "type": "string"
+      }
+    },
+    "createdAfter": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "createdBefore": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "creatorIds": {
+      "uniqueItems": true,
+      "type": "array",
+      "description": "Notes created by these accounts",
+      "items": {
+        "pattern": "[0-9A-Za-z_-]{22}",
+        "type": "string"
+      }
+    },
+    "includeIds": {
+      "uniqueItems": true,
+      "type": "array",
+      "description": "Only these notes, e.g. a batch fetch after a webhook or a single note for a detail view",
+      "items": {
+        "pattern": "[0-9A-Za-z_-]{22}",
+        "type": "string"
+      }
+    },
+    "integrationType": {
+      "$ref": "#/$defs/ExternalCustomFieldNoteIntegrationType"
+    },
+    "query": {
+      "type": "string",
+      "description": "Free text over title, sheet name, creator email and display key"
+    },
+    "sheetIds": {
+      "uniqueItems": true,
+      "type": "array",
+      "description": "Notes placed on these sheets",
+      "items": {
+        "pattern": "[0-9A-Za-z_-]{22}",
+        "type": "string"
+      }
+    },
+    "templateIds": {
+      "uniqueItems": true,
+      "type": "array",
+      "description": "Notes whose template version belongs to one of these templates",
+      "items": {
+        "pattern": "[0-9A-Za-z_-]{22}",
+        "type": "string"
+      }
+    },
+    "valueFilterCombinator": {
+      "$ref": "#/$defs/CustomFieldNoteValueFilterCombinator"
+    },
+    "valueFilters": {
+      "type": "array",
+      "description": "Filters on template properties marked x-filterable; requires templateIds or integrationType. A filter is {propertyKey, operator, value} or {propertyKey, or|and: [{operator, value}]}. Operators by property type: strings eq, neq, in, notIn, contains, notContains; enums eq, neq, in, notIn; numbers and dates eq, neq, gte, lte, between (two inclusive bounds); booleans eq, neq; arrays eq, neq, contains, notContains, containsAny, notContainsAny, containsAll, notContainsAll; vendor references also refContains, refNotContains on the referenced record's name; every type isNull, isNotNull. A 400 lists the allowed operators when one does not fit.",
+      "items": {
+        "$ref": "#/$defs/CustomFieldNoteValueFilter"
+      }
+    },
+    "zoneIds": {
+      "uniqueItems": true,
+      "type": "array",
+      "description": "Notes whose position lies inside one of these zones",
+      "items": {
+        "pattern": "[0-9A-Za-z_-]{22}",
+        "type": "string"
+      }
+    }
+  },
+  "$defs": {
+    "CustomFieldNoteValueFilter": {
+      "required": [
+        "propertyKey"
+      ],
+      "type": "object",
+      "properties": {
+        "and": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/CustomFieldNoteValueFilterCondition"
+          }
+        },
+        "operator": {
+          "$ref": "#/$defs/CustomFieldNoteValueFilterOperator"
+        },
+        "or": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/CustomFieldNoteValueFilterCondition"
+          }
+        },
+        "propertyKey": {
+          "type": "string"
+        },
+        "value": {
+          "$ref": "#/$defs/JsonNode"
+        }
+      },
+      "description": "Filters on template properties marked x-filterable; requires templateIds or integrationType. A filter is {propertyKey, operator, value} or {propertyKey, or|and: [{operator, value}]}. Operators by property type: strings eq, neq, in, notIn, contains, notContains; enums eq, neq, in, notIn; numbers and dates eq, neq, gte, lte, between (two inclusive bounds); booleans eq, neq; arrays eq, neq, contains, notContains, containsAny, notContainsAny, containsAll, notContainsAll; vendor references also refContains, refNotContains on the referenced record's name; every type isNull, isNotNull. A 400 lists the allowed operators when one does not fit."
+    },
+    "CustomFieldNoteValueFilterCombinator": {
+      "type": "string",
+      "description": "How valueFilters combine: and (default) or or",
+      "enum": [
+        "and",
+        "or"
+      ]
+    },
+    "CustomFieldNoteValueFilterCondition": {
+      "required": [
+        "operator"
+      ],
+      "type": "object",
+      "properties": {
+        "operator": {
+          "$ref": "#/$defs/CustomFieldNoteValueFilterOperator"
+        },
+        "value": {
+          "$ref": "#/$defs/JsonNode"
+        }
+      }
+    },
+    "CustomFieldNoteValueFilterOperator": {
+      "type": "string",
+      "enum": [
+        "eq",
+        "neq",
+        "in",
+        "notIn",
+        "contains",
+        "notContains",
+        "containsAny",
+        "notContainsAny",
+        "containsAll",
+        "notContainsAll",
+        "refContains",
+        "refNotContains",
+        "gte",
+        "lte",
+        "between",
+        "isNull",
+        "isNotNull"
+      ]
+    },
+    "ExternalCustomFieldNoteIntegrationType": {
+      "type": "string",
+      "description": "The vendor record type a custom field note mirrors. Null for a site's own templates.",
+      "enum": [
+        "accIssue",
+        "procoreObservation",
+        "procorePunchItem"
+      ]
+    },
+    "JsonNode": {
+      "type": "object",
+      "description": "JSON Schema (draft 2020-12) with the x-ui-schema, x-external-one-of, x-ui-treatment and x-field-roles extensions. Immutable per version."
+    }
+  }
+}

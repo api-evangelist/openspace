@@ -1,0 +1,2978 @@
+openapi: 3.2.0
+info:
+  title: Openspace Reports API
+  version: v3.0
+  description: 'Operations tagged Reports across 2 of this provider''s published API definitions: openspace-external-v1-api-original.json, openspace-openapi.yml. Each path carries the servers of the definition it was published in.'
+servers:
+- url: /
+  description: OpenSpace API root
+- url: https://api.us.openspace.ai
+  description: OpenSpace API (US region; served at /v3/api-docs/external-v1-api)
+tags:
+- description: Reporting APIs
+  name: Reports
+paths:
+  /api/external/v1/reports/360-videos:
+    get:
+      operationId: getReporting360Videos
+      parameters:
+      - description: Video started after
+        example: '2020-01-01T12:00:00Z'
+        in: query
+        name: videoStartedAfter
+        required: false
+        schema:
+          type: string
+          format: date-time
+      - description: Organization ids to select
+        in: query
+        name: orgs
+        required: false
+        schema:
+          type: array
+          items:
+            pattern: '[0-9A-Za-z_-]{22}'
+            type: string
+      - description: Zero-based page index (0..N)
+        in: query
+        name: page
+        required: false
+        schema:
+          minimum: 0
+          type: integer
+          default: 0
+      - description: The size of the page to be returned
+        in: query
+        name: size
+        required: false
+        schema:
+          minimum: 1
+          type: integer
+          default: 10
+      - description: 'Sorting criteria in the format: property,(asc|desc). Default sort order is ascending. Multiple sort criteria are supported.'
+        in: query
+        name: sort
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - videoStart
+            - videoStart,ASC
+            - videoStart,DESC
+            - orgName
+            - orgName,ASC
+            - orgName,DESC
+            - siteName
+            - siteName,ASC
+            - siteName,DESC
+            - sheetName
+            - sheetName,ASC
+            - sheetName,DESC
+            - sheetCreated
+            - sheetCreated,ASC
+            - sheetCreated,DESC
+            - sheetDisplayOrder
+            - sheetDisplayOrder,ASC
+            - sheetDisplayOrder,DESC
+            - orgCreated
+            - orgCreated,ASC
+            - orgCreated,DESC
+            - orgUpdated
+            - orgUpdated,ASC
+            - orgUpdated,DESC
+            - siteCreated
+            - siteCreated,ASC
+            - siteCreated,DESC
+          default:
+          - videoStart,DESC
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Reporting360VideoPageResponse'
+          description: OK
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '403':
+          content:
+            application/json:
+              schema:
+                required:
+                - error
+                - message
+                - redemptionEndpoint
+                - status
+                type: object
+                properties:
+                  email:
+                    type:
+                    - string
+                    - 'null'
+                    description: Email of the one account the phone is bound to but its owner has not yet claimed; absent for a phone-only invitee or when several accounts hold the phone
+                    example: worker@example.com
+                  error:
+                    type: string
+                    description: Error code identifying the specific error type
+                    example: email_capture_required
+                  fullName:
+                    type:
+                    - string
+                    - 'null'
+                    description: Optional full name from invitation
+                    example: James Bond
+                  message:
+                    type: string
+                    description: Human-readable error message
+                    example: Please complete registration by providing your email address
+                  redemptionEndpoint:
+                    type: string
+                    description: Endpoint to complete email capture and finish registration
+                    example: /api/external/v1/auth/redeem-phone-invitation
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    format: int32
+                    example: 403
+          description: 'Forbidden: Partial authentication - email capture required'
+        '429':
+          content:
+            application/problem+json:
+              schema:
+                type: object
+                properties:
+                  detail:
+                    type: string
+                  instance:
+                    type: string
+                    format: uri
+                  status:
+                    type: integer
+                    format: int32
+                    example: 429
+                  title:
+                    type: string
+                  type:
+                    type: string
+                    format: uri
+          description: Rate limit exceeded. Honor the `Retry-After` header before retrying.
+          headers:
+            RateLimit:
+              description: 'Current status for whichever policy is closest to exhaustion. Format: `"<policy>";r=<available>;t=<window-sec>;os-cost=<tokens-consumed>`'
+              schema:
+                type: string
+            RateLimit-Policy:
+              description: 'Active rate-limit policies. Format: `"<policy>";q=<quota>;w=<window-sec>, ...`'
+              schema:
+                type: string
+            Retry-After:
+              description: Seconds to wait before retrying. Always >= 1.
+              schema:
+                type: string
+      security:
+      - api-key: []
+      summary: Get all accessible 360 videos
+      tags:
+      - Reports
+    servers:
+    - url: /
+      description: OpenSpace API root
+  /api/external/v1/reports/drone-images:
+    get:
+      operationId: getReportingDroneImages
+      parameters:
+      - description: Drone capture created after
+        example: '2020-01-01T12:00:00Z'
+        in: query
+        name: droneCaptureCreatedAfter
+        required: false
+        schema:
+          type: string
+          format: date-time
+      - description: Organization ids to select
+        in: query
+        name: orgs
+        required: false
+        schema:
+          type: array
+          items:
+            pattern: '[0-9A-Za-z_-]{22}'
+            type: string
+      - description: Zero-based page index (0..N)
+        in: query
+        name: page
+        required: false
+        schema:
+          minimum: 0
+          type: integer
+          default: 0
+      - description: The size of the page to be returned
+        in: query
+        name: size
+        required: false
+        schema:
+          minimum: 1
+          type: integer
+          default: 10
+      - description: 'Sorting criteria in the format: property,(asc|desc). Default sort order is ascending. Multiple sort criteria are supported.'
+        in: query
+        name: sort
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - droneCaptureCreated
+            - droneCaptureCreated,ASC
+            - droneCaptureCreated,DESC
+            - droneImageCreated
+            - droneImageCreated,ASC
+            - droneImageCreated,DESC
+            - orgName
+            - orgName,ASC
+            - orgName,DESC
+            - siteName
+            - siteName,ASC
+            - siteName,DESC
+            - orgCreated
+            - orgCreated,ASC
+            - orgCreated,DESC
+            - orgUpdated
+            - orgUpdated,ASC
+            - orgUpdated,DESC
+            - siteCreated
+            - siteCreated,ASC
+            - siteCreated,DESC
+          default:
+          - droneCaptureCreated,DESC
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReportingDroneImagePageResponse'
+          description: OK
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '403':
+          content:
+            application/json:
+              schema:
+                required:
+                - error
+                - message
+                - redemptionEndpoint
+                - status
+                type: object
+                properties:
+                  email:
+                    type:
+                    - string
+                    - 'null'
+                    description: Email of the one account the phone is bound to but its owner has not yet claimed; absent for a phone-only invitee or when several accounts hold the phone
+                    example: worker@example.com
+                  error:
+                    type: string
+                    description: Error code identifying the specific error type
+                    example: email_capture_required
+                  fullName:
+                    type:
+                    - string
+                    - 'null'
+                    description: Optional full name from invitation
+                    example: James Bond
+                  message:
+                    type: string
+                    description: Human-readable error message
+                    example: Please complete registration by providing your email address
+                  redemptionEndpoint:
+                    type: string
+                    description: Endpoint to complete email capture and finish registration
+                    example: /api/external/v1/auth/redeem-phone-invitation
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    format: int32
+                    example: 403
+          description: 'Forbidden: Partial authentication - email capture required'
+        '429':
+          content:
+            application/problem+json:
+              schema:
+                type: object
+                properties:
+                  detail:
+                    type: string
+                  instance:
+                    type: string
+                    format: uri
+                  status:
+                    type: integer
+                    format: int32
+                    example: 429
+                  title:
+                    type: string
+                  type:
+                    type: string
+                    format: uri
+          description: Rate limit exceeded. Honor the `Retry-After` header before retrying.
+          headers:
+            RateLimit:
+              description: 'Current status for whichever policy is closest to exhaustion. Format: `"<policy>";r=<available>;t=<window-sec>;os-cost=<tokens-consumed>`'
+              schema:
+                type: string
+            RateLimit-Policy:
+              description: 'Active rate-limit policies. Format: `"<policy>";q=<quota>;w=<window-sec>, ...`'
+              schema:
+                type: string
+            Retry-After:
+              description: Seconds to wait before retrying. Always >= 1.
+              schema:
+                type: string
+      security:
+      - api-key: []
+      summary: Get all accessible drone images
+      tags:
+      - Reports
+    servers:
+    - url: /
+      description: OpenSpace API root
+  /api/external/v1/reports/field-notes:
+    get:
+      operationId: getReportingFieldNotes
+      parameters:
+      - description: Field note updated after
+        example: '2020-01-01T12:00:00Z'
+        in: query
+        name: fieldNoteUpdatedAfter
+        required: false
+        schema:
+          type: string
+          format: date-time
+      - description: Organization ids to select
+        in: query
+        name: orgs
+        required: false
+        schema:
+          type: array
+          items:
+            pattern: '[0-9A-Za-z_-]{22}'
+            type: string
+      - description: Zero-based page index (0..N)
+        in: query
+        name: page
+        required: false
+        schema:
+          minimum: 0
+          type: integer
+          default: 0
+      - description: The size of the page to be returned
+        in: query
+        name: size
+        required: false
+        schema:
+          minimum: 1
+          type: integer
+          default: 10
+      - description: 'Sorting criteria in the format: property,(asc|desc). Default sort order is ascending. Multiple sort criteria are supported.'
+        in: query
+        name: sort
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - fieldNoteCreated
+            - fieldNoteCreated,ASC
+            - fieldNoteCreated,DESC
+            - fieldNoteUpdated
+            - fieldNoteUpdated,ASC
+            - fieldNoteUpdated,DESC
+            - orgName
+            - orgName,ASC
+            - orgName,DESC
+            - siteName
+            - siteName,ASC
+            - siteName,DESC
+            - sheetName
+            - sheetName,ASC
+            - sheetName,DESC
+            - sheetCreated
+            - sheetCreated,ASC
+            - sheetCreated,DESC
+            - sheetDisplayOrder
+            - sheetDisplayOrder,ASC
+            - sheetDisplayOrder,DESC
+            - orgCreated
+            - orgCreated,ASC
+            - orgCreated,DESC
+            - orgUpdated
+            - orgUpdated,ASC
+            - orgUpdated,DESC
+            - siteCreated
+            - siteCreated,ASC
+            - siteCreated,DESC
+          default:
+          - fieldNoteUpdated,DESC
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReportingFieldNotePageResponse'
+          description: OK
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '403':
+          content:
+            application/json:
+              schema:
+                required:
+                - error
+                - message
+                - redemptionEndpoint
+                - status
+                type: object
+                properties:
+                  email:
+                    type:
+                    - string
+                    - 'null'
+                    description: Email of the one account the phone is bound to but its owner has not yet claimed; absent for a phone-only invitee or when several accounts hold the phone
+                    example: worker@example.com
+                  error:
+                    type: string
+                    description: Error code identifying the specific error type
+                    example: email_capture_required
+                  fullName:
+                    type:
+                    - string
+                    - 'null'
+                    description: Optional full name from invitation
+                    example: James Bond
+                  message:
+                    type: string
+                    description: Human-readable error message
+                    example: Please complete registration by providing your email address
+                  redemptionEndpoint:
+                    type: string
+                    description: Endpoint to complete email capture and finish registration
+                    example: /api/external/v1/auth/redeem-phone-invitation
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    format: int32
+                    example: 403
+          description: 'Forbidden: Partial authentication - email capture required'
+        '429':
+          content:
+            application/problem+json:
+              schema:
+                type: object
+                properties:
+                  detail:
+                    type: string
+                  instance:
+                    type: string
+                    format: uri
+                  status:
+                    type: integer
+                    format: int32
+                    example: 429
+                  title:
+                    type: string
+                  type:
+                    type: string
+                    format: uri
+          description: Rate limit exceeded. Honor the `Retry-After` header before retrying.
+          headers:
+            RateLimit:
+              description: 'Current status for whichever policy is closest to exhaustion. Format: `"<policy>";r=<available>;t=<window-sec>;os-cost=<tokens-consumed>`'
+              schema:
+                type: string
+            RateLimit-Policy:
+              description: 'Active rate-limit policies. Format: `"<policy>";q=<quota>;w=<window-sec>, ...`'
+              schema:
+                type: string
+            Retry-After:
+              description: Seconds to wait before retrying. Always >= 1.
+              schema:
+                type: string
+      security:
+      - api-key: []
+      summary: Get all accessible field notes
+      tags:
+      - Reports
+    servers:
+    - url: /
+      description: OpenSpace API root
+  /api/external/v1/reports/memberships:
+    get:
+      operationId: getMemberships
+      parameters:
+      - description: Organization ids to select
+        in: query
+        name: orgs
+        required: false
+        schema:
+          type: array
+          items:
+            pattern: '[0-9A-Za-z_-]{22}'
+            type: string
+      - description: Zero-based page index (0..N)
+        in: query
+        name: page
+        required: false
+        schema:
+          minimum: 0
+          type: integer
+          default: 0
+      - description: The size of the page to be returned
+        in: query
+        name: size
+        required: false
+        schema:
+          minimum: 1
+          type: integer
+          default: 10
+      - description: 'Sorting criteria in the format: property,(asc|desc). Default sort order is ascending. Multiple sort criteria are supported.'
+        in: query
+        name: sort
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - email
+            - email,ASC
+            - email,DESC
+            - membershipUpdated
+            - membershipUpdated,ASC
+            - membershipUpdated,DESC
+            - membershipCreated
+            - membershipCreated,ASC
+            - membershipCreated,DESC
+            - orgName
+            - orgName,ASC
+            - orgName,DESC
+            - siteName
+            - siteName,ASC
+            - siteName,DESC
+            - orgCreated
+            - orgCreated,ASC
+            - orgCreated,DESC
+            - orgUpdated
+            - orgUpdated,ASC
+            - orgUpdated,DESC
+            - siteCreated
+            - siteCreated,ASC
+            - siteCreated,DESC
+          default:
+          - email,ASC
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReportingMembershipPageResponse'
+          description: OK
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '403':
+          content:
+            application/json:
+              schema:
+                required:
+                - error
+                - message
+                - redemptionEndpoint
+                - status
+                type: object
+                properties:
+                  email:
+                    type:
+                    - string
+                    - 'null'
+                    description: Email of the one account the phone is bound to but its owner has not yet claimed; absent for a phone-only invitee or when several accounts hold the phone
+                    example: worker@example.com
+                  error:
+                    type: string
+                    description: Error code identifying the specific error type
+                    example: email_capture_required
+                  fullName:
+                    type:
+                    - string
+                    - 'null'
+                    description: Optional full name from invitation
+                    example: James Bond
+                  message:
+                    type: string
+                    description: Human-readable error message
+                    example: Please complete registration by providing your email address
+                  redemptionEndpoint:
+                    type: string
+                    description: Endpoint to complete email capture and finish registration
+                    example: /api/external/v1/auth/redeem-phone-invitation
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    format: int32
+                    example: 403
+          description: 'Forbidden: Partial authentication - email capture required'
+        '429':
+          content:
+            application/problem+json:
+              schema:
+                type: object
+                properties:
+                  detail:
+                    type: string
+                  instance:
+                    type: string
+                    format: uri
+                  status:
+                    type: integer
+                    format: int32
+                    example: 429
+                  title:
+                    type: string
+                  type:
+                    type: string
+                    format: uri
+          description: Rate limit exceeded. Honor the `Retry-After` header before retrying.
+          headers:
+            RateLimit:
+              description: 'Current status for whichever policy is closest to exhaustion. Format: `"<policy>";r=<available>;t=<window-sec>;os-cost=<tokens-consumed>`'
+              schema:
+                type: string
+            RateLimit-Policy:
+              description: 'Active rate-limit policies. Format: `"<policy>";q=<quota>;w=<window-sec>, ...`'
+              schema:
+                type: string
+            Retry-After:
+              description: Seconds to wait before retrying. Always >= 1.
+              schema:
+                type: string
+      security:
+      - api-key: []
+      summary: Get all accessible memberships. Limited to organization administrators
+      tags:
+      - Reports
+    servers:
+    - url: /
+      description: OpenSpace API root
+  /api/external/v1/reports/organizations:
+    get:
+      operationId: getReportingOrganizations
+      parameters:
+      - description: Organization updated after
+        example: '2020-01-01T12:00:00Z'
+        in: query
+        name: organizationUpdatedAfter
+        required: false
+        schema:
+          type: string
+          format: date-time
+      - description: Organization ids to select
+        in: query
+        name: orgs
+        required: false
+        schema:
+          type: array
+          items:
+            pattern: '[0-9A-Za-z_-]{22}'
+            type: string
+      - description: Zero-based page index (0..N)
+        in: query
+        name: page
+        required: false
+        schema:
+          minimum: 0
+          type: integer
+          default: 0
+      - description: The size of the page to be returned
+        in: query
+        name: size
+        required: false
+        schema:
+          minimum: 1
+          type: integer
+          default: 10
+      - description: 'Sorting criteria in the format: property,(asc|desc). Default sort order is ascending. Multiple sort criteria are supported.'
+        in: query
+        name: sort
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - orgName
+            - orgName,ASC
+            - orgName,DESC
+            - orgCreated
+            - orgCreated,ASC
+            - orgCreated,DESC
+            - orgUpdated
+            - orgUpdated,ASC
+            - orgUpdated,DESC
+          default:
+          - orgUpdated,DESC
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetReportingOrganizationsResponse'
+          description: OK
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '403':
+          content:
+            application/json:
+              schema:
+                required:
+                - error
+                - message
+                - redemptionEndpoint
+                - status
+                type: object
+                properties:
+                  email:
+                    type:
+                    - string
+                    - 'null'
+                    description: Email of the one account the phone is bound to but its owner has not yet claimed; absent for a phone-only invitee or when several accounts hold the phone
+                    example: worker@example.com
+                  error:
+                    type: string
+                    description: Error code identifying the specific error type
+                    example: email_capture_required
+                  fullName:
+                    type:
+                    - string
+                    - 'null'
+                    description: Optional full name from invitation
+                    example: James Bond
+                  message:
+                    type: string
+                    description: Human-readable error message
+                    example: Please complete registration by providing your email address
+                  redemptionEndpoint:
+                    type: string
+                    description: Endpoint to complete email capture and finish registration
+                    example: /api/external/v1/auth/redeem-phone-invitation
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    format: int32
+                    example: 403
+          description: 'Forbidden: Partial authentication - email capture required'
+        '429':
+          content:
+            application/problem+json:
+              schema:
+                type: object
+                properties:
+                  detail:
+                    type: string
+                  instance:
+                    type: string
+                    format: uri
+                  status:
+                    type: integer
+                    format: int32
+                    example: 429
+                  title:
+                    type: string
+                  type:
+                    type: string
+                    format: uri
+          description: Rate limit exceeded. Honor the `Retry-After` header before retrying.
+          headers:
+            RateLimit:
+              description: 'Current status for whichever policy is closest to exhaustion. Format: `"<policy>";r=<available>;t=<window-sec>;os-cost=<tokens-consumed>`'
+              schema:
+                type: string
+            RateLimit-Policy:
+              description: 'Active rate-limit policies. Format: `"<policy>";q=<quota>;w=<window-sec>, ...`'
+              schema:
+                type: string
+            Retry-After:
+              description: Seconds to wait before retrying. Always >= 1.
+              schema:
+                type: string
+      security:
+      - api-key: []
+      summary: Get all accessible organizations
+      tags:
+      - Reports
+    servers:
+    - url: /
+      description: OpenSpace API root
+  /api/external/v1/reports/sheets:
+    get:
+      operationId: getReportingSheets
+      parameters:
+      - description: Sheet created after
+        example: '2020-01-01T12:00:00Z'
+        in: query
+        name: sheetCreatedAfter
+        required: false
+        schema:
+          type: string
+          format: date-time
+      - description: Organization ids to select
+        in: query
+        name: orgs
+        required: false
+        schema:
+          type: array
+          items:
+            pattern: '[0-9A-Za-z_-]{22}'
+            type: string
+      - description: Zero-based page index (0..N)
+        in: query
+        name: page
+        required: false
+        schema:
+          minimum: 0
+          type: integer
+          default: 0
+      - description: The size of the page to be returned
+        in: query
+        name: size
+        required: false
+        schema:
+          minimum: 1
+          type: integer
+          default: 10
+      - description: 'Sorting criteria in the format: property,(asc|desc). Default sort order is ascending. Multiple sort criteria are supported.'
+        in: query
+        name: sort
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - orgName
+            - orgName,ASC
+            - orgName,DESC
+            - siteName
+            - siteName,ASC
+            - siteName,DESC
+            - sheetName
+            - sheetName,ASC
+            - sheetName,DESC
+            - sheetCreated
+            - sheetCreated,ASC
+            - sheetCreated,DESC
+            - sheetDisplayOrder
+            - sheetDisplayOrder,ASC
+            - sheetDisplayOrder,DESC
+            - orgCreated
+            - orgCreated,ASC
+            - orgCreated,DESC
+            - orgUpdated
+            - orgUpdated,ASC
+            - orgUpdated,DESC
+            - siteCreated
+            - siteCreated,ASC
+            - siteCreated,DESC
+          default:
+          - sheetCreated,DESC
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetReportingSheetPageResponse'
+          description: OK
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '403':
+          content:
+            application/json:
+              schema:
+                required:
+                - error
+                - message
+                - redemptionEndpoint
+                - status
+                type: object
+                properties:
+                  email:
+                    type:
+                    - string
+                    - 'null'
+                    description: Email of the one account the phone is bound to but its owner has not yet claimed; absent for a phone-only invitee or when several accounts hold the phone
+                    example: worker@example.com
+                  error:
+                    type: string
+                    description: Error code identifying the specific error type
+                    example: email_capture_required
+                  fullName:
+                    type:
+                    - string
+                    - 'null'
+                    description: Optional full name from invitation
+                    example: James Bond
+                  message:
+                    type: string
+                    description: Human-readable error message
+                    example: Please complete registration by providing your email address
+                  redemptionEndpoint:
+                    type: string
+                    description: Endpoint to complete email capture and finish registration
+                    example: /api/external/v1/auth/redeem-phone-invitation
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    format: int32
+                    example: 403
+          description: 'Forbidden: Partial authentication - email capture required'
+        '429':
+          content:
+            application/problem+json:
+              schema:
+                type: object
+                properties:
+                  detail:
+                    type: string
+                  instance:
+                    type: string
+                    format: uri
+                  status:
+                    type: integer
+                    format: int32
+                    example: 429
+                  title:
+                    type: string
+                  type:
+                    type: string
+                    format: uri
+          description: Rate limit exceeded. Honor the `Retry-After` header before retrying.
+          headers:
+            RateLimit:
+              description: 'Current status for whichever policy is closest to exhaustion. Format: `"<policy>";r=<available>;t=<window-sec>;os-cost=<tokens-consumed>`'
+              schema:
+                type: string
+            RateLimit-Policy:
+              description: 'Active rate-limit policies. Format: `"<policy>";q=<quota>;w=<window-sec>, ...`'
+              schema:
+                type: string
+            Retry-After:
+              description: Seconds to wait before retrying. Always >= 1.
+              schema:
+                type: string
+      security:
+      - api-key: []
+      summary: Get all accessible sheets
+      tags:
+      - Reports
+    servers:
+    - url: /
+      description: OpenSpace API root
+  /api/external/v1/reports/site-events:
+    get:
+      operationId: getReportingSiteEvents
+      parameters:
+      - description: Site event created after
+        example: '2020-01-01T12:00:00Z'
+        in: query
+        name: siteEventCreatedAfter
+        required: false
+        schema:
+          type: string
+          format: date-time
+      - description: Organization ids to select
+        in: query
+        name: orgs
+        required: false
+        schema:
+          type: array
+          items:
+            pattern: '[0-9A-Za-z_-]{22}'
+            type: string
+      - description: Zero-based page index (0..N)
+        in: query
+        name: page
+        required: false
+        schema:
+          minimum: 0
+          type: integer
+          default: 0
+      - description: The size of the page to be returned
+        in: query
+        name: size
+        required: false
+        schema:
+          minimum: 1
+          type: integer
+          default: 10
+      - description: 'Sorting criteria in the format: property,(asc|desc). Default sort order is ascending. Multiple sort criteria are supported.'
+        in: query
+        name: sort
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - orgName
+            - orgName,ASC
+            - orgName,DESC
+            - orgCreated
+            - orgCreated,ASC
+            - orgCreated,DESC
+            - orgUpdated
+            - orgUpdated,ASC
+            - orgUpdated,DESC
+            - siteName
+            - siteName,ASC
+            - siteName,DESC
+            - siteCreated
+            - siteCreated,ASC
+            - siteCreated,DESC
+            - siteEventCreated
+            - siteEventCreated,ASC
+            - siteEventCreated,DESC
+          default:
+          - siteEventCreated,DESC
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetReportingSiteEventPageResponse'
+          description: OK
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '403':
+          content:
+            application/json:
+              schema:
+                required:
+                - error
+                - message
+                - redemptionEndpoint
+                - status
+                type: object
+                properties:
+                  email:
+                    type:
+                    - string
+                    - 'null'
+                    description: Email of the one account the phone is bound to but its owner has not yet claimed; absent for a phone-only invitee or when several accounts hold the phone
+                    example: worker@example.com
+                  error:
+                    type: string
+                    description: Error code identifying the specific error type
+                    example: email_capture_required
+                  fullName:
+                    type:
+                    - string
+                    - 'null'
+                    description: Optional full name from invitation
+                    example: James Bond
+                  message:
+                    type: string
+                    description: Human-readable error message
+                    example: Please complete registration by providing your email address
+                  redemptionEndpoint:
+                    type: string
+                    description: Endpoint to complete email capture and finish registration
+                    example: /api/external/v1/auth/redeem-phone-invitation
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    format: int32
+                    example: 403
+          description: 'Forbidden: Partial authentication - email capture required'
+        '429':
+          content:
+            application/problem+json:
+              schema:
+                type: object
+                properties:
+                  detail:
+                    type: string
+                  instance:
+                    type: string
+                    format: uri
+                  status:
+                    type: integer
+                    format: int32
+                    example: 429
+                  title:
+                    type: string
+                  type:
+                    type: string
+                    format: uri
+          description: Rate limit exceeded. Honor the `Retry-After` header before retrying.
+          headers:
+            RateLimit:
+              description: 'Current status for whichever policy is closest to exhaustion. Format: `"<policy>";r=<available>;t=<window-sec>;os-cost=<tokens-consumed>`'
+              schema:
+                type: string
+            RateLimit-Policy:
+              description: 'Active rate-limit policies. Format: `"<policy>";q=<quota>;w=<window-sec>, ...`'
+              schema:
+                type: string
+            Retry-After:
+              description: Seconds to wait before retrying. Always >= 1.
+              schema:
+                type: string
+      security:
+      - api-key: []
+      summary: Get all accessible site events.
+      tags:
+      - Reports
+    servers:
+    - url: /
+      description: OpenSpace API root
+  /api/external/v1/reports/sites:
+    get:
+      operationId: getReportingSites
+      parameters:
+      - description: Site created after
+        example: '2020-01-01T12:00:00Z'
+        in: query
+        name: siteCreatedAfter
+        required: false
+        schema:
+          type: string
+          format: date-time
+      - description: Organization ids to select
+        in: query
+        name: orgs
+        required: false
+        schema:
+          type: array
+          items:
+            pattern: '[0-9A-Za-z_-]{22}'
+            type: string
+      - description: Zero-based page index (0..N)
+        in: query
+        name: page
+        required: false
+        schema:
+          minimum: 0
+          type: integer
+          default: 0
+      - description: The size of the page to be returned
+        in: query
+        name: size
+        required: false
+        schema:
+          minimum: 1
+          type: integer
+          default: 10
+      - description: 'Sorting criteria in the format: property,(asc|desc). Default sort order is ascending. Multiple sort criteria are supported.'
+        in: query
+        name: sort
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - orgName
+            - orgName,ASC
+            - orgName,DESC
+            - orgCreated
+            - orgCreated,ASC
+            - orgCreated,DESC
+            - orgUpdated
+            - orgUpdated,ASC
+            - orgUpdated,DESC
+            - siteName
+            - siteName,ASC
+            - siteName,DESC
+            - siteCreated
+            - siteCreated,ASC
+            - siteCreated,DESC
+          default:
+          - siteCreated,DESC
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetReportingSitePageResponse'
+          description: OK
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '403':
+          content:
+            application/json:
+              schema:
+                required:
+                - error
+                - message
+                - redemptionEndpoint
+                - status
+                type: object
+                properties:
+                  email:
+                    type:
+                    - string
+                    - 'null'
+                    description: Email of the one account the phone is bound to but its owner has not yet claimed; absent for a phone-only invitee or when several accounts hold the phone
+                    example: worker@example.com
+                  error:
+                    type: string
+                    description: Error code identifying the specific error type
+                    example: email_capture_required
+                  fullName:
+                    type:
+                    - string
+                    - 'null'
+                    description: Optional full name from invitation
+                    example: James Bond
+                  message:
+                    type: string
+                    description: Human-readable error message
+                    example: Please complete registration by providing your email address
+                  redemptionEndpoint:
+                    type: string
+                    description: Endpoint to complete email capture and finish registration
+                    example: /api/external/v1/auth/redeem-phone-invitation
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    format: int32
+                    example: 403
+          description: 'Forbidden: Partial authentication - email capture required'
+        '429':
+          content:
+            application/problem+json:
+              schema:
+                type: object
+                properties:
+                  detail:
+                    type: string
+                  instance:
+                    type: string
+                    format: uri
+                  status:
+                    type: integer
+                    format: int32
+                    example: 429
+                  title:
+                    type: string
+                  type:
+                    type: string
+                    format: uri
+          description: Rate limit exceeded. Honor the `Retry-After` header before retrying.
+          headers:
+            RateLimit:
+              description: 'Current status for whichever policy is closest to exhaustion. Format: `"<policy>";r=<available>;t=<window-sec>;os-cost=<tokens-consumed>`'
+              schema:
+                type: string
+            RateLimit-Policy:
+              description: 'Active rate-limit policies. Format: `"<policy>";q=<quota>;w=<window-sec>, ...`'
+              schema:
+                type: string
+            Retry-After:
+              description: Seconds to wait before retrying. Always >= 1.
+              schema:
+                type: string
+      security:
+      - api-key: []
+      summary: Get all accessible sites
+      tags:
+      - Reports
+    servers:
+    - url: /
+      description: OpenSpace API root
+components:
+  schemas:
+    DroneImageType:
+      type: string
+      description: The type of the drone image.
+      enum:
+      - orthomosaic
+      - freeFlight
+      - pano
+    DroneCaptureStatus:
+      type: string
+      description: The status of the Drone Capture.
+      enum:
+      - incomplete
+      - ready
+      - processing
+      - alignmentReprocessing
+      - skipped
+      - succeeded
+      - failed
+    GetReportingSitePageResponse:
+      required:
+      - content
+      - page
+      type: object
+      properties:
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReportingSite'
+        lastRefreshed:
+          type: string
+          format: date-time
+        page:
+          $ref: '#/components/schemas/PageData'
+        reportingPage:
+          $ref: '#/components/schemas/ReportingPageReportingSite'
+    PageableObject:
+      type: object
+      properties:
+        offset:
+          type: integer
+          format: int64
+        pageNumber:
+          type: integer
+          format: int32
+        pageSize:
+          type: integer
+          format: int32
+        paged:
+          type: boolean
+        sort:
+          $ref: '#/components/schemas/SortObject'
+        unpaged:
+          type: boolean
+    PageReporting360Video:
+      type: object
+      properties:
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/Reporting360Video'
+        empty:
+          type: boolean
+        first:
+          type: boolean
+        last:
+          type: boolean
+        number:
+          type: integer
+          format: int32
+        numberOfElements:
+          type: integer
+          format: int32
+        pageable:
+          $ref: '#/components/schemas/PageableObject'
+        size:
+          type: integer
+          format: int32
+        sort:
+          $ref: '#/components/schemas/SortObject'
+        totalElements:
+          type: integer
+          format: int64
+        totalPages:
+          type: integer
+          format: int32
+    ReportingPageReportingSite:
+      required:
+      - page
+      type: object
+      properties:
+        lastRefreshed:
+          type: string
+          format: date-time
+        page:
+          $ref: '#/components/schemas/PageReportingSite'
+    ReportingDroneImagePageResponse:
+      required:
+      - content
+      - page
+      type: object
+      properties:
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReportingDroneImage'
+        lastRefreshed:
+          type: string
+          format: date-time
+        page:
+          $ref: '#/components/schemas/PageData'
+        reportingPage:
+          $ref: '#/components/schemas/ReportingPageReportingDroneImage'
+    Vec3:
+      maxItems: 3
+      minItems: 3
+      type: array
+      description: 3-element vector as [x, y, z] array
+      example:
+      - 0.0
+      - 0.0
+      - 0.0
+      items:
+        type: number
+    ReportingFieldNote:
+      required:
+      - fieldNoteCreated
+      - fieldNoteId
+      - fieldNoteUpdated
+      - isSiteSharedFolder
+      - organizationCreated
+      - organizationId
+      - organizationName
+      - siteCreated
+      - siteId
+      - siteName
+      type: object
+      properties:
+        fieldNoteCreated:
+          type: string
+          description: When the field note was created.
+          format: date-time
+        fieldNoteDescription:
+          type: string
+          description: Field note description. The naming predates the comment thread function.
+        fieldNoteId:
+          type: string
+          description: The unique identifier for the Field Note.
+        fieldNotePositionType:
+          type: string
+          description: The position type; specifies how the markerOffset was defined
+        fieldNoteUpdated:
+          type: string
+          description: When the field note was last updated.
+          format: date-time
+        isSiteSharedFolder:
+          type: boolean
+          description: Indicates if this site is a shared folder.
+        organizationCreated:
+          type: string
+          description: When the organization was created.
+          format: date-time
+        organizationId:
+          type: string
+          description: The unique identifier for the organization. Can be used to generate a hyperlink.
+        organizationName:
+          type: string
+          description: The organization name.
+        organizationUpdated:
+          type: string
+          description: When the organization was last updated.
+          format: date-time
+        sheetCreated:
+          type: string
+          description: When the sheet was uploaded.
+          format: date-time
+        sheetDisplayOrder:
+          type: integer
+          description: The display order of the sheet. Can be changed by dragging sheets around in Site Settings.
+          format: int32
+        sheetId:
+          type: string
+          description: The unique identifier for the sheet.
+        sheetName:
+          type: string
+          description: The sheet name.
+        siteAddress:
+          type: string
+          description: The address of the site, as input into site settings.
+        siteArea:
+          type: number
+          description: Square value of the unit of measure.
+          format: float
+        siteAreaUnitOfMeasure:
+          type: string
+          description: Square feet or meters unit
+          enum:
+          - feet
+          - meters
+        siteContractValue:
+          type: integer
+          description: The total amount of construction work performed during the project.
+          format: int64
+        siteCreated:
+          type: string
+          description: When the site was created.
+          format: date-time
+        siteEndDate:
+          type: string
+          description: The date that the project finished, or will finish.
+          format: date
+        siteExternalId:
+          type: string
+          description: The external ID for the site. Can be customized after enabling the custom link from site settings.
+        siteGroupId:
+          type: string
+          description: The unique ID for the site group. Note that site groups are optional, so this field can be null.
+        siteGroupName:
+          type: string
+          description: The name of the site group. Note that site groups are optional, so this field can be null.
+        siteId:
+          type: string
+          description: The unique ID for the site. Can be used to generate a hyperlink into OpenSpace.
+        siteLatitude:
+          type: number
+          description: The site latitude. Can be customized from site settings.
+        siteLongitude:
+          type: number
+          description: The site longitude. Can be customized from site settings.
+        siteName:
+          type: string
+          description: The site name.
+        siteStartDate:
+          type: string
+          description: The date that the project started, or will start.
+          format: date
+        siteStatus:
+          type: string
+          description: The status of the site.
+        userCompanyNameCreator:
+          type: string
+          description: The user's company name.
+        userCompanyNameSiteCreator:
+          type: string
+          description: The user's company name.
+        userCountryCreator:
+          type: string
+          description: The user's country.
+        userCountrySiteCreator:
+          type: string
+          description: The user's country.
+        userCreatedCreator:
+          type: string
+          description: When the user was created.
+          format: date-time
+        userCreatedSiteCreator:
+          type: string
+          description: When the user was created.
+          format: date-time
+        userEmailCreator:
+          type: string
+          description: The user's email.
+        userEmailSiteCreator:
+          type: string
+          description: The user's email.
+        userFullNameCreator:
+          type: string
+          description: The user's full name.
+        userFullNameSiteCreator:
+          type: string
+          description: The user's full name.
+        userIdCreator:
+          type: string
+          description: The user's unique identifier.
+        userIdSiteCreator:
+          type: string
+          description: The user's unique identifier.
+        userJobTitleCreator:
+          type: string
+          description: The user's job title.
+        userJobTitleSiteCreator:
+          type: string
+          description: The user's job title.
+        userLastLoginCreator:
+          type: string
+          description: The last time the user logged in, if ever.
+          format: date-time
+        userLastLoginSiteCreator:
+          type: string
+          description: The last time the user logged in, if ever.
+          format: date-time
+        userUpdatedCreator:
+          type: string
+          description: When the user was last updated.
+          format: date-time
+        userUpdatedSiteCreator:
+          type: string
+          description: When the user was last updated.
+          format: date-time
+    ReportingOrganization:
+      required:
+      - organizationCreated
+      - organizationId
+      - organizationName
+      type: object
+      properties:
+        organizationCreated:
+          type: string
+          description: When the organization was created.
+          format: date-time
+        organizationId:
+          type: string
+          description: The unique identifier for the organization. Can be used to generate a hyperlink.
+        organizationName:
+          type: string
+          description: The organization name.
+        organizationUpdated:
+          type: string
+          description: When the organization was last updated.
+          format: date-time
+    Reporting360VideoPageResponse:
+      required:
+      - content
+      - page
+      type: object
+      properties:
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/Reporting360Video'
+        lastRefreshed:
+          type: string
+          format: date-time
+        page:
+          $ref: '#/components/schemas/PageData'
+        reportingPage:
+          $ref: '#/components/schemas/ReportingPageReporting360Video'
+    ReportingPageReportingSheet:
+      required:
+      - page
+      type: object
+      properties:
+        lastRefreshed:
+          type: string
+          format: date-time
+        page:
+          $ref: '#/components/schemas/PageReportingSheet'
+    SortObject:
+      type: object
+      properties:
+        empty:
+          type: boolean
+        sorted:
+          type: boolean
+        unsorted:
+          type: boolean
+    ReportingSiteEvent:
+      required:
+      - isSiteSharedFolder
+      - organizationCreated
+      - organizationId
+      - organizationName
+      - siteCreated
+      - siteEventCreated
+      - siteEventId
+      - siteId
+      - siteName
+      type: object
+      properties:
+        isSiteSharedFolder:
+          type: boolean
+          description: Indicates if this site is a shared folder.
+        organizationCreated:
+          type: string
+          description: When the organization was created.
+          format: date-time
+        organizationId:
+          type: string
+          description: The unique identifier for the organization. Can be used to generate a hyperlink.
+        organizationName:
+          type: string
+          description: The organization name.
+        organizationUpdated:
+          type: string
+          description: When the organization was last updated.
+          format: date-time
+        siteAddress:
+          type: string
+          description: The address of the site, as input into site settings.
+        siteArea:
+          type: number
+          description: Square value of the unit of measure.
+          format: float
+        siteAreaUnitOfMeasure:
+          type: string
+          description: Square feet or meters unit
+          enum:
+          - feet
+          - meters
+        siteContractValue:
+          type: integer
+          description: The total amount of construction work performed during the project.
+          format: int64
+        siteCreated:
+          type: string
+          description: When the site was created.
+          format: date-time
+        siteEndDate:
+          type: string
+          description: The date that the project finished, or will finish.
+          format: date
+        siteEventCreated:
+          type: string
+          description: When the site event took place. Counting distinct dates and sites with engagement, rather than counting this column, is recommended.
+          format: date-time
+        siteEventId:
+          type: string
+          description: The unique identifier for the site event.  Counting distinct dates and sites with engagement, rather than counting this column, is recommended.
+        siteExternalId:
+          type: string
+          description: The external ID for the site. Can be customized after enabling the custom link from site settings.
+        siteGroupId:
+          type: string
+          description: The unique ID for the site group. Note that site groups are optional, so this field can be null.
+        siteGroupName:
+          type: string
+          description: The name of the site group. Note that site groups are optional, so this field can be null.
+        siteId:
+          type: string
+          description: The unique ID for the site. Can be used to generate a hyperlink into OpenSpace.
+        siteLatitude:
+          type: number
+          description: The site latitude. Can be customized from site settings.
+        siteLongitude:
+          type: number
+          description: The site longitude. Can be customized from site settings.
+        siteName:
+          type: string
+          description: The site name.
+        siteStartDate:
+          type: string
+          description: The date that the project started, or will start.
+          format: date
+        siteStatus:
+          type: string
+          description: The status of the site.
+        userCompanyName:
+          type: string
+          description: The user's company name.
+        userCompanyNameSiteCreator:
+          type: string
+          description: The user's company name.
+        userCountry:
+          type: string
+          description: The user's country.
+        userCountrySiteCreator:
+          type: string
+          description: The user's country.
+        userCreated:
+          type: string
+          description: When the user was created.
+          format: date-time
+        userCreatedSiteCreator:
+          type: string
+          description: When the user was created.
+          format: date-time
+        userEmail:
+          type: string
+          description: The user's email.
+        userEmailSiteCreator:
+          type: string
+          description: The user's email.
+        userFullName:
+          type: string
+          description: The user's full name.
+        userFullNameSiteCreator:
+          type: string
+          description: The user's full name.
+        userId:
+          type: string
+          description: The user's unique identifier.
+        userIdSiteCreator:
+          type: string
+          description: The user's unique identifier.
+        userJobTitle:
+          type: string
+          description: The user's job title.
+        userJobTitleSiteCreator:
+          type: string
+          description: The user's job title.
+        userLastLogin:
+          type: string
+          description: The last time the user logged in, if ever.
+          format: date-time
+        userLastLoginSiteCreator:
+          type: string
+          description: The last time the user logged in, if ever.
+          format: date-time
+        userUpdated:
+          type: string
+          description: When the user was last updated.
+          format: date-time
+        userUpdatedSiteCreator:
+          type: string
+          description: When the user was last updated.
+          format: date-time
+    ReportingPageReportingFieldNote:
+      required:
+      - page
+      type: object
+      properties:
+        lastRefreshed:
+          type: string
+          format: date-time
+        page:
+          $ref: '#/components/schemas/PageReportingFieldNote'
+    PageReportingSite:
+      type: object
+      properties:
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReportingSite'
+        empty:
+          type: boolean
+        first:
+          type: boolean
+        last:
+          type: boolean
+        number:
+          type: integer
+          format: int32
+        numberOfElements:
+          type: integer
+          format: int32
+        pageable:
+          $ref: '#/components/schemas/PageableObject'
+        size:
+          type: integer
+          format: int32
+        sort:
+          $ref: '#/components/schemas/SortObject'
+        totalElements:
+          type: integer
+          format: int64
+        totalPages:
+          type: integer
+          format: int32
+    Quat:
+      maxItems: 4
+      minItems: 4
+      type: array
+      description: 4-element quaternion as [x, y, z, w] array
+      example:
+      - 0.0
+      - 0.0
+      - 0.0
+      - 0.0
+      items:
+        type: number
+    PageReportingOrganization:
+      type: object
+      properties:
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReportingOrganization'
+        empty:
+          type: boolean
+        first:
+          type: boolean
+        last:
+          type: boolean
+        number:
+          type: integer
+          format: int32
+        numberOfElements:
+          type: integer
+          format: int32
+        pageable:
+          $ref: '#/components/schemas/PageableObject'
+        size:
+          type: integer
+          format: int32
+        sort:
+          $ref: '#/components/schemas/SortObject'
+        totalElements:
+          type: integer
+          format: int64
+        totalPages:
+          type: integer
+          format: int32
+    PageReportingDroneImage:
+      type: object
+      properties:
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReportingDroneImage'
+        empty:
+          type: boolean
+        first:
+          type: boolean
+        last:
+          type: boolean
+        number:
+          type: integer
+          format: int32
+        numberOfElements:
+          type: integer
+          format: int32
+        pageable:
+          $ref: '#/components/schemas/PageableObject'
+        size:
+          type: integer
+          format: int32
+        sort:
+          $ref: '#/components/schemas/SortObject'
+        totalElements:
+          type: integer
+          format: int64
+        totalPages:
+          type: integer
+          format: int32
+    PageData:
+      required:
+      - itemCount
+      - page
+      - pageCount
+      - size
+      type: object
+      properties:
+        itemCount:
+          type: integer
+          format: int32
+        page:
+          type: integer
+          format: int32
+        pageCount:
+          type: integer
+          format: int32
+        size:
+          type: integer
+          format: int32
+    ReportingFieldNotePageResponse:
+      required:
+      - content
+      - page
+      type: object
+      properties:
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReportingFieldNote'
+        lastRefreshed:
+          type: string
+          format: date-time
+        page:
+          $ref: '#/components/schemas/PageData'
+        reportingPage:
+          $ref: '#/components/schemas/ReportingPageReportingFieldNote'
+    ReportingSheet:
+      required:
+      - isSiteSharedFolder
+      - organizationCreated
+      - organizationId
+      - organizationName
+      - siteCreated
+      - siteId
+      - siteName
+      type: object
+      properties:
+        isSiteSharedFolder:
+          type: boolean
+          description: Indicates if this site is a shared folder.
+        organizationCreated:
+          type: string
+          description: When the organization was created.
+          format: date-time
+        organizationId:
+          type: string
+          description: The unique identifier for the organization. Can be used to generate a hyperlink.
+        organizationName:
+          type: string
+          description: The organization name.
+        organizationUpdated:
+          type: string
+          description: When the organization was last updated.
+          format: date-time
+        sheetCreated:
+          type: string
+          description: When the sheet was uploaded.
+          format: date-time
+        sheetDisplayOrder:
+          type: integer
+          description: The display order of the sheet. Can be changed by dragging sheets around in Site Settings.
+          format: int32
+        sheetId:
+          type: string
+          description: The unique identifier for the sheet.
+        sheetName:
+          type: string
+          description: The sheet name.
+        siteAddress:
+          type: string
+          description: The address of the site, as input into site settings.
+        siteArea:
+          type: number
+          description: Square value of the unit of measure.
+          format: float
+        siteAreaUnitOfMeasure:
+          type: string
+          description: Square feet or meters unit
+          enum:
+          - feet
+          - meters
+        siteContractValue:
+          type: integer
+          description: The total amount of construction work performed during the project.
+          format: int64
+        siteCreated:
+          type: string
+          description: When the site was created.
+          format: date-time
+        siteEndDate:
+          type: string
+          description: The date that the project finished, or will finish.
+          format: date
+        siteExternalId:
+          type: string
+          description: The external ID for the site. Can be customized after enabling the custom link from site settings.
+        siteGroupId:
+          type: string
+          description: The unique ID for the site group. Note that site groups are optional, so this field can be null.
+        siteGroupName:
+          type: string
+          description: The name of the site group. Note that site groups are optional, so this field can be null.
+        siteId:
+          type: string
+          description: The unique ID for the site. Can be used to generate a hyperlink into OpenSpace.
+        siteLatitude:
+          type: number
+          description: The site latitude. Can be customized from site settings.
+        siteLongitude:
+          type: number
+          description: The site longitude. Can be customized from site settings.
+        siteName:
+          type: string
+          description: The site name.
+        siteStartDate:
+          type: string
+          description: The date that the project started, or will start.
+          format: date
+        siteStatus:
+          type: string
+          description: The status of the site.
+        userCompanyNameSiteCreator:
+          type: string
+          description: The user's company name.
+        userCountrySiteCreator:
+          type: string
+          description: The user's country.
+        userCreatedSiteCreator:
+          type: string
+          description: When the user was created.
+          format: date-time
+        userEmailSiteCreator:
+          type: string
+          description: The user's email.
+        userFullNameSiteCreator:
+          type: string
+          description: The user's full name.
+        userIdSiteCreator:
+          type: string
+          description: The user's unique identifier.
+        userJobTitleSiteCreator:
+          type: string
+          description: The user's job title.
+        userLastLoginSiteCreator:
+          type: string
+          description: The last time the user logged in, if ever.
+          format: date-time
+        userUpdatedSiteCreator:
+          type: string
+          description: When the user was last updated.
+          format: date-time
+    GetReportingSheetPageResponse:
+      required:
+      - content
+      - page
+      type: object
+      properties:
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReportingSheet'
+        lastRefreshed:
+          type: string
+          format: date-time
+        page:
+          $ref: '#/components/schemas/PageData'
+        reportingPage:
+          $ref: '#/components/schemas/ReportingPageReportingSheet'
+    GetReportingSiteEventPageResponse:
+      required:
+      - content
+      - page
+      type: object
+      properties:
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReportingSiteEvent'
+        lastRefreshed:
+          type: string
+          format: date-time
+        page:
+          $ref: '#/components/schemas/PageData'
+        reportingPage:
+          $ref: '#/components/schemas/ReportingPageReportingSiteEvent'
+    ReportingPageReporting360Video:
+      required:
+      - page
+      type: object
+      properties:
+        lastRefreshed:
+          type: string
+          format: date-time
+        page:
+          $ref: '#/components/schemas/PageReporting360Video'
+    ReportingPageReportingSiteEvent:
+      required:
+      - page
+      type: object
+      properties:
+        lastRefreshed:
+          type: string
+          format: date-time
+        page:
+          $ref: '#/components/schemas/PageReportingSiteEvent'
+    PageReportingSheet:
+      type: object
+      properties:
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReportingSheet'
+        empty:
+          type: boolean
+        first:
+          type: boolean
+        last:
+          type: boolean
+        number:
+          type: integer
+          format: int32
+        numberOfElements:
+          type: integer
+          format: int32
+        pageable:
+          $ref: '#/components/schemas/PageableObject'
+        size:
+          type: integer
+          format: int32
+        sort:
+          $ref: '#/components/schemas/SortObject'
+        totalElements:
+          type: integer
+          format: int64
+        totalPages:
+          type: integer
+          format: int32
+    ReportingMembershipPageResponse:
+      required:
+      - content
+      - page
+      type: object
+      properties:
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReportingMembership'
+        lastRefreshed:
+          type: string
+          format: date-time
+        page:
+          $ref: '#/components/schemas/PageData'
+        reportingPage:
+          $ref: '#/components/schemas/ReportingPageReportingMembership'
+    ReportingPageReportingDroneImage:
+      required:
+      - page
+      type: object
+      properties:
+        lastRefreshed:
+          type: string
+          format: date-time
+        page:
+          $ref: '#/components/schemas/PageReportingDroneImage'
+    ReportingPageReportingMembership:
+      required:
+      - page
+      type: object
+      properties:
+        lastRefreshed:
+          type: string
+          format: date-time
+        page:
+          $ref: '#/components/schemas/PageReportingMembership'
+    ReportingDroneImage:
+      required:
+      - droneCaptureCreated
+      - droneCaptureCreatorUserId
+      - droneCaptureId
+      - droneCaptureStatus
+      - droneImageId
+      - droneImageType
+      - isSiteSharedFolder
+      - organizationCreated
+      - organizationId
+      - organizationName
+      - siteCreated
+      - siteId
+      - siteName
+      type: object
+      properties:
+        droneCaptureCreated:
+          type: string
+          description: When the Drone Capture was created.
+          format: date-time
+        droneCaptureCreatorUserId:
+          type: string
+          description: Who created the Drone Capture.
+        droneCaptureId:
+          type: string
+          description: The unique identifier for the Drone Capture.
+        droneCaptureName:
+          type: string
+          description: The name of the Drone Capture.
+        droneCaptureStatus:
+          $ref: '#/components/schemas/DroneCaptureStatus'
+        droneImageCreated:
+          type: string
+          description: When the drone image was captured.
+          format: date-time
+        droneImageDeviceAttitude:
+          $ref: '#/components/schemas/Quat'
+        droneImageId:
+          type: string
+          description: The unique identifier for the Drone Image.
+        droneImageLocation:
+          $ref: '#/components/schemas/Vec3'
+        droneImageType:
+          $ref: '#/components/schemas/DroneImageType'
+        isSiteSharedFolder:
+          type: boolean
+          description: Indicates if this site is a shared folder.
+        organizationCreated:
+          type: string
+          description: When the organization was created.
+          format: date-time
+        organizationId:
+          type: string
+          description: The unique identifier for the organization. Can be used to generate a hyperlink.
+        organizationName:
+          type: string
+          description: The organization name.
+        organizationUpdated:
+          type: string
+          description: When the organization was last updated.
+          format: date-time
+        siteAddress:
+          type: string
+          description: The address of the site, as input into site settings.
+        siteArea:
+          type: number
+          description: Square value of the unit of measure.
+          format: float
+        siteAreaUnitOfMeasure:
+          type: string
+          description: Square feet or meters unit
+          enum:
+          - feet
+          - meters
+        siteContractValue:
+          type: integer
+          description: The total amount of construction work performed during the project.
+          format: int64
+        siteCreated:
+          type: string
+          description: When the site was created.
+          format: date-time
+        siteEndDate:
+          type: string
+          description: The date that the project finished, or will finish.
+          format: date
+        siteExternalId:
+          type: string
+          description: The external ID for the site. Can be customized after enabling the custom link from site settings.
+        siteGroupId:
+          type: string
+          description: The unique ID for the site group. Note that site groups are optional, so this field can be null.
+        siteGroupName:
+          type: string
+          description: The name of the site group. Note that site groups are optional, so this field can be null.
+        siteId:
+          type: string
+          description: The unique ID for the site. Can be used to generate a hyperlink into OpenSpace.
+        siteLatitude:
+          type: number
+          description: The site latitude. Can be customized from site settings.
+        siteLongitude:
+          type: number
+          description: The site longitude. Can be customized from site settings.
+        siteName:
+          type: string
+          description: The site name.
+        siteStartDate:
+          type: string
+          description: The date that the project started, or will start.
+          format: date
+        siteStatus:
+          type: string
+          description: The status of the site.
+        userCompanyNameSiteCreator:
+          type: string
+          description: The user's company name.
+        userCountrySiteCreator:
+          type: string
+          description: The user's country.
+        userCreatedSiteCreator:
+          type: string
+          description: When the user was created.
+          format: date-time
+        userEmailSiteCreator:
+          type: string
+          description: The user's email.
+        userFullNameSiteCreator:
+          type: string
+          description: The user's full name.
+        userIdSiteCreator:
+          type: string
+          description: The user's unique identifier.
+        userJobTitleSiteCreator:
+          type: string
+          description: The user's job title.
+        userLastLoginSiteCreator:
+          type: string
+          description: The last time the user logged in, if ever.
+          format: date-time
+        userUpdatedSiteCreator:
+          type: string
+          description: When the user was last updated.
+          format: date-time
+    Reporting360Video:
+      required:
+      - isSiteSharedFolder
+      - organizationCreated
+      - organizationId
+      - organizationName
+      - siteCreated
+      - siteId
+      - siteName
+      - videoId
+      - videoStart
+      type: object
+      properties:
+        isSiteSharedFolder:
+          type: boolean
+          description: Indicates if this site is a shared folder.
+        isVideoPublished:
+          type: boolean
+          description: A boolean column for whether or not the 360 video is published.
+        organizationCreated:
+          type: string
+          description: When the organization was created.
+          format: date-time
+        organizationId:
+          type: string
+          description: The unique identifier for the organization. Can be used to generate a hyperlink.
+        organizationName:
+          type: string
+          description: The organization name.
+        organizationUpdated:
+          type: string
+          description: When the organization was last updated.
+          format: date-time
+        sheetCreated:
+          type: string
+          description: When the sheet was uploaded.
+          format: date-time
+        sheetDisplayOrder:
+          type: integer
+          description: The display order of the sheet. Can be changed by dragging sheets around in Site Settings.
+          format: int32
+        sheetId:
+          type: string
+          description: The unique identifier for the sheet.
+        sheetName:
+          type: string
+          description: The sheet name.
+        siteAddress:
+          type: string
+          description: The address of the site, as input into site settings.
+        siteArea:
+          type: number
+          description: Square value of the unit of measure.
+          format: float
+        siteAreaUnitOfMeasure:
+          type: string
+          description: Square feet or meters unit
+          enum:
+          - feet
+          - meters
+        siteContractValue:
+          type: integer
+          description: The total amount of construction work performed during the project.
+          format: int64
+        siteCreated:
+          type: string
+          description: When the site was created.
+          format: date-time
+        siteEndDate:
+          type: string
+          description: The date that the project finished, or will finish.
+          format: date
+        siteExternalId:
+          type: string
+          description: The external ID for the site. Can be customized after enabling the custom link from site settings.
+        siteGroupId:
+          type: string
+          description: The unique ID for the site group. Note that site groups are optional, so this field can be null.
+        siteGroupName:
+          type: string
+          description: The name of the site group. Note that site groups are optional, so this field can be null.
+        siteId:
+          type: string
+          description: The unique ID for the site. Can be used to generate a hyperlink into OpenSpace.
+        siteLatitude:
+          type: number
+          description: The site latitude. Can be customized from site settings.
+        siteLongitude:
+          type: number
+          description: The site longitude. Can be customized from site settings.
+        siteName:
+          type: string
+          description: The site name.
+        siteStartDate:
+          type: string
+          description: The date that the project started, or will start.
+          format: date
+        siteStatus:
+          type: string
+          description: The status of the site.
+        userCompanyNameCreator:
+          type: string
+          description: The user's company name.
+        userCompanyNameSiteCreator:
+          type: string
+          description: The user's company name.
+        userCountryCreator:
+          type: string
+          description: The user's country.
+        userCountrySiteCreator:
+          type: string
+          description: The user's country.
+        userCreatedCreator:
+          type: string
+          description: When the user was created.
+          format: date-time
+        userCreatedSiteCreator:
+          type: string
+          description: When the user was created.
+          format: date-time
+        userEmailCreator:
+          type: string
+          description: The user's email.
+        userEmailSiteCreator:
+          type: string
+          description: The user's email.
+        userFullNameCreator:
+          type: string
+          description: The user's full name.
+        userFullNameSiteCreator:
+          type: string
+          description: The user's full name.
+        userIdCreator:
+          type: string
+          description: The user's unique identifier.
+        userIdSiteCreator:
+          type: string
+          description: The user's unique identifier.
+        userJobTitleCreator:
+          type: string
+          description: The user's job title.
+        userJobTitleSiteCreator:
+          type: string
+          description: The user's job title.
+        userLastLoginCreator:
+          type: string
+          description: The last time the user logged in, if ever.
+          format: date-time
+        userLastLoginSiteCreator:
+          type: string
+          description: The last time the user logged in, if ever.
+          format: date-time
+        userUpdatedCreator:
+          type: string
+          description: When the user was last updated.
+          format: date-time
+        userUpdatedSiteCreator:
+          type: string
+          description: When the user was last updated.
+          format: date-time
+        videoDeviceId:
+          type: string
+          description: The unique identifier for the device used for the 360 video.
+        videoDurationMinutes:
+          type: number
+          description: The duration of the 360 video in minutes.
+          format: double
+        videoId:
+          type: string
+          description: The unique identifier for the 360 video.
+        videoName:
+          type: string
+          description: The name of the 360 video.
+        videoNumberOfFrames:
+          type: integer
+          description: The number of frames of the 360 Video. All videos are captured at two frames per second.
+          format: int32
+        videoStart:
+          type: string
+          description: When the 360 video was started.
+          format: date-time
+    ReportingMembership:
+      required:
+      - isSiteSharedFolder
+      - organizationCreated
+      - organizationId
+      - organizationName
+      - role
+      - scopeType
+      - siteCreated
+      - siteId
+      - siteName
+      type: object
+      properties:
+        isSiteSharedFolder:
+          type: boolean
+          description: Indicates if this site is a shared folder.
+        membershipCreated:
+          type: string
+          description: When the membership was created.
+          format: date-time
+        membershipUpdated:
+          type: string
+          description: When the membership was last updated.
+          format: date-time
+        organizationCreated:
+          type: string
+          description: When the organization was created.
+          format: date-time
+        organizationId:
+          type: string
+          description: The unique identifier for the organization. Can be used to generate a hyperlink.
+        organizationName:
+          type: string
+          description: The organization name.
+        organizationUpdated:
+          type: string
+          description: When the organization was last updated.
+          format: date-time
+        role:
+          type: string
+          description: The role name
+        scopeType:
+          type: string
+        siteAddress:
+          type: string
+          description: The address of the site, as input into site settings.
+        siteArea:
+          type: number
+          description: Square value of the unit of measure.
+          format: float
+        siteAreaUnitOfMeasure:
+          type: string
+          description: Square feet or meters unit
+          enum:
+          - feet
+          - meters
+        siteContractValue:
+          type: integer
+          description: The total amount of construction work performed during the project.
+          format: int64
+        siteCreated:
+          type: string
+          description: When the site was created.
+          format: date-time
+        siteEndDate:
+          type: string
+          description: The date that the project finished, or will finish.
+          format: date
+        siteExternalId:
+          type: string
+          description: The external ID for the site. Can be customized after enabling the custom link from site settings.
+        siteGroupId:
+          type: string
+          description: The unique ID for the site group. Note that site groups are optional, so this field can be null.
+        siteGroupName:
+          type: string
+          description: The name of the site group. Note that site groups are optional, so this field can be null.
+        siteId:
+          type: string
+          description: The unique ID for the site. Can be used to generate a hyperlink into OpenSpace.
+        siteLatitude:
+          type: number
+          description: The site latitude. Can be customized from site settings.
+        siteLongitude:
+          type: number
+          description: The site longitude. Can be customized from site settings.
+        siteName:
+          type: string
+          description: The site name.
+        siteStartDate:
+          type: string
+          description: The date that the project started, or will start.
+          format: date
+        siteStatus:
+          type: string
+          description: The status of the site.
+        userCompanyName:
+          type: string
+          description: The user's company name.
+        userCompanyNameMembershipCreator:
+          type: string
+          description: The user's company name.
+        userCompanyNameSiteCreator:
+          type: string
+          description: The user's company name.
+        userCountry:
+          type: string
+          description: The user's country.
+        userCountryMembershipCreator:
+          type: string
+          description: The user's country.
+        userCountrySiteCreator:
+          type: string
+          description: The user's country.
+        userCreated:
+          type: string
+          description: When the user was created.
+          format: date-time
+        userCreatedMembershipCreator:
+          type: string
+          description: When the user was created.
+          format: date-time
+        userCreatedSiteCreator:
+          type: string
+          description: When the user was created.
+          format: date-time
+        userEmail:
+          type: string
+          description: The user's email.
+        userEmailMembershipCreator:
+          type: string
+          description: The user's email.
+        userEmailSiteCreator:
+          type: string
+          description: The user's email.
+        userFullName:
+          type: string
+          description: The user's full name.
+        userFullNameMembershipCreator:
+          type: string
+          description: The user's full name.
+        userFullNameSiteCreator:
+          type: string
+          description: The user's full name.
+        userId:
+          type: string
+          description: The user's unique identifier.
+        userIdMembershipCreator:
+          type: string
+          description: The user's unique identifier.
+        userIdSiteCreator:
+          type: string
+          description: The user's unique identifier.
+        userJobTitle:
+          type: string
+          description: The user's job title.
+        userJobTitleMembershipCreator:
+          type: string
+          description: The user's job title.
+        userJobTitleSiteCreator:
+          type: string
+          description: The user's job title.
+        userLastLogin:
+          type: string
+          description: The last time the user logged in, if ever.
+          format: date-time
+        userLastLoginMembershipCreator:
+          type: string
+          description: The last time the user logged in, if ever.
+          format: date-time
+        userLastLoginSiteCreator:
+          type: string
+          description: The last time the user logged in, if ever.
+          format: date-time
+        userUpdated:
+          type: string
+          description: When the user was last updated.
+          format: date-time
+        userUpdatedMembershipCreator:
+          type: string
+          description: When the user was last updated.
+          format: date-time
+        userUpdatedSiteCreator:
+          type: string
+          description: When the user was last updated.
+          format: date-time
+    GetReportingOrganizationsResponse:
+      required:
+      - content
+      - page
+      type: object
+      properties:
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReportingOrganization'
+        lastRefreshed:
+          type: string
+          format: date-time
+        page:
+          $ref: '#/components/schemas/PageData'
+        reportingPage:
+          $ref: '#/components/schemas/ReportingPageReportingOrganization'
+    PageReportingSiteEvent:
+      type: object
+      properties:
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReportingSiteEvent'
+        empty:
+          type: boolean
+        first:
+          type: boolean
+        last:
+          type: boolean
+        number:
+          type: integer
+          format: int32
+        numberOfElements:
+          type: integer
+          format: int32
+        pageable:
+          $ref: '#/components/schemas/PageableObject'
+        size:
+          type: integer
+          format: int32
+        sort:
+          $ref: '#/components/schemas/SortObject'
+        totalElements:
+          type: integer
+          format: int64
+        totalPages:
+          type: integer
+          format: int32
+    PageReportingMembership:
+      type: object
+      properties:
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReportingMembership'
+        empty:
+          type: boolean
+        first:
+          type: boolean
+        last:
+          type: boolean
+        number:
+          type: integer
+          format: int32
+        numberOfElements:
+          type: integer
+          format: int32
+        pageable:
+          $ref: '#/components/schemas/PageableObject'
+        size:
+          type: integer
+          format: int32
+        sort:
+          $ref: '#/components/schemas/SortObject'
+        totalElements:
+          type: integer
+          format: int64
+        totalPages:
+          type: integer
+          format: int32
+    ReportingPageReportingOrganization:
+      required:
+      - page
+      type: object
+      properties:
+        lastRefreshed:
+          type: string
+          format: date-time
+        page:
+          $ref: '#/components/schemas/PageReportingOrganization'
+    ReportingSite:
+      required:
+      - isSiteSharedFolder
+      - organizationCreated
+      - organizationId
+      - organizationName
+      - siteCreated
+      - siteId
+      - siteName
+      type: object
+      properties:
+        isSiteSharedFolder:
+          type: boolean
+          description: Indicates if this site is a shared folder.
+        organizationCreated:
+          type: string
+          description: When the organization was created.
+          format: date-time
+        organizationId:
+          type: string
+          description: The unique identifier for the organization. Can be used to generate a hyperlink.
+        organizationName:
+          type: string
+          description: The organization name.
+        organizationUpdated:
+          type: string
+          description: When the organization was last updated.
+          format: date-time
+        siteAddress:
+          type: string
+          description: The address of the site, as input into site settings.
+        siteArea:
+          type: number
+          description: Square value of the unit of measure.
+          format: float
+        siteAreaUnitOfMeasure:
+          type: string
+          description: Square feet or meters unit
+          enum:
+          - feet
+          - meters
+        siteContractValue:
+          type: integer
+          description: The total amount of construction work performed during the project.
+          format: int64
+        siteCreated:
+          type: string
+          description: When the site was created.
+          format: date-time
+        siteEndDate:
+          type: string
+          description: The date that the project finished, or will finish.
+          format: date
+        siteExternalId:
+          type: string
+          description: The external ID for the site. Can be customized after enabling the custom link from site settings.
+        siteGroupId:
+          type: string
+          description: The unique ID for the site group. Note that site groups are optional, so this field can be null.
+        siteGroupName:
+          type: string
+          description: The name of the site group. Note that site groups are optional, so this field can be null.
+        siteId:
+          type: string
+          description: The unique ID for the site. Can be used to generate a hyperlink into OpenSpace.
+        siteLatitude:
+          type: number
+          description: The site latitude. Can be customized from site settings.
+        siteLongitude:
+          type: number
+          description: The site longitude. Can be customized from site settings.
+        siteName:
+          type: string
+          description: The site name.
+        siteStartDate:
+          type: string
+          description: The date that the project started, or will start.
+          format: date
+        siteStatus:
+          type: string
+          description: The status of the site.
+        userCompanyNameSiteCreator:
+          type: string
+          description: The user's company name.
+        userCountrySiteCreator:
+          type: string
+          description: The user's country.
+        userCreatedSiteCreator:
+          type: string
+          description: When the user was created.
+          format: date-time
+        userEmailSiteCreator:
+          type: string
+          description: The user's email.
+        userFullNameSiteCreator:
+          type: string
+          description: The user's full name.
+        userIdSiteCreator:
+          type: string
+          description: The user's unique identifier.
+        userJobTitleSiteCreator:
+          type: string
+          description: The user's job title.
+        userLastLoginSiteCreator:
+          type: string
+          description: The last time the user logged in, if ever.
+          format: date-time
+        userUpdatedSiteCreator:
+          type: string
+          description: When the user was last updated.
+          format: date-time
+    PageReportingFieldNote:
+      type: object
+      properties:
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReportingFieldNote'
+        empty:
+          type: boolean
+        first:
+          type: boolean
+        last:
+          type: boolean
+        number:
+          type: integer
+          format: int32
+        numberOfElements:
+          type: integer
+          format: int32
+        pageable:
+          $ref: '#/components/schemas/PageableObject'
+        size:
+          type: integer
+          format: int32
+        sort:
+          $ref: '#/components/schemas/SortObject'
+        totalElements:
+          type: integer
+          format: int64
+        totalPages:
+          type: integer
+          format: int32
+  securitySchemes:
+    api-key:
+      in: header
+      name: api-key
+      type: apiKey
+    jwt-auth:
+      bearerFormat: jwt
+      scheme: bearer
+      type: http
+x-refined-from:
+- openspace-external-v1-api-original.json
+- openspace-openapi.yml

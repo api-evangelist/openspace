@@ -1,0 +1,57 @@
+﻿# OpenSpace
+
+> OpenSpace is the Visual Intelligence Platform for builders. Powered by Spatial AI, it turns smartphone, 360° camera, and drone capture into real-time jobsite intelligence that connects the field and the office for faster, more confident decisions across documentation, coordination, progress tracking, and risk management.
+
+OpenSpace serves general contractors, trade contractors, owners, developers, and investors, with 360° capture, AI-powered field documentation, BIM coordination, progress tracking, and construction risk management.
+
+## Platform 
+- [Platform Overview](https://www.openspace.ai/platform/)
+- [Capture](https://www.openspace.ai/platform/capture/)
+- [Coordinate](https://www.openspace.ai/platform/coordinate/)
+- [Act](https://www.openspace.ai/platform/act/)
+- [AI Agents & APIs](https://www.openspace.ai/platform/ai-agents-and-apis/)
+
+## Core product
+
+- [360 Reality Capture Software - OpenSpace Capture](https://www.openspace.ai/products/capture/)
+- [Construction Task Management Software - OpenSpace Field](https://www.openspace.ai/products/field/)
+- [Drone Mapping Software - OpenSpace Air](https://www.openspace.ai/products/air/)
+- [BIM Coordination Software - OpenSpace BIM+](https://www.openspace.ai/products/bimplus/)
+- [Construction Progress Tracking Software - OpenSpace Track](https://www.openspace.ai/products/progress-tracking/)
+- [Walk & Pilot Services](https://www.openspace.ai/products/walk-services/)
+
+## Who it's for
+
+- [General contractors](https://www.openspace.ai/solutions/general-contractors/)
+- [Trade contractors](https://www.openspace.ai/solutions/the-trades/)
+- [Owners](https://www.openspace.ai/solutions/owners/)
+
+## Project types 
+- [Data centers](https://www.openspace.ai/solutions/data-centers/)
+
+## Key features
+
+- [Construction Photo Documentation Software](https://www.openspace.ai/resources/use-cases/documentation/)
+- [Construction Coordination Software](https://www.openspace.ai/resources/use-cases/coordination/)
+- [Construction Quality Control Software](https://www.openspace.ai/resources/use-cases/qa-qc/)
+- [Construction Safety Management Software](https://www.openspace.ai/resources/use-cases/safety/)
+- [Remote Construction Site Inspection](https://www.openspace.ai/resources/use-cases/remote-work/)
+- [Construction Insurance Risk Management](https://www.openspace.ai/resources/use-cases/insurance-costs/)
+- [Construction Punch List Software](https://www.openspace.ai/resources/use-cases/punch-lists/)
+
+## Integrations
+
+- [Integrations](https://www.openspace.ai/integrations/)
+
+## Proof and content
+
+- [Case studies](https://www.openspace.ai/resources/case-studies/)
+- [Blog](https://www.openspace.ai/blog/)
+- [Waypoint](https://www.openspace.ai/waypoint/)
+
+## Optional
+
+- [About OpenSpace](https://www.openspace.ai/about/)
+- [Security and trust](https://security.openspace.ai/)
+
+Contact: info@openspace.ai

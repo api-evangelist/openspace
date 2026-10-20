@@ -1,0 +1,111 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/openspace/main/json-schema/openspace-external-webhook-rule-schema.json",
+  "title": "ExternalWebhookRule",
+  "description": "Webhook subscription rule defining which events trigger deliveries",
+  "x-generated": "2026-10-20",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/openspace-openapi.yml#/components/schemas/ExternalWebhookRule",
+  "required": [
+    "action",
+    "createdAt",
+    "eventType",
+    "id",
+    "organizationId",
+    "scope",
+    "webhookId"
+  ],
+  "type": "object",
+  "properties": {
+    "action": {
+      "$ref": "#/$defs/WebhookRuleAction"
+    },
+    "createdAt": {
+      "type": "string",
+      "description": "When the rule was created",
+      "format": "date-time"
+    },
+    "createdBy": {
+      "pattern": "[0-9A-Za-z_-]{22}",
+      "type": "string",
+      "description": "Account ID of the user who created this rule"
+    },
+    "eventType": {
+      "$ref": "#/$defs/WebhookEventType"
+    },
+    "id": {
+      "pattern": "[0-9A-Za-z_-]{22}",
+      "type": "string",
+      "description": "The unique identifier for the rule"
+    },
+    "organizationId": {
+      "pattern": "[0-9A-Za-z_-]{22}",
+      "type": "string",
+      "description": "The organization this rule applies to"
+    },
+    "rateLimit": {
+      "type": "integer",
+      "description": "Optional rate limit specific to this rule (events per hour)",
+      "format": "int32"
+    },
+    "scope": {
+      "$ref": "#/$defs/WebhookRuleScope"
+    },
+    "siteGroupId": {
+      "pattern": "[0-9A-Za-z_-]{22}",
+      "type": "string",
+      "description": "Site group ID (required when scope is SITE_GROUP)"
+    },
+    "siteId": {
+      "pattern": "[0-9A-Za-z_-]{22}",
+      "type": "string",
+      "description": "Site ID (required when scope is SITE)"
+    },
+    "updatedAt": {
+      "type": "string",
+      "description": "When the rule was last updated",
+      "format": "date-time"
+    },
+    "webhookId": {
+      "pattern": "[0-9A-Za-z_-]{22}",
+      "type": "string",
+      "description": "The webhook this rule belongs to"
+    }
+  },
+  "$defs": {
+    "WebhookEventType": {
+      "type": "string",
+      "description": "Event type to subscribe to",
+      "enum": [
+        "field_note:created",
+        "field_note:deleted",
+        "field_note:updated",
+        "field_note_comment:created",
+        "field_note_comment:updated",
+        "field_note_comment:deleted",
+        "field_note_attachment:created",
+        "field_note_attachment:deleted",
+        "capture:published",
+        "voice_capture:published"
+      ]
+    },
+    "WebhookRuleAction": {
+      "type": "string",
+      "description": "Action to take when this rule matches (ALLOW or DENY)",
+      "enum": [
+        "allow",
+        "deny"
+      ]
+    },
+    "WebhookRuleScope": {
+      "type": "string",
+      "description": "Scope level at which this rule applies (ORGANIZATION, SITE_GROUP, or SITE)",
+      "enum": [
+        "site",
+        "siteGroup",
+        "organization"
+      ]
+    }
+  }
+}

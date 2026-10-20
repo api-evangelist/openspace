@@ -1,12 +1,22 @@
-generated: '2026-10-14'
+generated: '2026-10-20'
 method: searched
+source:
+- autodesk/integrations/autodesk-integration-edges.yml
+- https://zapier.com/apps/openspace/integrations
+- https://n8n.io/integrations/openspace/
+- https://composio.dev/toolkits/openspace
+- https://monid.ai/tools/openspace
 checked:
+- autodesk/integrations/autodesk-integration-edges.yml
 - https://cloudsecurityalliance.org/star/registry
 - https://eucoc.cloud/en/public-register/list-of-adherent-services
 - https://marketplace.autodesk.com/sitemap.xml
-- procore/integrations/procore-integration-edges.yml
-source:
-- procore/integrations/procore-integration-edges.yml
+- https://composio.dev/toolkits/openspace
+- https://monid.ai/tools/openspace
+- https://n8n.io/integrations/openspace/
+- https://zapier.com/apps/openspace/integrations
+summary: null
+marketplace_apps: []
 edges:
 - partner_name: Autodesk (own)
   partner: autodesk
@@ -55,21 +65,4 @@ edges:
     detected: '2026-10-20'
   detected_by: sweep-compliance-assurance.py
   first_seen: '2026-10-20'
-- partner_name: Procore (own)
-  partner: procore
-  partner_match: mirror
-  mirror_match: domain+name-among-holders
-  type: marketplace
-  relationship: platform-app
-  direction: third-party
-  channel: partner-built
-  marketplace: own
-  evidence: https://marketplace.procore.com/apps/openspace
-  mirror_of: procore/integrations/procore-integration-edges.yml
-  apps:
-  - OpenSpace
-  - OpenSpace Two-Way Sync
-  listing_count: 2
-  detected: '2026-10-14'
-  detected_by: mirror-platform-listings.py
-  category: BIM; Field Productivity; Quality & Safety
+templates: []

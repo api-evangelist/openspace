@@ -1,0 +1,21 @@
+name: OpenSpace conventions
+generated: '2026-10-20'
+method: derived
+source: openapi/openspace-openapi.yml
+auth: {style: "api-key header (api-key) or HTTP bearer JWT", docs: https://support.openspace.ai/hc/en-us/articles/41946314973843-Usage-API}
+idempotency:
+  coverage: none
+  note: The contract declares no idempotency key header on any write.
+rate_limit_signaling: {headers: [RateLimit-Policy, RateLimit, Retry-After], status: 429, see: rate-limits/openspace-rate-limits.yml}
+error_envelope: {format: application/problem+json, note: Stated for 429 responses in the contract description.}
+request_id: {header: x-request-id, evidence: observed on api.us.openspace.ai responses 2026-10-20}
+reversibility:
+  status: documented
+  surfaces:
+    - write: createWebhook / createHeader / createRule
+      reversal: deleteWebhook / deleteHeader / deleteRule
+      window: null
+      note: Delete operations exist in the contract; no reversal window is stated.
+    - write: addComment
+      reversal: null
+      note: No delete-comment operation in the contract.

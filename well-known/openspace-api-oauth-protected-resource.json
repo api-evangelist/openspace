@@ -1,0 +1,1 @@
+{"resource":"https://api.us.openspace.ai/api/external/v1/mcp","authorization_servers":["https://openspace.ai"],"scopes_supported":["openid","profile","email","offline_access","mcp:read"],"bearer_methods_supported":["header"]}

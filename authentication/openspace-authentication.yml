@@ -1,0 +1,22 @@
+generated: '2026-10-20'
+method: derived
+source: openapi/openspace-openapi.yml
+summary:
+  types:
+  - apiKey
+  - http
+  api_key_in:
+  - header
+schemes:
+- name: api-key
+  type: apiKey
+  in: header
+  parameter: api-key
+  sources:
+  - openapi/openspace-openapi.yml
+- name: jwt-auth
+  type: http
+  scheme: bearer
+  bearerFormat: jwt
+  sources:
+  - openapi/openspace-openapi.yml

@@ -1,0 +1,506 @@
+openapi: 3.2.0
+info:
+  title: Openspace Organizations API
+  version: v3.0
+  description: 'Operations tagged Organizations across 2 of this provider''s published API definitions: openspace-external-v1-api-original.json, openspace-openapi.yml. Each path carries the servers of the definition it was published in.'
+servers:
+- url: /
+  description: OpenSpace API root
+- url: https://api.us.openspace.ai
+  description: OpenSpace API (US region; served at /v3/api-docs/external-v1-api)
+tags:
+- description: Organizations APIs
+  name: Organizations
+paths:
+  /api/external/v1/organizations:
+    get:
+      operationId: organizations
+      parameters:
+      - description: Zero-based page index (0..N)
+        in: query
+        name: page
+        required: false
+        schema:
+          minimum: 0
+          type: integer
+          default: 0
+      - description: The size of the page to be returned
+        in: query
+        name: size
+        required: false
+        schema:
+          minimum: 1
+          type: integer
+          default: 10
+      - description: 'Sorting criteria in the format: property,(asc|desc). Default sort order is ascending. Multiple sort criteria are supported.'
+        in: query
+        name: sort
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExternalOrganizationsGetResponse'
+          description: OK
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '403':
+          content:
+            application/json:
+              schema:
+                required:
+                - error
+                - message
+                - redemptionEndpoint
+                - status
+                type: object
+                properties:
+                  email:
+                    type:
+                    - string
+                    - 'null'
+                    description: Email of the one account the phone is bound to but its owner has not yet claimed; absent for a phone-only invitee or when several accounts hold the phone
+                    example: worker@example.com
+                  error:
+                    type: string
+                    description: Error code identifying the specific error type
+                    example: email_capture_required
+                  fullName:
+                    type:
+                    - string
+                    - 'null'
+                    description: Optional full name from invitation
+                    example: James Bond
+                  message:
+                    type: string
+                    description: Human-readable error message
+                    example: Please complete registration by providing your email address
+                  redemptionEndpoint:
+                    type: string
+                    description: Endpoint to complete email capture and finish registration
+                    example: /api/external/v1/auth/redeem-phone-invitation
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    format: int32
+                    example: 403
+          description: 'Forbidden: Partial authentication - email capture required'
+        '429':
+          content:
+            application/problem+json:
+              schema:
+                type: object
+                properties:
+                  detail:
+                    type: string
+                  instance:
+                    type: string
+                    format: uri
+                  status:
+                    type: integer
+                    format: int32
+                    example: 429
+                  title:
+                    type: string
+                  type:
+                    type: string
+                    format: uri
+          description: Rate limit exceeded. Honor the `Retry-After` header before retrying.
+          headers:
+            RateLimit:
+              description: 'Current status for whichever policy is closest to exhaustion. Format: `"<policy>";r=<available>;t=<window-sec>;os-cost=<tokens-consumed>`'
+              schema:
+                type: string
+            RateLimit-Policy:
+              description: 'Active rate-limit policies. Format: `"<policy>";q=<quota>;w=<window-sec>, ...`'
+              schema:
+                type: string
+            Retry-After:
+              description: Seconds to wait before retrying. Always >= 1.
+              schema:
+                type: string
+      security:
+      - api-key: []
+      summary: Get all organizations
+      tags:
+      - Organizations
+    servers:
+    - url: /
+      description: OpenSpace API root
+  /api/external/v1/organizations/{organizationId}:
+    get:
+      operationId: organizationById
+      parameters:
+      - in: path
+        name: organizationId
+        required: true
+        schema:
+          pattern: '[0-9A-Za-z_-]{22}'
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExternalOrganization'
+          description: OK
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '403':
+          content:
+            application/json:
+              schema:
+                required:
+                - error
+                - message
+                - redemptionEndpoint
+                - status
+                type: object
+                properties:
+                  email:
+                    type:
+                    - string
+                    - 'null'
+                    description: Email of the one account the phone is bound to but its owner has not yet claimed; absent for a phone-only invitee or when several accounts hold the phone
+                    example: worker@example.com
+                  error:
+                    type: string
+                    description: Error code identifying the specific error type
+                    example: email_capture_required
+                  fullName:
+                    type:
+                    - string
+                    - 'null'
+                    description: Optional full name from invitation
+                    example: James Bond
+                  message:
+                    type: string
+                    description: Human-readable error message
+                    example: Please complete registration by providing your email address
+                  redemptionEndpoint:
+                    type: string
+                    description: Endpoint to complete email capture and finish registration
+                    example: /api/external/v1/auth/redeem-phone-invitation
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    format: int32
+                    example: 403
+          description: 'Forbidden: Partial authentication - email capture required'
+        '429':
+          content:
+            application/problem+json:
+              schema:
+                type: object
+                properties:
+                  detail:
+                    type: string
+                  instance:
+                    type: string
+                    format: uri
+                  status:
+                    type: integer
+                    format: int32
+                    example: 429
+                  title:
+                    type: string
+                  type:
+                    type: string
+                    format: uri
+          description: Rate limit exceeded. Honor the `Retry-After` header before retrying.
+          headers:
+            RateLimit:
+              description: 'Current status for whichever policy is closest to exhaustion. Format: `"<policy>";r=<available>;t=<window-sec>;os-cost=<tokens-consumed>`'
+              schema:
+                type: string
+            RateLimit-Policy:
+              description: 'Active rate-limit policies. Format: `"<policy>";q=<quota>;w=<window-sec>, ...`'
+              schema:
+                type: string
+            Retry-After:
+              description: Seconds to wait before retrying. Always >= 1.
+              schema:
+                type: string
+      security:
+      - api-key: []
+      summary: Get organization by id
+      tags:
+      - Organizations
+    servers:
+    - url: /
+      description: OpenSpace API root
+  /api/external/v1/organizations/{organizationId}/sites:
+    get:
+      operationId: sitesByOrganization
+      parameters:
+      - in: path
+        name: organizationId
+        required: true
+        schema:
+          pattern: '[0-9A-Za-z_-]{22}'
+          type: string
+      - description: Zero-based page index (0..N)
+        in: query
+        name: page
+        required: false
+        schema:
+          minimum: 0
+          type: integer
+          default: 0
+      - description: The size of the page to be returned
+        in: query
+        name: size
+        required: false
+        schema:
+          minimum: 1
+          type: integer
+          default: 10
+      - description: 'Sorting criteria in the format: property,(asc|desc). Default sort order is ascending. Multiple sort criteria are supported.'
+        in: query
+        name: sort
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExternalSitesGetResponse'
+          description: OK
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '403':
+          content:
+            application/json:
+              schema:
+                required:
+                - error
+                - message
+                - redemptionEndpoint
+                - status
+                type: object
+                properties:
+                  email:
+                    type:
+                    - string
+                    - 'null'
+                    description: Email of the one account the phone is bound to but its owner has not yet claimed; absent for a phone-only invitee or when several accounts hold the phone
+                    example: worker@example.com
+                  error:
+                    type: string
+                    description: Error code identifying the specific error type
+                    example: email_capture_required
+                  fullName:
+                    type:
+                    - string
+                    - 'null'
+                    description: Optional full name from invitation
+                    example: James Bond
+                  message:
+                    type: string
+                    description: Human-readable error message
+                    example: Please complete registration by providing your email address
+                  redemptionEndpoint:
+                    type: string
+                    description: Endpoint to complete email capture and finish registration
+                    example: /api/external/v1/auth/redeem-phone-invitation
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    format: int32
+                    example: 403
+          description: 'Forbidden: Partial authentication - email capture required'
+        '429':
+          content:
+            application/problem+json:
+              schema:
+                type: object
+                properties:
+                  detail:
+                    type: string
+                  instance:
+                    type: string
+                    format: uri
+                  status:
+                    type: integer
+                    format: int32
+                    example: 429
+                  title:
+                    type: string
+                  type:
+                    type: string
+                    format: uri
+          description: Rate limit exceeded. Honor the `Retry-After` header before retrying.
+          headers:
+            RateLimit:
+              description: 'Current status for whichever policy is closest to exhaustion. Format: `"<policy>";r=<available>;t=<window-sec>;os-cost=<tokens-consumed>`'
+              schema:
+                type: string
+            RateLimit-Policy:
+              description: 'Active rate-limit policies. Format: `"<policy>";q=<quota>;w=<window-sec>, ...`'
+              schema:
+                type: string
+            Retry-After:
+              description: Seconds to wait before retrying. Always >= 1.
+              schema:
+                type: string
+      security:
+      - api-key: []
+      summary: Get all sites by organization
+      tags:
+      - Organizations
+    servers:
+    - url: /
+      description: OpenSpace API root
+components:
+  schemas:
+    RegistrationType:
+      type: string
+      description: The sheet size registration
+      enum:
+      - none
+      - autoFit
+      - autoGps
+      - full
+    ExternalOrganizationsGetResponse:
+      required:
+      - content
+      - page
+      type: object
+      properties:
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalOrganization'
+        page:
+          $ref: '#/components/schemas/PageData'
+    ExternalSite:
+      required:
+      - active
+      - name
+      type: object
+      properties:
+        active:
+          type: boolean
+          description: The site status
+        address:
+          type: string
+          description: The site street address
+        area:
+          type: number
+          description: Square value of the unit of measure
+          format: float
+        areaUnitOfMeasure:
+          type: string
+          description: Square feet or meters unit
+          enum:
+          - feet
+          - meters
+        country:
+          type: string
+          description: The site country
+        createdAt:
+          type: string
+          description: When the site was created
+          format: date-time
+        id:
+          pattern: '[0-9A-Za-z_-]{22}'
+          type: string
+          description: The unique ID for the site
+        name:
+          type: string
+          description: The site name.
+        organizationId:
+          pattern: '[0-9A-Za-z_-]{22}'
+          type: string
+          description: The organization id.
+        projectKey:
+          type: string
+          description: The site project key
+        registrationType:
+          $ref: '#/components/schemas/RegistrationType'
+        timeZone:
+          type: string
+          description: The site time zone
+      description: Site information
+    ExternalOrganization:
+      required:
+      - createdAt
+      - id
+      - name
+      type: object
+      properties:
+        createdAt:
+          type: string
+          description: When the organization was created.
+          format: date-time
+        id:
+          pattern: '[0-9A-Za-z_-]{22}'
+          type: string
+          description: The unique identifier for the organization
+        name:
+          type: string
+          description: The organization name.
+        updatedAt:
+          type: string
+          description: When the organization was last updated.
+          format: date-time
+      description: Organization information
+    ExternalSitesGetResponse:
+      required:
+      - content
+      - page
+      type: object
+      properties:
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalSite'
+        page:
+          $ref: '#/components/schemas/PageData'
+    PageData:
+      required:
+      - itemCount
+      - page
+      - pageCount
+      - size
+      type: object
+      properties:
+        itemCount:
+          type: integer
+          format: int32
+        page:
+          type: integer
+          format: int32
+        pageCount:
+          type: integer
+          format: int32
+        size:
+          type: integer
+          format: int32
+  securitySchemes:
+    api-key:
+      in: header
+      name: api-key
+      type: apiKey
+    jwt-auth:
+      bearerFormat: jwt
+      scheme: bearer
+      type: http
+x-refined-from:
+- openspace-external-v1-api-original.json
+- openspace-openapi.yml

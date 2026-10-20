@@ -1,0 +1,136 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/openspace/main/json-schema/openspace-external-field-note-search-schema.json",
+  "title": "ExternalFieldNoteSearch",
+  "x-generated": "2026-10-20",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/openspace-openapi.yml#/components/schemas/ExternalFieldNoteSearch",
+  "type": "object",
+  "properties": {
+    "accountIds": {
+      "uniqueItems": true,
+      "type": "array",
+      "items": {
+        "pattern": "[0-9A-Za-z_-]{22}",
+        "type": "string"
+      }
+    },
+    "assigneeIds": {
+      "uniqueItems": true,
+      "type": "array",
+      "items": {
+        "pattern": "[0-9A-Za-z_-]{22}",
+        "type": "string"
+      }
+    },
+    "collabGroupAssignedAfter": {
+      "type": "string",
+      "format": "date"
+    },
+    "collabGroupAssignedBefore": {
+      "type": "string",
+      "format": "date"
+    },
+    "collabGroupIds": {
+      "uniqueItems": true,
+      "type": "array",
+      "items": {
+        "pattern": "[0-9A-Za-z_-]{22}",
+        "type": "string"
+      }
+    },
+    "createdAfter": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "createdBefore": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "dueAfter": {
+      "type": "string",
+      "format": "date"
+    },
+    "dueBefore": {
+      "type": "string",
+      "format": "date"
+    },
+    "excludeIds": {
+      "uniqueItems": true,
+      "type": "array",
+      "items": {
+        "pattern": "[0-9A-Za-z_-]{22}",
+        "type": "string"
+      }
+    },
+    "includeIds": {
+      "uniqueItems": true,
+      "type": "array",
+      "items": {
+        "pattern": "[0-9A-Za-z_-]{22}",
+        "type": "string"
+      }
+    },
+    "query": {
+      "type": "string"
+    },
+    "sheetIds": {
+      "uniqueItems": true,
+      "type": "array",
+      "items": {
+        "pattern": "[0-9A-Za-z_-]{22}",
+        "type": "string"
+      }
+    },
+    "showClosed": {
+      "type": "boolean"
+    },
+    "showNoStatus": {
+      "type": "boolean"
+    },
+    "showOnlyClosed": {
+      "type": "boolean"
+    },
+    "showUnassigned": {
+      "type": "boolean"
+    },
+    "statusIds": {
+      "uniqueItems": true,
+      "type": "array",
+      "items": {
+        "pattern": "[0-9A-Za-z_-]{22}",
+        "type": "string"
+      }
+    },
+    "watcherIds": {
+      "uniqueItems": true,
+      "type": "array",
+      "items": {
+        "pattern": "[0-9A-Za-z_-]{22}",
+        "type": "string"
+      }
+    },
+    "watchersFilter": {
+      "$ref": "#/$defs/CollectionSearchType"
+    },
+    "zoneIds": {
+      "uniqueItems": true,
+      "type": "array",
+      "items": {
+        "pattern": "[0-9A-Za-z_-]{22}",
+        "type": "string"
+      }
+    }
+  },
+  "$defs": {
+    "CollectionSearchType": {
+      "type": "string",
+      "enum": [
+        "and",
+        "or",
+        "only"
+      ]
+    }
+  }
+}

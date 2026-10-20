@@ -1,0 +1,860 @@
+generated: '2026-10-20'
+method: generated
+source: openapi/openspace-openapi.yml
+description: Recommended x-agentic-access execution contracts, classified heuristically from
+  the OpenAPI. A governance starting point for exposing this API to AI agents — review and bind
+  audience per deployment. See research/curity/agentic-governance/.
+summary:
+  operations: 76
+  by_action_class:
+    connected: 62
+    acting: 14
+  by_consequence:
+    read: 62
+    write: 14
+  human_in_the_loop_required: 0
+operations:
+- path: /api/external/v1/global-config
+  method: get
+  operationId: getGlobalConfig
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/external/v1/organizations
+  method: get
+  operationId: organizations
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/external/v1/organizations/{organizationId}
+  method: get
+  operationId: organizationById
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/external/v1/organizations/{organizationId}/sites
+  method: get
+  operationId: sitesByOrganization
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/external/v1/organizations/{organizationId}/webhooks
+  method: get
+  operationId: listWebhooks
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/external/v1/organizations/{organizationId}/webhooks
+  method: post
+  operationId: createWebhook
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/external/v1/organizations/{organizationId}/webhooks/{webhookId}
+  method: delete
+  operationId: deleteWebhook
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/external/v1/organizations/{organizationId}/webhooks/{webhookId}
+  method: get
+  operationId: getWebhook
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/external/v1/organizations/{organizationId}/webhooks/{webhookId}
+  method: patch
+  operationId: updateWebhook
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/external/v1/organizations/{organizationId}/webhooks/{webhookId}/deliveries
+  method: get
+  operationId: listDeliveries
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/external/v1/organizations/{organizationId}/webhooks/{webhookId}/deliveries/{deliveryId}
+  method: get
+  operationId: getDeliveryDetail
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/external/v1/organizations/{organizationId}/webhooks/{webhookId}/deliveries/{deliveryId}/redeliver
+  method: post
+  operationId: redeliverEvent
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/external/v1/organizations/{organizationId}/webhooks/{webhookId}/headers
+  method: get
+  operationId: listHeaders
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/external/v1/organizations/{organizationId}/webhooks/{webhookId}/headers
+  method: post
+  operationId: createHeader
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/external/v1/organizations/{organizationId}/webhooks/{webhookId}/headers/{headerId}
+  method: delete
+  operationId: deleteHeader
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/external/v1/organizations/{organizationId}/webhooks/{webhookId}/headers/{headerId}
+  method: get
+  operationId: getHeader
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/external/v1/organizations/{organizationId}/webhooks/{webhookId}/headers/{headerId}
+  method: patch
+  operationId: updateHeader
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/external/v1/organizations/{organizationId}/webhooks/{webhookId}/rules
+  method: get
+  operationId: listRules
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/external/v1/organizations/{organizationId}/webhooks/{webhookId}/rules
+  method: post
+  operationId: createRule
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/external/v1/organizations/{organizationId}/webhooks/{webhookId}/rules/{ruleId}
+  method: delete
+  operationId: deleteRule
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/external/v1/organizations/{organizationId}/webhooks/{webhookId}/rules/{ruleId}
+  method: get
+  operationId: getRule
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/external/v1/organizations/{organizationId}/webhooks/{webhookId}/rules/{ruleId}
+  method: patch
+  operationId: updateRule
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/external/v1/organizations/{organizationId}/webhooks/{webhookId}/test
+  method: post
+  operationId: testWebhook
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/external/v1/organizations/{organizationId}/webhooks/{webhookId}/update-secret
+  method: post
+  operationId: updateWebhookSecret
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/external/v1/organizations/{organizationId}/webhooks/{webhookId}/verify
+  method: post
+  operationId: verifyWebhook
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/external/v1/reports/360-videos
+  method: get
+  operationId: getReporting360Videos
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/external/v1/reports/drone-images
+  method: get
+  operationId: getReportingDroneImages
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/external/v1/reports/field-notes
+  method: get
+  operationId: getReportingFieldNotes
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/external/v1/reports/memberships
+  method: get
+  operationId: getMemberships
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/external/v1/reports/organizations
+  method: get
+  operationId: getReportingOrganizations
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/external/v1/reports/sheets
+  method: get
+  operationId: getReportingSheets
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/external/v1/reports/site-events
+  method: get
+  operationId: getReportingSiteEvents
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/external/v1/reports/sites
+  method: get
+  operationId: getReportingSites
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/external/v1/sites/{siteId}
+  method: get
+  operationId: getSite
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/external/v1/sites/{siteId}/captures
+  method: get
+  operationId: capturesBySite
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/external/v1/sites/{siteId}/captures/{captureId}
+  method: get
+  operationId: capturesById
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/external/v1/sites/{siteId}/captures/{captureId}/panos
+  method: get
+  operationId: getPanos
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/external/v1/sites/{siteId}/captures/{captureId}/panos/{panoId}/equi
+  method: get
+  operationId: downloadOrReprojectEquirectangularImage
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/external/v1/sites/{siteId}/captures/{captureId}/panos/{panoId}/image
+  method: get
+  operationId: getImage
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/external/v1/sites/{siteId}/captures/{captureId}/panos/{panoId}/preview-equi
+  method: get
+  operationId: previewEquirectangularImage
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/external/v1/sites/{siteId}/custom-field-notes/search
+  method: post
+  operationId: searchCustomFieldNotes
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/external/v1/sites/{siteId}/custom-field-notes/{customFieldNoteId}/attachments/{attachmentId}/download
+  method: get
+  operationId: downloadAttachment
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/external/v1/sites/{siteId}/custom-field-notes/{customFieldNoteId}/comments
+  method: get
+  operationId: getComments
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/external/v1/sites/{siteId}/custom-field-notes/{customFieldNoteId}/photos/{photoId}/image
+  method: get
+  operationId: getPhotoImage
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/external/v1/sites/{siteId}/field-note-statuses
+  method: get
+  operationId: getFieldNoteStatuses
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/external/v1/sites/{siteId}/field-notes
+  method: get
+  operationId: fieldNotesBySite
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/external/v1/sites/{siteId}/field-notes/search
+  method: post
+  operationId: searchFieldNotes
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/external/v1/sites/{siteId}/field-notes/{fieldNoteId}
+  method: get
+  operationId: fieldNoteById
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/external/v1/sites/{siteId}/field-notes/{fieldNoteId}/activity-log
+  method: get
+  operationId: activityLogByFieldNoteId
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/external/v1/sites/{siteId}/field-notes/{fieldNoteId}/attachment/{attachmentId}/download
+  method: get
+  operationId: downloadFieldNoteAttachment
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/external/v1/sites/{siteId}/field-notes/{fieldNoteId}/comments
+  method: get
+  operationId: commentsByFieldNoteId
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/external/v1/sites/{siteId}/field-notes/{fieldNoteId}/comments
+  method: post
+  operationId: addComment
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/external/v1/sites/{siteId}/field-notes/{fieldNoteId}/image
+  method: get
+  operationId: downloadFieldNoteImage
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/external/v1/sites/{siteId}/progress-tracking/executive-view/batches
+  method: get
+  operationId: getExecutiveViewBatches
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/external/v1/sites/{siteId}/progress-tracking/executive-view/chart-progresses/search
+  method: post
+  operationId: searchExecutiveViewChartProgresses
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/external/v1/sites/{siteId}/progress-tracking/executive-view/subcontractors/search
+  method: post
+  operationId: searchExecutiveViewSubcontractors
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/external/v1/sites/{siteId}/progress-tracking/executive-view/tasks/search
+  method: post
+  operationId: searchExecutiveViewTasks
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/external/v1/sites/{siteId}/progress-tracking/executive-view/tree
+  method: get
+  operationId: getExecutiveViewTree
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/external/v1/sites/{siteId}/progress-tracking/floorplans
+  method: get
+  operationId: getFloorplans
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/external/v1/sites/{siteId}/progress-tracking/floorplans/{floorplanId}/image
+  method: get
+  operationId: getFloorplanImage
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/external/v1/sites/{siteId}/progress-tracking/phases
+  method: get
+  operationId: getPhases
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/external/v1/sites/{siteId}/progress-tracking/progress-dates
+  method: get
+  operationId: getProgressDates
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/external/v1/sites/{siteId}/progress-tracking/spaces
+  method: get
+  operationId: getSpaces
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/external/v1/sites/{siteId}/progress-tracking/spaces/{spaceId}/progress/components
+  method: get
+  operationId: getComponentProgress
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/external/v1/sites/{siteId}/progress-tracking/spaces/{spaceId}/progress/subcontractors
+  method: get
+  operationId: getSubcontractorProgress
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/external/v1/sites/{siteId}/progress-tracking/spaces/{spaceId}/progress/tasks
+  method: get
+  operationId: getTaskProgress
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/external/v1/sites/{siteId}/progress-tracking/spaces/{spaceId}/scenes
+  method: get
+  operationId: getScenes
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/external/v1/sites/{siteId}/progress-tracking/spaces/{spaceId}/scenes/{sceneId}/shots
+  method: get
+  operationId: getShots
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/external/v1/sites/{siteId}/progress-tracking/spaces/{spaceId}/scenes/{sceneId}/shots/{shotId}/image
+  method: get
+  operationId: getShotImage
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/external/v1/sites/{siteId}/progress-tracking/spaces/{spaceId}/scenes/{sceneId}/spotlights
+  method: get
+  operationId: getSpotlights
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/external/v1/sites/{siteId}/progress-tracking/spaces/{spaceId}/scenes/{sceneId}/spotlights/{spotlightId}
+  method: get
+  operationId: getSpotlight
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/external/v1/sites/{siteId}/sheet/{sheetId}/image
+  method: get
+  operationId: getSheetImage
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/external/v1/sites/{siteId}/sheets
+  method: get
+  operationId: sheetsBySite
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/external/v1/sites/{siteId}/sheets/{sheetId}
+  method: get
+  operationId: sheetsById
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/external/v1/sites/{siteId}/sheets/{sheetId}/captures
+  method: get
+  operationId: captures
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/external/v1/sites/{siteId}/zones
+  method: get
+  operationId: getZonesBySite
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none

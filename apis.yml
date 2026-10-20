@@ -1,23 +1,20 @@
 aid: openspace
 name: OpenSpace
-description: >-
-  OpenSpace is a visual intelligence platform for the construction industry,
-  headquartered at 333 Kearny Street, San Francisco, California. The company
-  pairs an off-the-shelf 360-degree camera worn on a hardhat with computer-vision
-  software that automatically maps captured imagery to construction floor plans
-  and BIM models, producing a navigable, time-indexed visual record of every
-  jobsite walk. The platform is built around five products: Capture (complete
-  visual record), Field (image-based task management with AI Autolocation),
-  Track (AI-driven progress tracking against schedule), Air (drone imagery
-  management), and BIM+ (3D field tools). OpenSpace reports more than 69
-  billion square feet captured across projects in 131 countries, with regional
-  presence in Australia, Canada, EU, Japan, Saudi Arabia, Singapore, and the
-  United Kingdom. The company is led by CEO and co-founder Jeevan Kalanithi.
-  OpenSpace integrates with the major construction software stacks, including
-  Procore, Autodesk Construction Cloud / Autodesk Build, Revizto, PlanGrid, and
-  Bluebeam. A REST API exists for partner and enterprise integration but is
-  not publicly self-serve; integration access is obtained via OpenSpace's
-  support and partner channels.
+description: 'OpenSpace is a visual intelligence platform for the construction industry,
+  headquartered at 333 Kearny Street, San Francisco, California. The company pairs
+  an off-the-shelf 360-degree camera worn on a hardhat with computer-vision software
+  that automatically maps captured imagery to construction floor plans and BIM models,
+  producing a navigable, time-indexed visual record of every jobsite walk. The platform
+  is built around five products: Capture (complete visual record), Field (image-based
+  task management with AI Autolocation), Track (AI-driven progress tracking against
+  schedule), Air (drone imagery management), and BIM+ (3D field tools). OpenSpace
+  reports more than 69 billion square feet captured across projects in 131 countries,
+  with regional presence in Australia, Canada, EU, Japan, Saudi Arabia, Singapore,
+  and the United Kingdom. The company is led by CEO and co-founder Jeevan Kalanithi.
+  OpenSpace integrates with the major construction software stacks, including Procore,
+  Autodesk Construction Cloud / Autodesk Build, Revizto, PlanGrid, and Bluebeam. A
+  REST API exists for partner and enterprise integration but is not publicly self-serve;
+  integration access is obtained via OpenSpace''s support and partner channels.'
 type: Index
 deliveryModel:
   model: saas
@@ -45,103 +42,479 @@ position: Producing
 access: 3rd-Party
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/openspace.png
 tags:
-  - Construction Technology
-  - Visual Intelligence
-  - 360 Camera
-  - Jobsite Documentation
-  - Progress Tracking
-  - BIM
-  - Drone Imagery
-  - Computer Vision
-  - Artificial Intelligence
-  - Software-as-a-Service
-  - San Francisco
+- Construction Technology
+- Visual Intelligence
+- 360 Camera
+- Jobsite Documentation
+- Progress Tracking
+- BIM
+- Drone Imagery
+- Computer Vision
+- Artificial Intelligence
+- Software-as-a-Service
+- San Francisco
 tags_raw:
-  - Construction Tech
-  - ConTech
-  - Visual Intelligence
-  - 360 Camera
-  - Jobsite Documentation
-  - Progress Tracking
-  - BIM
-  - Drone Imagery
-  - Computer Vision
-  - AI
-  - SaaS
-  - San Francisco
-  - Computer-Vision
+- Construction Tech
+- ConTech
+- Visual Intelligence
+- 360 Camera
+- Jobsite Documentation
+- Progress Tracking
+- BIM
+- Drone Imagery
+- Computer Vision
+- AI
+- SaaS
+- San Francisco
+- Computer-Vision
 url: https://raw.githubusercontent.com/api-evangelist/openspace/refs/heads/main/apis.yml
 created: '2026-05-23'
-modified: '2026-05-23'
+modified: '2026-10-20'
 specificationVersion: '0.23'
-apis: []
-common:
-  - type: TrustCenter
-    url: security/openspace-trust-center.yml
-  - type: DomainSecurity
-    url: security/openspace-domain-security.yml
-  - type: Website
-    url: https://www.openspace.ai
-  - type: Capture
-    url: https://www.openspace.ai/product/capture
-  - type: Field
-    url: https://www.openspace.ai/product/field
-  - type: Track
-    url: https://www.openspace.ai/product/track
-  - type: Air
-    url: https://www.openspace.ai/product/air
-  - type: BIMPlus
-    url: https://www.openspace.ai/product/bim-plus
-  - type: Integrations
-    url: https://www.openspace.ai/integrations
-  - type: CaseStudies
-    url: https://www.openspace.ai/case-studies
-  - type: Blog
-    url: https://www.openspace.ai/blog
-  - type: Pricing
-    url: https://www.openspace.ai/pricing
-  - type: About
-    url: https://www.openspace.ai/about
-  - type: Careers
-    url: https://www.openspace.ai/careers
-  - type: Contact
-    url: https://www.openspace.ai/contact
-  - type: Support
-    url: https://support.openspace.ai
-  - type: Academy
-    url: https://learn.openspace.ai
-  - type: Store
-    url: https://store.openspace.ai
-  - type: Application
-    url: https://app.openspace.ai
-  - type: ProcoreIntegration
-    url: https://marketplace.procore.com/apps/openspace
-  - type: AutodeskIntegration
-    url: https://construction.autodesk.com/integrations/openspace/
-  - type: RegionAU
-    url: https://www.openspace.ai/au
-  - type: RegionCA
-    url: https://www.openspace.ai/ca
-  - type: RegionEU
-    url: https://www.openspace.ai/eu
-  - type: RegionJP
-    url: https://www.openspace.ai/jp
-  - type: RegionKSA
-    url: https://www.openspace.ai/ksa
-  - type: RegionSG
-    url: https://www.openspace.ai/sg
-  - type: RegionUK
-    url: https://www.openspace.ai/uk
-  - type: LinkedIn
-    url: https://www.linkedin.com/company/openspace-ai
-  - type: Twitter
-    url: https://twitter.com/OpenSpaceAI
-  - type: YouTube
-    url: https://www.youtube.com/@OpenSpaceAI
-  - type: Facebook
-    url: https://www.facebook.com/openspaceai
-  - type: Instagram
-    url: https://www.instagram.com/openspace.ai
 maintainers:
-  - FN: Kin Lane
-    email: kin@apievangelist.com
+- FN: Kin Lane
+  email: kin@apievangelist.com
+common:
+- type: AgenticAccess
+  url: agentic-access/openspace-agentic-access.yml
+- type: RateLimits
+  url: rate-limits/openspace-rate-limits.yml
+- type: Spectral
+  url: rules/openspace-rules.yml
+- type: JSONLD
+  url: json-ld/openspace-context.jsonld
+- type: Vocabulary
+  url: vocabulary/openspace-vocabulary.yml
+- type: DataModel
+  url: data-model/openspace-data-model.yml
+- type: Conventions
+  url: conventions/openspace-conventions.yml
+- type: Compliance
+  url: https://security.openspace.ai/
+- type: ErrorCatalog
+  url: errors/openspace-problem-types.yml
+- type: Conformance
+  url: conformance/openspace-conformance.yml
+- type: WellKnown
+  url: well-known/openspace-well-known.yml
+- type: Hosts
+  url: hosts/openspace-hosts.yml
+- type: IntegrationEdges
+  url: integrations/openspace-integration-edges.yml
+- type: Vendors
+  url: vendors/openspace-vendors.yml
+- type: SignUp
+  url: https://www.openspace.ai/blog/register-for-waypoint-openspace-customer-summit/
+- type: Newsroom
+  url: https://www.openspace.ai/de/news/
+- type: Documentation
+  url: https://www.openspace.ai/resources/use-cases/documentation/
+- type: GettingStarted
+  url: https://support.openspace.ai/hc/en-us/categories/35805762272787-Getting-Started-with-OpenSpace
+- type: Authentication
+  url: authentication/openspace-authentication.yml
+- type: TrustCenter
+  url: security/openspace-trust-center.yml
+- type: DomainSecurity
+  url: security/openspace-domain-security.yml
+- type: Website
+  url: https://www.openspace.ai
+- type: Integrations
+  url: https://www.openspace.ai/integrations
+- type: Blog
+  url: https://www.openspace.ai/blog
+- type: Pricing
+  url: https://www.openspace.ai/pricing
+- type: About
+  url: https://www.openspace.ai/about
+- type: Careers
+  url: https://www.openspace.ai/careers
+- type: Contact
+  url: https://www.openspace.ai/contact
+- type: Support
+  url: https://support.openspace.ai
+- type: Academy
+  url: https://learn.openspace.ai
+- type: Store
+  url: https://store.openspace.ai
+- type: Application
+  url: https://app.openspace.ai
+- type: ProcoreIntegration
+  url: https://marketplace.procore.com/apps/openspace
+- type: AutodeskIntegration
+  url: https://construction.autodesk.com/integrations/openspace/
+- type: Twitter
+  url: https://twitter.com/OpenSpaceAI
+- type: YouTube
+  url: https://www.youtube.com/@OpenSpaceAI
+- type: Facebook
+  url: https://www.facebook.com/openspaceai
+- type: Instagram
+  url: https://www.instagram.com/openspace.ai
+- type: ChangeLog
+  url: https://support.openspace.ai/hc/en-us/articles/41951884027667-Release-Notes
+- type: PrivacyPolicy
+  url: https://www.openspace.ai/privacy-policy/
+- type: Partners
+  url: https://partners.openspace.ai/
+- type: LLMsTxt
+  url: llms/openspace-llms.txt
+apis:
+- aid: openspace:openspace-mcp
+  name: OpenSpace MCP Server
+  description: >-
+    Remote MCP endpoint advertised by the OAuth protected-resource metadata on api.us.openspace.ai (scopes
+    openid, profile, email, offline_access, mcp:read). OpenSpace states its AI agents are in early access;
+    an anonymous tools/list POST returned 404.
+  humanURL: https://www.openspace.ai/platform/ai-agents-and-apis/
+  baseURL: https://api.us.openspace.ai/api/external/v1/mcp
+  tags:
+  - MCP
+  - AI Agents
+  - Construction
+  properties:
+  - type: MCPServer
+    url: mcp/openspace-mcp.yml
+- aid: openspace:openspace-custom-field-notes-api
+  name: OpenSpace Custom Field Notes API
+  description: Custom field notes APIs. Beta — subject to change without notification.
+  humanURL: https://www.openspace.ai/platform/ai-agents-and-apis/
+  baseURL: https://api.us.openspace.ai
+  tags:
+  - Custom Field Notes
+  properties:
+  - type: OpenAPI
+    url: openapi/openspace-custom-field-notes-api-openapi.yml
+  - type: APIReference
+    url: https://api.us.openspace.ai/swagger-ui/index.html
+  - type: Documentation
+    url: https://support.openspace.ai/hc/en-us/articles/41946314973843-Usage-API
+  - type: JSONSchema
+    url: json-schema/openspace-external-custom-field-note-search-schema.json
+  - type: JSONSchema
+    url: json-schema/openspace-external-spotlight-schema.json
+  - type: JSONSchema
+    url: json-schema/openspace-external-field-note-search-schema.json
+  - type: JSONSchema
+    url: json-schema/openspace-external-webhook-rule-schema.json
+  - type: JSONSchema
+    url: json-schema/openspace-external-webhook-schema.json
+  - type: JSONSchema
+    url: json-schema/openspace-external-webhook-delivery-schema.json
+- aid: openspace:openspace-external-executive-view-controller-api
+  name: OpenSpace External Executive View Controller API
+  description: ExecutiveView progress data (OS Track) proxied from progress-tracking-api
+  humanURL: https://www.openspace.ai/platform/ai-agents-and-apis/
+  baseURL: https://api.us.openspace.ai
+  tags:
+  - external-executive-view-controller
+  properties:
+  - type: OpenAPI
+    url: openapi/openspace-external-executive-view-controller-api-openapi.yml
+  - type: APIReference
+    url: https://api.us.openspace.ai/swagger-ui/index.html
+  - type: Documentation
+    url: https://support.openspace.ai/hc/en-us/articles/41946314973843-Usage-API
+  - type: JSONSchema
+    url: json-schema/openspace-external-custom-field-note-search-schema.json
+  - type: JSONSchema
+    url: json-schema/openspace-external-spotlight-schema.json
+  - type: JSONSchema
+    url: json-schema/openspace-external-field-note-search-schema.json
+  - type: JSONSchema
+    url: json-schema/openspace-external-webhook-rule-schema.json
+  - type: JSONSchema
+    url: json-schema/openspace-external-webhook-schema.json
+  - type: JSONSchema
+    url: json-schema/openspace-external-webhook-delivery-schema.json
+- aid: openspace:openspace-field-notes-api
+  name: OpenSpace Field notes API
+  description: Field notes APIs
+  humanURL: https://www.openspace.ai/platform/ai-agents-and-apis/
+  baseURL: https://api.us.openspace.ai
+  tags:
+  - Field notes
+  properties:
+  - type: OpenAPI
+    url: openapi/openspace-field-notes-api-openapi.yml
+  - type: APIReference
+    url: https://api.us.openspace.ai/swagger-ui/index.html
+  - type: Documentation
+    url: https://support.openspace.ai/hc/en-us/articles/41946314973843-Usage-API
+  - type: JSONSchema
+    url: json-schema/openspace-external-custom-field-note-search-schema.json
+  - type: JSONSchema
+    url: json-schema/openspace-external-spotlight-schema.json
+  - type: JSONSchema
+    url: json-schema/openspace-external-field-note-search-schema.json
+  - type: JSONSchema
+    url: json-schema/openspace-external-webhook-rule-schema.json
+  - type: JSONSchema
+    url: json-schema/openspace-external-webhook-schema.json
+  - type: JSONSchema
+    url: json-schema/openspace-external-webhook-delivery-schema.json
+- aid: openspace:openspace-global-config-api
+  name: OpenSpace Global config API
+  description: Public configuration values needed before authentication
+  humanURL: https://www.openspace.ai/platform/ai-agents-and-apis/
+  baseURL: https://api.us.openspace.ai
+  tags:
+  - Global config
+  properties:
+  - type: OpenAPI
+    url: openapi/openspace-global-config-api-openapi.yml
+  - type: APIReference
+    url: https://api.us.openspace.ai/swagger-ui/index.html
+  - type: Documentation
+    url: https://support.openspace.ai/hc/en-us/articles/41946314973843-Usage-API
+  - type: JSONSchema
+    url: json-schema/openspace-external-custom-field-note-search-schema.json
+  - type: JSONSchema
+    url: json-schema/openspace-external-spotlight-schema.json
+  - type: JSONSchema
+    url: json-schema/openspace-external-field-note-search-schema.json
+  - type: JSONSchema
+    url: json-schema/openspace-external-webhook-rule-schema.json
+  - type: JSONSchema
+    url: json-schema/openspace-external-webhook-schema.json
+  - type: JSONSchema
+    url: json-schema/openspace-external-webhook-delivery-schema.json
+- aid: openspace:openspace-images-api
+  name: OpenSpace Images API
+  description: Images APIs
+  humanURL: https://www.openspace.ai/platform/ai-agents-and-apis/
+  baseURL: https://api.us.openspace.ai
+  tags:
+  - Images
+  properties:
+  - type: OpenAPI
+    url: openapi/openspace-images-api-openapi.yml
+  - type: APIReference
+    url: https://api.us.openspace.ai/swagger-ui/index.html
+  - type: Documentation
+    url: https://support.openspace.ai/hc/en-us/articles/41946314973843-Usage-API
+  - type: JSONSchema
+    url: json-schema/openspace-external-custom-field-note-search-schema.json
+  - type: JSONSchema
+    url: json-schema/openspace-external-spotlight-schema.json
+  - type: JSONSchema
+    url: json-schema/openspace-external-field-note-search-schema.json
+  - type: JSONSchema
+    url: json-schema/openspace-external-webhook-rule-schema.json
+  - type: JSONSchema
+    url: json-schema/openspace-external-webhook-schema.json
+  - type: JSONSchema
+    url: json-schema/openspace-external-webhook-delivery-schema.json
+- aid: openspace:openspace-organizations-api
+  name: OpenSpace Organizations API
+  description: Organizations APIs
+  humanURL: https://www.openspace.ai/platform/ai-agents-and-apis/
+  baseURL: https://api.us.openspace.ai
+  tags:
+  - Organizations
+  properties:
+  - type: OpenAPI
+    url: openapi/openspace-organizations-api-openapi.yml
+  - type: APIReference
+    url: https://api.us.openspace.ai/swagger-ui/index.html
+  - type: Documentation
+    url: https://support.openspace.ai/hc/en-us/articles/41946314973843-Usage-API
+  - type: JSONSchema
+    url: json-schema/openspace-external-custom-field-note-search-schema.json
+  - type: JSONSchema
+    url: json-schema/openspace-external-spotlight-schema.json
+  - type: JSONSchema
+    url: json-schema/openspace-external-field-note-search-schema.json
+  - type: JSONSchema
+    url: json-schema/openspace-external-webhook-rule-schema.json
+  - type: JSONSchema
+    url: json-schema/openspace-external-webhook-schema.json
+  - type: JSONSchema
+    url: json-schema/openspace-external-webhook-delivery-schema.json
+- aid: openspace:openspace-progress-tracking-api
+  name: OpenSpace Progress Tracking API
+  description: Construction phases proxied from the Progress Tracking API
+  humanURL: https://www.openspace.ai/platform/ai-agents-and-apis/
+  baseURL: https://api.us.openspace.ai
+  tags:
+  - Progress Tracking
+  properties:
+  - type: OpenAPI
+    url: openapi/openspace-progress-tracking-api-openapi.yml
+  - type: APIReference
+    url: https://api.us.openspace.ai/swagger-ui/index.html
+  - type: Documentation
+    url: https://support.openspace.ai/hc/en-us/articles/41946314973843-Usage-API
+  - type: JSONSchema
+    url: json-schema/openspace-external-custom-field-note-search-schema.json
+  - type: JSONSchema
+    url: json-schema/openspace-external-spotlight-schema.json
+  - type: JSONSchema
+    url: json-schema/openspace-external-field-note-search-schema.json
+  - type: JSONSchema
+    url: json-schema/openspace-external-webhook-rule-schema.json
+  - type: JSONSchema
+    url: json-schema/openspace-external-webhook-schema.json
+  - type: JSONSchema
+    url: json-schema/openspace-external-webhook-delivery-schema.json
+- aid: openspace:openspace-reports-api
+  name: OpenSpace Reports API
+  description: Reporting APIs
+  humanURL: https://www.openspace.ai/platform/ai-agents-and-apis/
+  baseURL: https://api.us.openspace.ai
+  tags:
+  - Reports
+  properties:
+  - type: OpenAPI
+    url: openapi/openspace-reports-api-openapi.yml
+  - type: APIReference
+    url: https://api.us.openspace.ai/swagger-ui/index.html
+  - type: Documentation
+    url: https://support.openspace.ai/hc/en-us/articles/41946314973843-Usage-API
+  - type: JSONSchema
+    url: json-schema/openspace-external-custom-field-note-search-schema.json
+  - type: JSONSchema
+    url: json-schema/openspace-external-spotlight-schema.json
+  - type: JSONSchema
+    url: json-schema/openspace-external-field-note-search-schema.json
+  - type: JSONSchema
+    url: json-schema/openspace-external-webhook-rule-schema.json
+  - type: JSONSchema
+    url: json-schema/openspace-external-webhook-schema.json
+  - type: JSONSchema
+    url: json-schema/openspace-external-webhook-delivery-schema.json
+- aid: openspace:openspace-sites-api
+  name: OpenSpace Sites API
+  description: Sites APIs
+  humanURL: https://www.openspace.ai/platform/ai-agents-and-apis/
+  baseURL: https://api.us.openspace.ai
+  tags:
+  - Sites
+  properties:
+  - type: OpenAPI
+    url: openapi/openspace-sites-api-openapi.yml
+  - type: APIReference
+    url: https://api.us.openspace.ai/swagger-ui/index.html
+  - type: Documentation
+    url: https://support.openspace.ai/hc/en-us/articles/41946314973843-Usage-API
+  - type: JSONSchema
+    url: json-schema/openspace-external-custom-field-note-search-schema.json
+  - type: JSONSchema
+    url: json-schema/openspace-external-spotlight-schema.json
+  - type: JSONSchema
+    url: json-schema/openspace-external-field-note-search-schema.json
+  - type: JSONSchema
+    url: json-schema/openspace-external-webhook-rule-schema.json
+  - type: JSONSchema
+    url: json-schema/openspace-external-webhook-schema.json
+  - type: JSONSchema
+    url: json-schema/openspace-external-webhook-delivery-schema.json
+- aid: openspace:openspace-webhook-deliveries-api
+  name: OpenSpace Webhook Deliveries API
+  description: Webhook delivery history and redelivery APIs
+  humanURL: https://www.openspace.ai/platform/ai-agents-and-apis/
+  baseURL: https://api.us.openspace.ai
+  tags:
+  - Webhook Deliveries
+  properties:
+  - type: OpenAPI
+    url: openapi/openspace-webhook-deliveries-api-openapi.yml
+  - type: APIReference
+    url: https://api.us.openspace.ai/swagger-ui/index.html
+  - type: Documentation
+    url: https://support.openspace.ai/hc/en-us/articles/41946314973843-Usage-API
+  - type: JSONSchema
+    url: json-schema/openspace-external-custom-field-note-search-schema.json
+  - type: JSONSchema
+    url: json-schema/openspace-external-spotlight-schema.json
+  - type: JSONSchema
+    url: json-schema/openspace-external-field-note-search-schema.json
+  - type: JSONSchema
+    url: json-schema/openspace-external-webhook-rule-schema.json
+  - type: JSONSchema
+    url: json-schema/openspace-external-webhook-schema.json
+  - type: JSONSchema
+    url: json-schema/openspace-external-webhook-delivery-schema.json
+- aid: openspace:openspace-webhook-headers-api
+  name: OpenSpace Webhook Headers API
+  description: Webhook custom header management APIs
+  humanURL: https://www.openspace.ai/platform/ai-agents-and-apis/
+  baseURL: https://api.us.openspace.ai
+  tags:
+  - Webhook Headers
+  properties:
+  - type: OpenAPI
+    url: openapi/openspace-webhook-headers-api-openapi.yml
+  - type: APIReference
+    url: https://api.us.openspace.ai/swagger-ui/index.html
+  - type: Documentation
+    url: https://support.openspace.ai/hc/en-us/articles/41946314973843-Usage-API
+  - type: JSONSchema
+    url: json-schema/openspace-external-custom-field-note-search-schema.json
+  - type: JSONSchema
+    url: json-schema/openspace-external-spotlight-schema.json
+  - type: JSONSchema
+    url: json-schema/openspace-external-field-note-search-schema.json
+  - type: JSONSchema
+    url: json-schema/openspace-external-webhook-rule-schema.json
+  - type: JSONSchema
+    url: json-schema/openspace-external-webhook-schema.json
+  - type: JSONSchema
+    url: json-schema/openspace-external-webhook-delivery-schema.json
+- aid: openspace:openspace-webhook-rules-api
+  name: OpenSpace Webhook Rules API
+  description: Webhook subscription rule management APIs
+  humanURL: https://www.openspace.ai/platform/ai-agents-and-apis/
+  baseURL: https://api.us.openspace.ai
+  tags:
+  - Webhook Rules
+  properties:
+  - type: OpenAPI
+    url: openapi/openspace-webhook-rules-api-openapi.yml
+  - type: APIReference
+    url: https://api.us.openspace.ai/swagger-ui/index.html
+  - type: Documentation
+    url: https://support.openspace.ai/hc/en-us/articles/41946314973843-Usage-API
+  - type: JSONSchema
+    url: json-schema/openspace-external-custom-field-note-search-schema.json
+  - type: JSONSchema
+    url: json-schema/openspace-external-spotlight-schema.json
+  - type: JSONSchema
+    url: json-schema/openspace-external-field-note-search-schema.json
+  - type: JSONSchema
+    url: json-schema/openspace-external-webhook-rule-schema.json
+  - type: JSONSchema
+    url: json-schema/openspace-external-webhook-schema.json
+  - type: JSONSchema
+    url: json-schema/openspace-external-webhook-delivery-schema.json
+- aid: openspace:openspace-webhooks-api
+  name: OpenSpace Webhooks API
+  description: Webhook management APIs for event notifications
+  humanURL: https://www.openspace.ai/platform/ai-agents-and-apis/
+  baseURL: https://api.us.openspace.ai
+  tags:
+  - Webhooks
+  properties:
+  - type: OpenAPI
+    url: openapi/openspace-webhooks-api-openapi.yml
+  - type: APIReference
+    url: https://api.us.openspace.ai/swagger-ui/index.html
+  - type: Documentation
+    url: https://support.openspace.ai/hc/en-us/articles/41946314973843-Usage-API
+  - type: JSONSchema
+    url: json-schema/openspace-external-custom-field-note-search-schema.json
+  - type: JSONSchema
+    url: json-schema/openspace-external-spotlight-schema.json
+  - type: JSONSchema
+    url: json-schema/openspace-external-field-note-search-schema.json
+  - type: JSONSchema
+    url: json-schema/openspace-external-webhook-rule-schema.json
+  - type: JSONSchema
+    url: json-schema/openspace-external-webhook-schema.json
+  - type: JSONSchema
+    url: json-schema/openspace-external-webhook-delivery-schema.json
+x-enrichment:
+  date: '2026-10-20'
+  status: enriched
+  artifacts_added: 12
+  pass: local-v5
