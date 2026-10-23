@@ -75,6 +75,9 @@ maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 common:
+- type: CapabilityMap
+  url: capabilities/openspace-capability-edges.yml
+  name: OpenSpace Business Capability Map
 - type: AgenticAccess
   url: agentic-access/openspace-agentic-access.yml
 - type: RateLimits
