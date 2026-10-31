@@ -1,4 +1,4 @@
-# openspace
+# OpenSpace
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -64,4 +64,142 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-OpenSpace — 360-degree jobsite documentation and analytics
+OpenSpace is a visual intelligence platform for the construction industry, headquartered at 333 Kearny Street, San Francisco, California. The company pairs an off-the-shelf 360-degree camera worn on a hardhat with computer-vision software that automatically maps captured imagery to construction floor plans and BIM models, producing a navigable, time-indexed visual record of every jobsite walk. The platform is built around five products: Capture (complete visual record), Field (image-based task management with AI Autolocation), Track (AI-driven progress tracking against schedule), Air (drone imagery management), and BIM+ (3D field tools). OpenSpace reports more than 69 billion square feet captured across projects in 131 countries, with regional presence in Australia, Canada, EU, Japan, Saudi Arabia, Singapore, and the United Kingdom. The company is led by CEO and co-founder Jeevan Kalanithi. OpenSpace integrates with the major construction software stacks, including Procore, Autodesk Construction Cloud / Autodesk Build, Revizto, PlanGrid, and Bluebeam. A REST API exists for partner and enterprise integration but is not publicly self-serve; integration access is obtained via OpenSpace's support and partner channels.
+
+**Areas:** Construction Technology · Visual Intelligence · 360 Camera · Jobsite Documentation · Progress Tracking · BIM · Drone Imagery · Computer Vision · Artificial Intelligence · Software-as-a-Service · San Francisco
+
+## OpenSpace on APIs.io
+
+Everything profiled for OpenSpace is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/openspace/](https://apis.io/providers/openspace/)** — or go straight to one of the APIs or properties below.
+
+### APIs (14)
+
+- [OpenSpace MCP Server](https://apis.io/apis/openspace/openspace-mcp/) — Remote MCP endpoint advertised by the OAuth protected-resource metadata on api.us.openspace.ai (scopes openid, profile, email, offline_access, mcp:read).…
+- [OpenSpace Custom Field Notes API](https://apis.io/apis/openspace/openspace-custom-field-notes-api/) — Custom field notes APIs. Beta — subject to change without notification.
+- [OpenSpace External Executive View Controller API](https://apis.io/apis/openspace/openspace-external-executive-view-controller-api/) — ExecutiveView progress data (OS Track) proxied from progress-tracking-api
+- [OpenSpace Field notes API](https://apis.io/apis/openspace/openspace-field-notes-api/) — Field notes APIs
+- [OpenSpace Global config API](https://apis.io/apis/openspace/openspace-global-config-api/) — Public configuration values needed before authentication
+- [OpenSpace Images API](https://apis.io/apis/openspace/openspace-images-api/) — Images APIs
+- [OpenSpace Organizations API](https://apis.io/apis/openspace/openspace-organizations-api/) — Organizations APIs
+- [OpenSpace Progress Tracking API](https://apis.io/apis/openspace/openspace-progress-tracking-api/) — Construction phases proxied from the Progress Tracking API
+- [OpenSpace Reports API](https://apis.io/apis/openspace/openspace-reports-api/) — Reporting APIs
+- [OpenSpace Sites API](https://apis.io/apis/openspace/openspace-sites-api/) — Sites APIs
+- [OpenSpace Webhook Deliveries API](https://apis.io/apis/openspace/openspace-webhook-deliveries-api/) — Webhook delivery history and redelivery APIs
+- [OpenSpace Webhook Headers API](https://apis.io/apis/openspace/openspace-webhook-headers-api/) — Webhook custom header management APIs
+- [OpenSpace Webhook Rules API](https://apis.io/apis/openspace/openspace-webhook-rules-api/) — Webhook subscription rule management APIs
+- [OpenSpace Webhooks API](https://apis.io/apis/openspace/openspace-webhooks-api/) — Webhook management APIs for event notifications
+
+### Published properties
+
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
+
+#### Agentic access (1)
+
+Which operations an agent can call, which act, and which need a human in the loop.
+
+- [Openspace Agentic Access](https://apis.io/agentic-access/openspace/openspace-agentic-access/)
+
+#### JSON Schema (6)
+
+The data models the API reads and writes.
+
+- [ExternalCustomFieldNoteSearch](https://apis.io/schemas/openspace/openspace-external-custom-field-note-search/)
+- [ExternalFieldNoteSearch](https://apis.io/schemas/openspace/openspace-external-field-note-search/)
+- [ExternalSpotlight](https://apis.io/schemas/openspace/openspace-external-spotlight/)
+- [ExternalWebhook](https://apis.io/schemas/openspace/openspace-external-webhook/)
+- [ExternalWebhookDelivery](https://apis.io/schemas/openspace/openspace-external-webhook-delivery/)
+- [ExternalWebhookRule](https://apis.io/schemas/openspace/openspace-external-webhook-rule/)
+
+#### JSON-LD (1)
+
+Linked-data contexts for the provider's vocabulary.
+
+- [Openspace Context](https://apis.io/jsonld/openspace/openspace-context/)
+
+#### Governance rules (1)
+
+Spectral rulesets for the provider's contracts.
+
+- [OpenSpace API Rules](https://apis.io/rules/openspace/openspace-rules/)
+
+#### Security (3)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Openspace Authentication](https://apis.io/security/openspace/openspace-authentication/)
+- [Openspace Domain Security](https://apis.io/security/openspace/openspace-domain-security/)
+- [Openspace Trust Center](https://apis.io/security/openspace/openspace-trust-center/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Openspace Rate Limits](https://apis.io/rate-limits/openspace/openspace-rate-limits/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://www.openspace.ai)
+- [Documentation](https://www.openspace.ai/resources/use-cases/documentation/)
+- [Getting started](https://support.openspace.ai/hc/en-us/categories/35805762272787-Getting-Started-with-OpenSpace)
+- [Pricing](https://www.openspace.ai/pricing)
+- [Sign up](https://www.openspace.ai/blog/register-for-waypoint-openspace-customer-summit/)
+- [Support](https://support.openspace.ai)
+- [Changelog](https://support.openspace.ai/hc/en-us/articles/41951884027667-Release-Notes)
+- [Blog](https://www.openspace.ai/blog)
+- [Compliance](https://security.openspace.ai/)
+- [Privacy policy](https://www.openspace.ai/privacy-policy/)
+
+## API Evangelist rating
+
+**Kin Score 56.4** — strong · rubric 0.24.0 · scored 2026-10-20
+
+| Facet | Score |
+|---|---|
+| Discoverability | 66.7 |
+| Contract quality | 59.7 |
+| Contract governance | 79.1 |
+| Operational transparency | 34.7 |
+| Developer ergonomics | 47.6 |
+| Access clarity | 50.0 |
+
+**Agent readiness 48.6** — agent-ready (gated down from agent-native)
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | unknown |
+| Reversibility Documented | — |
+| MCP Server | documented (partial credit) |
+| Auth Clarity | served (partial credit) |
+| Idempotency | — |
+| Error Semantics | derived (partial credit) |
+| OpenAPI Examples | verified |
+| Rate Limit Signal | verified |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | served (partial credit) |
+| Protected Resource Metadata | verified |
+| Dynamic Client Registration | — |
+| Agentic Commerce | platform (partial credit) |
+
+**Regulatory alignment 23.6** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/openspace/](https://apis.io/providers/openspace/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for OpenSpace: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/openspace/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
